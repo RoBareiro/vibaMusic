@@ -1,6 +1,56 @@
+<?PHP
+	include("../inc/conexionbd.php");
+	error_reporting(0);	/*Desactiva cualquier notificacion*/
+		
+		$usuario = $_POST["usuario"];
+		$clave = md5($_POST["clave"]);
+
+		if(isset($_POST["entrar"])){
+
+			//VALIDO USUARIO Y CONTRASEÑA QUE ESTEN EN LA BD
+			$consulta = mysqli_query($conexion, "SELECT * FROM usuario WHERE usuario = '$usuario'");
+			
+			$contador = mysqli_num_rows($consulta);
+			echo "$contador";
+
+			if($contador == 1){
+								session_start();
+								$_SESSION["registrado"] = "true";
+								$_SESSION["usuario"] = $usuario;
+											
+								if ($_POST['recordar']){
+									setcookie("usuario", $_POST['usuario'] , time()+(60*60*20),"/");
+								}
+								else{
+						  			setcookie("usuario","",time()-3600,"/");
+								}
+
+								header("Location:paginaRegistrado.php"); 			//CREAR PAGINA DE REGISTRADO 	    
+			}
+			else{
+				echo "El usuario no esta registrado o alguno de los campos que ingreso es incorrecto";
+				session_destroy();									
+				$usuario = $_POST["usuario"];	
+				} 	
+		}				
+?>
+
+
+
+
+
+
+
+
+
+
+
+
+
 <html>
 	<head>
-	<link href="../css/bootstrap.css" rel='stylesheet' type='text/css' />
+	<title>Viba Music!</title>
+		<link href="../css/bootstrap.css" rel='stylesheet' type='text/css' />
 		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 		<script src="../js/jquery.min.js"></script>
 		 <!-- Custom Theme files -->
@@ -60,17 +110,15 @@
 		<div class="container">
 			<div id="home" class="header wow bounceInDown" data-wow-delay="0.4s">
 					<div class="top-header">
-						<div class="logo">
-							<a href="index.php">VIBA!</a>
-						</div>
+
 						<!----start-top-nav---->
-						 <nav class="top-nav">
+						<nav class="top-nav">
 							<ul class="top-nav">
-								<li class="active-join"><a href="index.php">VIBA!</a></li>
-								<li><a href="pag\premium.php">Premium</a></li>
-								<li><a href="pag\ayuda.php">Ayuda</a></li>
-								<li class="page-scroll"><a href="pag\login.php">Registrate</a></li>
-								<li><a href="pag\signin.php">Iniciar Sesi&oacute;n</a></li>
+								<li><a href="../index.php">VIBA!</a></li>
+								<li><a href="premium.php">Premium</a></li>
+								<li><a href="ayuda.php">Ayuda</a></li>
+								<li class="page-scroll"><a href="login.php">Registrate</a></li>
+								<li class="active-join"><a href="#">Iniciar Sesi&oacute;n</a></li>
 							</ul>
 							<a href="#" id="pull"><img src="images/nav-icon.png" title="menu" /></a>
 						</nav>
@@ -86,9 +134,10 @@
 
 				<div class="wow bounceIn signin"><img src="..\images\iniciarsesion.png"></img></div>
 					<form class="formulario wow bounceIn" data-wow-delay="0.4s" method="POST" action="signin.php">
-						<h3>Usuario</h3><input type="text" name="usuario" placeholder=" Ingrese el Usuario" size="20"></input></br>
-						<h3>Contrase&ntilde;a</h3><input type="password" name="clave" placeholder=" Ingrese la contrase&ntilde;a"></input></br></br>
-						<input class="botonlogin" type="submit" name="enviar" value="Entrar"></input>
+						<h3>Usuario</h3><input type="text" name="usuario" placeholder=" Ingrese el Usuario" value="<?php if(isset($_COOKIE['usuario'])) echo $_COOKIE['usuario']; ?>" size="20"></input></br>
+						<h3>Contrase&ntilde;a</h3><input type="password" name="clave" placeholder=" Ingrese la contrase&ntilde;a"></input></br>
+						<input type="checkbox" name="recordar"> Recordar Usuario</input></br></br>
+						<input class="botonlogin" type="submit" name="entrar" value="Entrar"></input>
 					</form>				
 				</div>
 			</div>

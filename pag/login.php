@@ -1,10 +1,13 @@
 <?php
+		include("../inc/conexionbd.php");
 		error_reporting(0);	/*Desactiva cualquier notificacion*/
 		
 		$nombre = $_POST["nombre"];
 
 		if(isset($_POST["entrar"])){
 			$errores = array();
+
+	/////////////////////////////////////////////////////////////////////////////////////////////////
 
 			//VALIDO NOMBRE
 			if(!($_POST["nombre"] == "")){
@@ -24,13 +27,14 @@
 				else{
 					$errores[0] = "Debe ingresar un nombre";
 				}
-					
+	
+	////////////////////////////////////////////////////////////////////////////////////////////////				
 
 			//VALIDO apellido
 			if(!($_POST["apellido"] == "")){
 				$apellido = $_POST["apellido"];
 					
-					if(ereg("^[a-zA-Z]*$", $apellido)){
+					if(ereg("[a-zñA-ZÑ]", $apellido)){
 						if((strlen($apellido)>=4)&&(strlen($apellido)<=10)){
 						}
 						else{
@@ -45,6 +49,7 @@
 					$errores[1] = "Debe ingresar un apellido";
 				}
 
+	////////////////////////////////////////////////////////////////////////////////////////////////
 
 			//Valido email
 				if(!($_POST["email"] == "")){
@@ -61,7 +66,7 @@
 					$errores[2] = "Debe ingresar un email";
 				}
 
-				
+	////////////////////////////////////////////////////////////////////////////////////////////////	
 
 			//VALIDO usuario
 			if(!($_POST["usuario"] == "")){
@@ -69,19 +74,33 @@
 					
 					if(ereg("^[a-zA-Z0-9_-]*", $usuario)){
 						if((strlen($usuario)>=4)&&(strlen($usuario)<=10)){
+							
+							//hago consulta y la guardo en una variable
+							$buscarUsuario = "SELECT usuario FROM usuario WHERE usuario = '$usuario' ";
+
+							//hago la consulta en la bd
+							$usuarioEncontrado = mysqli_query($conexion, $buscarUsuario);
+
+	 						if(mysqli_num_rows($usuarioEncontrado) != 1){
+	 							//nada, porque no existe el usuario
+	 						}
+							else{
+								$errores[3] = "El nombre de usuario ya existe";
+							}
 						}
 						else{
 							$errores[3] = "El usuario debe tener entre 4 y 10 letras";
-						}
+							}
 					}
 					else{
 						$errores[3] = "El usuario debe tener solo letras y/o numeros";
-					}
-				}
-				else{
-					$errores[3] = "Debe ingresar un usuario";
+						}
+			}
+			else{
+				$errores[3] = "Debe ingresar un usuario";
 				}
 
+	////////////////////////////////////////////////////////////////////////////////////////////////
 
 			//Valido clave
 			if(!($_POST["clave"] == "")){
@@ -89,6 +108,7 @@
 					
 					if(ereg("^[a-zA-Z0-9]*", $clave)){
 						if((strlen($clave)>=4)&&(strlen($clave)<=10)){
+							$clave = md5($clave);
 						}
 						else{
 							$errores[4] = "La clave debe tener entre 4 y 10 letras";
@@ -102,22 +122,30 @@
 					$errores[4] = "Debe ingresar una clave";
 				}
 
-//VALIDAR CONTRA LA BD VALIDAR CONTRA LA BD VALIDAR CONTRA LA BD VALIDAR CONTRA LA BD VALIDAR CONTRA LA BD VALIDAR CONTRA LA BD VALIDAR CONTRA
+	////////////////////////////////////////////////////////////////////////////////////////////////
 
+	//Valido si existen errores, si no existen los inserto en la bd
 			if(empty($errores)){
-				//HAY QUE VALIDAR CON LA BD
+				$rol = 'usuario';
+				$insertar = "INSERT INTO usuario (id_usuario, nombre, apellido, email, usuario, clave, rol, foto_de_perfil, pais, localidad, 			 cantidad_playlist) 
+							 VALUES('', '$nombre', '$apellido', '$email', '$usuario', '$clave', '$rol', '', '', '', '') ";
 
-				session_start();
-				$_SESSION["unaVariable"] = "true";
-				$_SESSION["usuario"] = $usuario;
-				header("Location:miPagina.php"); 
-			} else {
-				session_destroy();
+					if(mysqli_query($conexion, $insertar)){
+						header("Location:registroExitoso.php");				
+					}
+					else{
+					 	 echo "Error al registrar el usuario.<br>";
+					 	 unset($errores);
+					 	 mysqli_close($conexion);
+					 	//DEBERIAMOS MANDAR MAIL DE CONFIRMACION
+					}
+			}
+			else{
+
 			}	
-
+						
 	}
 ?>
-
 
 
 
@@ -133,7 +161,7 @@
 		 <!-- Custom Theme files -->
 		<link href="../css/style.css" rel='stylesheet' type='text/css' />
    		 <!-- Custom Theme files -->
-		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1, text/html; utf-8">
 		<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 		</script>
 		<!---- animated-css ---->
@@ -187,17 +215,15 @@
 		<div class="container">
 			<div id="home" class="header wow bounceInDown" data-wow-delay="0.4s">
 					<div class="top-header">
-						<div class="logo">
-							<a href="index.php">VIBA!</a>
-						</div>
+					
 						<!----start-top-nav---->
 						 <nav class="top-nav">
 							<ul class="top-nav">
-								<li class="active-join"><a href="index.php">VIBA!</a></li>
-								<li><a href="pag\premium.php">Premium</a></li>
-								<li><a href="pag\ayuda.php">Ayuda</a></li>
-								<li class="page-scroll"><a href="pag\login.php">Registrate</a></li>
-								<li><a href="pag\signin.php">Iniciar Sesi&oacute;n</a></li>
+								<li><a href="../index.php">VIBA!</a></li>
+								<li><a href="premium.php">Premium</a></li>
+								<li><a href="ayuda.php">Ayuda</a></li>
+								<li class="page-scroll active-join"><a href="#">Registrate</a></li>
+								<li><a href="signin.php">Iniciar Sesi&oacute;n</a></li>
 							</ul>
 							<a href="#" id="pull"><img src="images/nav-icon.png" title="menu" /></a>
 						</nav>
@@ -246,6 +272,7 @@
 
 					<div class="wow bounceIn logot"><img src="..\images\logop.jpg" width="60" height="60"><a href="https://es.pinterest.com/vibamusic"><h2>PINTEREST</h2></a></div>
 				</div>
+				
 		</div>
 	</body>	
 </html>

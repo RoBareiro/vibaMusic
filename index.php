@@ -8,7 +8,7 @@
 		 <!-- Custom Theme files -->
 		<link href="css/style.css" rel='stylesheet' type='text/css' />
    		 <!-- Custom Theme files -->
-		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1, text/html; utf-8">
 		<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 		</script>
 		<!---- animated-css ---->
@@ -68,7 +68,7 @@
 						<!----start-top-nav---->
 						 <nav class="top-nav">
 							<ul class="top-nav">
-								<li class="active-join"><a href="index.php">VIBA!</a></li>
+								<li class="active-join"><a href="#">VIBA!</a></li>
 								<li><a href="pag\premium.php">Premium</a></li>
 								<li><a href="pag\ayuda.php">Ayuda</a></li>
 								<li class="page-scroll"><a href="pag\login.php">Registrate</a></li>
@@ -126,13 +126,13 @@
 		<div class="wow bounceInUp">
 					<div class="wow bounceIn vibalogo"><img src="images\vibalogo.jpg"></img></div>
 					
-					<div class="wow bounceIn logot"><img src="images\logofb.jpg" width="60" height="60"><a href="https://www.facebook.com/vibamusic"><h2>FACEBOOK</h2></a></div>
+					<div class="wow bounceIn logot"><a href="https://www.facebook.com/vibamusic"><img src="images\logofb.jpg" width="60" height="60"><h2>FACEBOOK</h2></a></div>
 					
-					<div class="wow bounceIn logot"><img src="images\logoyt.jpg" width="60" height="60"><a href="https://youtube.com/vibamusic"><h2>YOUTUBE</h2></a></div>
+					<div class="wow bounceIn logot"><a href="https://youtube.com/vibamusic"><img src="images\logoyt.jpg" width="60" height="60"><h2>YOUTUBE</h2></a></div>
 
-					<div class="wow bounceIn logot"><img src="images\logot.jpg" width="60" height="60"><a href="https://www.twitter.com/vibamusic"><h2>TWITTER</h2></a></div>
+					<div class="wow bounceIn logot"><a href="https://www.twitter.com/vibamusic"><img src="images\logot.jpg" width="60" height="60"><h2>TWITTER</h2></a></div>
 
-					<div class="wow bounceIn logot"><img src="images\logop.jpg" width="60" height="60"><a href="https://es.pinterest.com/vibamusic"><h2>PINTEREST</h2></a></div>
+					<div class="wow bounceIn logot"><a href="https://es.pinterest.com/vibamusic"><img src="images\logop.jpg" width="60" height="60"><h2>PINTEREST</h2></a></div>
 		</div>
 			<!---- banner-info ---->
 
