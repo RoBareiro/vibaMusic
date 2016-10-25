@@ -1,18 +1,7 @@
-<?php
+<?PHP
 	error_reporting(0);	/*Desactiva cualquier notificacion*/
-	session_start();
-	$_SESSION["registrado"]= "true";
-	require_once("../inc/seguridad.php");
+	require("../inc/seguridad.php");
 ?>
-
-
-
-
-
-
-
-
-
 
 <html>
 	<head>
@@ -22,7 +11,7 @@
 		 <!-- Custom Theme files -->
 		<link href="../css/style.css" rel='stylesheet' type='text/css' />
    		 <!-- Custom Theme files -->
-		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1, text/html; utf-8">
 		<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 		</script>
 		<!---- animated-css ---->
@@ -83,22 +72,8 @@
 								<li><a href="../index.php">VIBA!</a></li>
 								<li><a href="premium.php">Premium</a></li>
 								<li><a href="ayuda.php">Ayuda</a></li>
-								<li><a href="cerrarSesion.php">Cerrar Sesi&oacute;n</a></li>
-								<li><?PHP 
-										echo "<div 
-												style='color: #FFF;
-												background:rgba(166, 203, 163, 0.30);
-												padding: 0.84em 3.0804em;
-												font-size: 1.25em;
-												text-align: center;
-												text-transform: uppercase;
-												position: relative;
-												font-weight: 499;' 
-												<br>Bienvenido ".$_SESSION['usuario']."  
-												</br>
-										 	 </div>";
-									?>
-								</li>
+								<li><a href="login.php">Registrate</a></li>
+								<li><a href="signin.php">Iniciar Sesi&oacute;n</a></li>
 							</ul>
 							<a href="#" id="pull"><img src="images/nav-icon.png" title="menu" /></a>
 						</nav>
@@ -109,14 +84,12 @@
 			<!----- //End-header---->
 		
 			<!---- banner-info ---->
-
-
 			<div class="banner-info">
-
-				
 				<div class="container">
-					
-								CONTENIDOOOOOOOOOOOOOOOOOOOOOOOOOO
+								<?PHP
+									echo "<div style='margin-top:10%; margin-left:0%; margin-bottom: 10%; padding-top: 5%; background:rgba(114, 189, 163, 0.90); font-size:50px; text-align: center; color: black;' Te esperamos pronto!! <br></br></div>";
+										session_destroy();
+								?>
 				</div>
 			</div>
 			
