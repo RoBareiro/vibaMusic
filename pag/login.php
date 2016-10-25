@@ -1,6 +1,6 @@
 <?php
-		include("../inc/conexionbd.php");
 		error_reporting(0);	/*Desactiva cualquier notificacion*/
+		include("../inc/conexionbd.php");
 		
 		$nombre = $_POST["nombre"];
 
@@ -13,7 +13,7 @@
 			if(!($_POST["nombre"] == "")){
 				$nombre = $_POST["nombre"];
 					
-					if(ereg("^[a-zA-Z]*$", $nombre)){
+					if(ereg("^[a-zA-ZÑÁÉÍÓÚáéíóú][a-zA-Zñáéíóú ]*$", $nombre)){
 						if((strlen($nombre)>=4)&&(strlen($nombre)<=10)){
 						}
 						else{
@@ -34,7 +34,7 @@
 			if(!($_POST["apellido"] == "")){
 				$apellido = $_POST["apellido"];
 					
-					if(ereg("[a-zñA-ZÑ]", $apellido)){
+					if(ereg("^[a-zA-ZÑÁÉÍÓÚáéíóú][a-zA-Zñáéíóú ]*$", $apellido)){
 						if((strlen($apellido)>=4)&&(strlen($apellido)<=10)){
 						}
 						else{
@@ -57,6 +57,18 @@
 					
 					if(ereg("^[_a-z0-9-]+(.[_a-z0-9-]+)*@[a-z0-9-]+(.[a-z0-9-]+)*(.[a-z]{2,4})$", $email)){
 						
+					//hago consulta y la guardo en una variable
+							$buscarEmail = "SELECT email FROM usuario WHERE email = '$email' ";
+
+							//hago la consulta en la bd
+							$emailEncontrado = mysqli_query($conexion, $buscarEmail);
+
+	 						if(mysqli_num_rows($emailEncontrado) != 1){
+	 							//nada, porque el email no fue utilizado 
+	 						}
+							else{
+								$errores[2] = "Email ya utilizado para registrar otro usuario,</br> Utilize un email distinto";
+							}
 					}
 					else{
 						$errores[2] = "El email es incorrecto";
