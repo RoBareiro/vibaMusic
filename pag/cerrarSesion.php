@@ -87,7 +87,9 @@
 			<div class="banner-info">
 				<div class="container">
 								<?PHP
-									echo "<div style='margin-top:10%; margin-left:0%; margin-bottom: 10%; padding-top: 5%; background:rgba(114, 189, 163, 0.90); font-size:50px; text-align: center; color: black;' Te esperamos pronto!! <br></br></div>";
+									echo "<div style='margin-top:10%; margin-left:0%; margin-bottom: 10%; padding-top: 5%; background:rgba(114, 189, 163, 0.90); font-size:50px; text-align: center; color: black;'> 
+											Te esperamos pronto!! 
+										<br></br></div>";
 										session_destroy();
 								?>
 				</div>
