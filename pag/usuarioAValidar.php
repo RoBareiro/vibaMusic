@@ -1,69 +1,6 @@
-<?PHP
-	include("../inc/conexionbd.php");
-	error_reporting(0);	/*Desactiva cualquier notificacion*/
-		$error = array();
-		$usuario = $_POST["usuario"];
-		$clave = md5($_POST["clave"]);
-
-		if(isset($_POST["entrar"])){
-
-			//VALIDO USUARIO Y CONTRASEÑA QUE ESTEN EN LA BD
-			$consulta = mysqli_query($conexion, "SELECT * FROM usuario WHERE usuario = '$usuario' AND clave= '$clave'");
-			$contador = mysqli_num_rows($consulta);
-	
-
-			if($contador == 1){
-
-				//Ahora busco que la activacion sea 1 para que pueda entrar
-				$consultaEstadoActivo = mysqli_query($conexion, "SELECT * FROM usuario WHERE usuario = '$usuario' AND clave = '$clave' AND estado_activo = '1'");
-				$contadorDelEstado = mysqli_query($consultaEstadoActivo);
-
-					if($contadorDelEstado == 1){
-								session_start();
-								$_SESSION["registrado"] = "true";
-								$_SESSION["usuario"] = $usuario;
-											
-								if ($_POST['recordar']){
-									setcookie("usuario", $_POST['usuario'] , time()+(60*60*20),"/");
-								}
-								else{
-						  			setcookie("usuario","",time()-3600,"/");
-								}
-
-								header("Location:paginaRegistrado.php"); 
-					}
-					else{
-						$error[1] = "</br>El usuario no ha sido activado.</br> Activelo desde su Email</a>";
-						session_destroy();	
-						$usuario = $_POST["usuario"];
-					}			  
-			}
-			else{
-				$error[1] = "El usuario no esta registrado o alguno de los campos que ingreso es incorrecto";
-				session_destroy();									
-				$usuario = $_POST["usuario"];	
-				} 
-			unset($errores);
-		 mysqli_close($conexion);
-		}				
-?>
-
-
-
-
-
-
-
-
-
-
-
-
-
 <html>
 	<head>
-	<title>Viba Music!</title>
-		<link href="../css/bootstrap.css" rel='stylesheet' type='text/css' />
+	<link href="../css/bootstrap.css" rel='stylesheet' type='text/css' />
 		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 		<script src="../js/jquery.min.js"></script>
 		 <!-- Custom Theme files -->
@@ -123,40 +60,39 @@
 		<div class="container">
 			<div id="home" class="header wow bounceInDown" data-wow-delay="0.4s">
 					<div class="top-header">
-
 						<!----start-top-nav---->
-						<nav class="top-nav">
+						 <nav class="top-nav">
 							<ul class="top-nav">
 								<li><a href="../index.php">VIBA!</a></li>
 								<li><a href="premium.php">Premium</a></li>
 								<li><a href="ayuda.php">Ayuda</a></li>
-								<li class="page-scroll"><a href="login.php">Registrate</a></li>
-								<li class="active-join"><a href="#">Iniciar Sesi&oacute;n</a></li>
+								<li><a href="login.php">Registrate</a></li>
+								<li><a href="signin.php">Iniciar Sesi&oacute;n</a></li>
 							</ul>
 							<a href="#" id="pull"><img src="images/nav-icon.png" title="menu" /></a>
 						</nav>
 						<div class="clearfix"> </div>
 					</div>
 				</div>
-			</div>
+		</div>
 			<!----- //End-header---->
-
+		
 			<!---- banner-info ---->
 			<div class="banner-info">
 				<div class="container">
 
-				<div class="wow bounceIn signin"><img src="..\images\iniciarsesion.png"></img></div>
-					<form class="formulario wow bounceIn" data-wow-delay="0.4s" method="POST" action="signin.php">
-						<h3>Usuario</h3><input type="text" name="usuario" placeholder=" Ingrese el Usuario" value="<?php if(isset($_COOKIE['usuario'])) echo $_COOKIE['usuario']; ?>" size="20"></input></br>
-						<h3>Contrase&ntilde;a</h3><input type="password" name="clave" placeholder=" Ingrese la contrase&ntilde;a"></input></br>
-						<input type="checkbox" name="recordar"> Recordar Usuario</input></br>
-						<span><?PHP echo "<font color='red'>"."$error[1]"."</font>"."</br>"; ?></span></br>
-						<input class="botonlogin" type="submit" name="entrar" value="Entrar"></input>
-					</form>				
+				<?PHP
+					echo "<div style='margin-top:10%; margin-left:0%; margin-bottom: 10%; padding-top: 5%; padding-bottom: 5%; background:rgba(114, 189, 163, 0.90); font-size:50px; text-align: center; color: black;' <br>Usuario Registrado exitosamente.</br> Recuerde Activar su cuenta a traves de su Email. Para ingresar a su sesi&oacute;n de Viba haga click <a href='signin.php' style='color: #EDEDED;  font-style:italic';>AQUI</a><br>
+						<br></div>";
+				?>   					
+			
 				</div>
 			</div>
 			
-			<div class="wow bounceInUp">
+			<div class="clearfix"> </div>
+			
+			<!---- footer info ---->
+				<div class="wow bounceInUp">
 					<div class="wow bounceIn vibalogo"><img src="../images\vibalogo.jpg"></img></div>
 					
 					<div class="wow bounceIn logot"><a href="https://www.facebook.com/vibamusic"><img src="../images\logofb.jpg" width="60" height="60"><h2>FACEBOOK</h2></a></div>

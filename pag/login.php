@@ -136,28 +136,49 @@
 
 	////////////////////////////////////////////////////////////////////////////////////////////////
 
-	//Valido si existen errores, si no existen los inserto en la bd
+	//Valido si existen errores, si no existen los inserto en la bd y mando un email de activacion
 			if(empty($errores)){
 				$rol = 'usuario';
-				$insertar = "INSERT INTO usuario (id_usuario, nombre, apellido, email, usuario, clave, rol, foto_de_perfil, pais, localidad, 			 cantidad_playlist) 
-							 VALUES('', '$nombre', '$apellido', '$email', '$usuario', '$clave', '$rol', '', '', '', '') ";
+				$estado_activo = '0';
+				$clave_activacion = md5($email);
 
-					if(mysqli_query($conexion, $insertar)){
-						header("Location:registroExitoso.php");				
+				$insertar = "INSERT INTO usuario (id_usuario, nombre, apellido, email, usuario, clave, rol, foto_de_perfil, pais, localidad, cantidad_playlist, estado_activo, clave_momentanea) 
+							 VALUES('', '$nombre', '$apellido', '$email', '$usuario', '$clave', '$rol', '', '', '', '', '$estado_activo', '$clave_activacion') ";
+				//ejecuto la query
+				mysqli_query($conexion, $insertar);
+
+				//mando un mail para que active
+
+					$para = $email;
+					$titulo = 'El título del correo';
+					$mensaje = 'Hola, bienvenido a mi sitio web \r\n Saludos'; //Mensaje de 2 lineas
+					$cabeceras = 'From: webmaster1@midominio.com' . "\r\n" . //La direccion de correo desde donde supuestamente se envió
+					    'Reply-To: webmaster2@midominio.com' . "\r\n" . //La direccion de correo a donde se responderá (cuando el recepto haga click en RESPONDER)
+					    'X-Mailer: PHP/' . phpversion();  //información sobre el sistema de envio de correos, en este caso la version de PHP
+					 
+					mail($para, $titulo, $mensaje, $cabeceras);
+
+						mail("'".$email."'", 'ejemplo.com - Activación de la cuenta
+						     Bienvenido a ejemplo.com!
+						 
+						     Gracias por registrarse en nuestro sitio.
+						     Su cuenta ha sido creada, y debe ser activada antes de poder ser utilizada.
+						     Para activar la cuenta, haga click en el siguiente enlace o copielo en la
+						     barra de direcciones del navegador:
+
+						     http://localhost/viba/registroExitoso.php?valorActivacion='.$clave_activacion); 
+						     //ver bien el path
+						header("Location:usuarioAValidar.php");
 					}
 					else{
-					 	 echo "Error al registrar el usuario.<br>";
-					 	 unset($errores);
-					 	 mysqli_close($conexion);
-					 	//DEBERIAMOS MANDAR MAIL DE CONFIRMACION
-					}
-			}
-			else{
+						mysqli_close($conexion);
+					}	
 
-			}	
-						
 	}
 ?>
+
+
+
 
 
 
