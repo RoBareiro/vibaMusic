@@ -13,7 +13,6 @@
 			$estado = '1';
 			$sql = "UPDATE usuario SET estado_activo = '$estado' WHERE clave_momentanea = '$activation_key'";	 //no me hace el up
 			mysqli_query($conexion,$sql);
-
 		}
 		else{
 			echo "El usuario no pudo ser activado";

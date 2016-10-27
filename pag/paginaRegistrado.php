@@ -3,6 +3,7 @@
 	session_start();
 	$_SESSION["registrado"]= "true";
 	require_once("../inc/seguridad.php");
+
 ?>
 
 
@@ -84,21 +85,15 @@
 								<li><a href="premium.php">Premium</a></li>
 								<li><a href="ayuda.php">Ayuda</a></li>
 								<li><a href="cerrarSesion.php">Cerrar Sesi&oacute;n</a></li>
-								<li><?PHP 
-										echo "<div 
-												style='color: #FFF;
-												background:rgba(166, 203, 163, 0.30);
+								<li><?PHP echo "<div style= 'color: #FFF;
 												padding: 0.84em 3.0804em;
+												background: rgba(166, 203, 163, 0.55);
 												font-size: 1.25em;
+												font-weight: 499;
 												text-align: center;
 												text-transform: uppercase;
-												position: relative;
-												font-weight: 499;' 
-												<br>Bienvenido ".$_SESSION['usuario']."  
-												</br>
-										 	 </div>";
-									?>
-								</li>
+												position: relative'>
+												Bienvenido ".$_SESSION["usuario"]."</div>" ?></li>
 							</ul>
 							<a href="#" id="pull"><img src="images/nav-icon.png" title="menu" /></a>
 						</nav>
@@ -109,14 +104,9 @@
 			<!----- //End-header---->
 		
 			<!---- banner-info ---->
-
-
 			<div class="banner-info">
-
-				
 				<div class="container">
-					
-								CONTENIDOOOOOOOOOOOOOOOOOOOOOOOOOO
+							LO QUE SE TE CANTE PONER DE CONTENIDO
 				</div>
 			</div>
 			
@@ -124,15 +114,15 @@
 			
 			<!---- footer info ---->
 				<div class="wow bounceInUp">
-					<div class="wow bounceIn vibalogo"><img src="../images\vibalogo.jpg"></img></div>
+					<div class="wow bounceIn vibalogo"><img src="..\images\vibalogo.jpg"></img></div>
 					
-					<div class="wow bounceIn logot"><a href="https://www.facebook.com/vibamusic"><img src="../images\logofb.jpg" width="60" height="60"><h2>FACEBOOK</h2></a></div>
+					<div class="wow bounceIn logot"><img src="..\images\logofb.jpg" width="60" height="60"><a href="https://www.facebook.com/vibamusic"><h2>FACEBOOK</h2></a></div>
 					
-					<div class="wow bounceIn logot"><a href="https://youtube.com/vibamusic"><img src="../images\logoyt.jpg" width="60" height="60"><h2>YOUTUBE</h2></a></div>
+					<div class="wow bounceIn logot"><img src="..\images\logoyt.jpg" width="60" height="60"><a href="https://youtube.com/vibamusic"><h2>YOUTUBE</h2></a></div>
 
-					<div class="wow bounceIn logot"><a href="https://www.twitter.com/vibamusic"><img src="../images\logot.jpg" width="60" height="60"><h2>TWITTER</h2></a></div>
+					<div class="wow bounceIn logot"><img src="..\images\logot.jpg" width="60" height="60"><a href="https://www.twitter.com/vibamusic"><h2>TWITTER</h2></a></div>
 
-					<div class="wow bounceIn logot"><a href="https://es.pinterest.com/vibamusic"><img src="../images\logop.jpg" width="60" height="60"><h2>PINTEREST</h2></a></div>
+					<div class="wow bounceIn logot"><img src="..\images\logop.jpg" width="60" height="60"><a href="https://es.pinterest.com/vibamusic"><h2>PINTEREST</h2></a></div>
 				</div>
 				
 		</div>
