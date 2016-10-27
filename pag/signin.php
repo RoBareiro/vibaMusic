@@ -8,17 +8,17 @@
 		if(isset($_POST["entrar"])){
 
 			//VALIDO USUARIO Y CONTRASEÑA QUE ESTEN EN LA BD
-			$consulta = mysqli_query($conexion, "SELECT * FROM usuario WHERE usuario = '$usuario' AND clave= '$clave'");
-			$contador = mysqli_num_rows($consulta);
+			$consulta = "SELECT * FROM usuario WHERE usuario = '$usuario' AND clave= '$clave'";
+			$resultado = mysqli_query($conexion,$consulta);
+			$contador = mysqli_num_rows($resultado);
 	
 
 			if($contador == 1){
-
 				//Ahora busco que la activacion sea 1 para que pueda entrar
-				$consultaEstadoActivo = mysqli_query($conexion, "SELECT * FROM usuario WHERE usuario = '$usuario' AND clave = '$clave' AND estado_activo = '1'");
-				$contadorDelEstado = mysqli_query($consultaEstadoActivo);
+				$otraConsulta = "SELECT * FROM usuario WHERE clave = '$clave' AND estado_activo = '1'";
+				$consultaEstadoActivo = mysqli_query($conexion, $otraConsulta);
 
-					if($contadorDelEstado == 1){
+					if(mysqli_num_rows($consultaEstadoActivo) == 1){
 								session_start();
 								$_SESSION["registrado"] = "true";
 								$_SESSION["usuario"] = $usuario;
@@ -39,11 +39,10 @@
 					}			  
 			}
 			else{
-				$error[1] = "El usuario no esta registrado o alguno de los campos que ingreso es incorrecto";
+				$error[1] = "El usuario no esta registrado o alguno de los campos que ingreso es incorrecto</br>";
 				session_destroy();									
 				$usuario = $_POST["usuario"];	
 				} 
-			unset($errores);
 		 mysqli_close($conexion);
 		}				
 ?>
@@ -148,9 +147,9 @@
 				<div class="wow bounceIn signin"><img src="..\images\iniciarsesion.png"></img></div>
 					<form class="formulario wow bounceIn" data-wow-delay="0.4s" method="POST" action="signin.php">
 						<h3>Usuario</h3><input type="text" name="usuario" placeholder=" Ingrese el Usuario" value="<?php if(isset($_COOKIE['usuario'])) echo $_COOKIE['usuario']; ?>" size="20"></input></br>
-						<h3>Contrase&ntilde;a</h3><input type="password" name="clave" placeholder=" Ingrese la contrase&ntilde;a"></input></br>
-						<input type="checkbox" name="recordar"> Recordar Usuario</input></br>
-						<span><?PHP echo "<font color='red'>"."$error[1]"."</font>"."</br>"; ?></span></br>
+						<h3>Contrase&ntilde;a</h3><input type="password" name="clave" placeholder=" Ingrese la contrase&ntilde;a"></input></br></br>
+						<input type="checkbox" name="recordar"> Recordar Usuario</input>
+						<?PHP echo "<font color='red'>"."$error[1]"."</font>"."</br></br>"; ?>
 						<input class="botonlogin" type="submit" name="entrar" value="Entrar"></input>
 					</form>				
 				</div>

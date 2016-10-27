@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 26-10-2016 a las 18:05:21
+-- Tiempo de generación: 27-10-2016 a las 04:23:30
 -- Versión del servidor: 5.6.26
 -- Versión de PHP: 5.6.12
 
@@ -127,16 +127,16 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `pais` varchar(20) DEFAULT NULL,
   `localidad` int(20) DEFAULT NULL,
   `cantidad_playlist` int(255) DEFAULT NULL,
-  `estado_activo` int(1) NOT NULL,
+  `estado_activo` varchar(1) NOT NULL,
   `clave_momentanea` varchar(100) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `usuario`
 --
 
 INSERT INTO `usuario` (`id_usuario`, `nombre`, `apellido`, `email`, `usuario`, `clave`, `rol`, `foto_de_perfil`, `pais`, `localidad`, `cantidad_playlist`, `estado_activo`, `clave_momentanea`) VALUES
-(27, 'RocÃ­o', 'Bareiro', 'rous_nc_712@hotmail.com', 'rocio', '325daa03a34823cef2fc367c779561ba', 'usuario', '', '', 0, 0, 0, 'bf7a5c46723b9ba4ae5cd28855e324f0');
+(77, 'RocÃ­o', 'Bareiro', 'bareiro.rsb@hotmail.com', 'rocio', '325daa03a34823cef2fc367c779561ba', 'usuario', '', '', 0, 0, '1', 'a0064ac145ee9f807f09e1cf06f22c32');
 
 -- --------------------------------------------------------
 
@@ -200,7 +200,7 @@ ALTER TABLE `sigue_a`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id_usuario` int(255) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=28;
+  MODIFY `id_usuario` int(255) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=78;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

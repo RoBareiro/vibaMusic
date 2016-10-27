@@ -1,46 +1,25 @@
 <?PHP
-	include("conexionbd.php");
-	$activation_key = $_POST["clave_activacion"];		//deberia agarrar la clave que esta en el link del mail
+	error_reporting(0);	/*Desactiva cualquier notificacion*/
+	include("../inc/conexionbd.php");
+	$activation_key = $_GET['clave_activacion'];		//me trae la clave que se pasa por url
 
 	// Busca la entrada en la tabla de usuarios para la clave de activación recibida
-	$consulta = "SELECT claveMomentanea FROM usuario WHERE clave_momentanea = '$activation_key'";
-	$resultado = mysqli_query($conexion, $consulta);
+	$consulta = "SELECT * FROM usuario WHERE clave_momentanea = '$activation_key'";
+	$resultado = mysqli_query($conexion, $consulta); 
+	$cantidad = mysqli_num_rows($resultado);
 
-		if($resultado == 1){
-			$sql = "UPDATE usuario SET estado_activo = '1' WHERE clave_activacion = $activation_key";
-			mysqli_close($conexion);
+
+		if($cantidad == 1){
+			$estado = '1';
+			$sql = "UPDATE usuario SET estado_activo = '$estado' WHERE clave_momentanea = '$activation_key'";	 //no me hace el up
+			mysqli_query($conexion,$sql);
+
 		}
 		else{
 			echo "El usuario no pudo ser activado";
-			mysqli_close($conexion);
 		}
 
-/* CON CLASES
-	$stm = $dbh->prepare("select count(1) from users where activation_key=?");
-	$stm->bind_param("s",$activation_key);
-	$stm->bind_result($total);
-	$message = "";
-	$stm->execute();
-	$stm->fetch();
-	$stm->close();
-	if ($total == 1) { // Si se ha encontrado...
-	    // Retrieve the email address
-	    $stm = $dbh->prepare("select email from users where activation_key=?");
-	    $stm->bind_param("s",$activation_key);
-	    $stm->bind_result($email);
-	    $stm->execute();
-	    $stm->fetch();
-	    $stm->close();
-	    // Poner a uno el campo validated en la tabla usuarios
-	    $stm = $dbh->prepare("update usuarios set validated=1 where activation_key=?");
-	    $stm->bind_param("s",$activation_key);
-	    $stm->execute();
-	    $stm->close();
-	    // Introducir al usuario en sesión
-	    $_SESSION["user"] = $email;
-	    $message .= "Gracias por registrarse con nosotros<br/><br/>" .
-	        "¡Bienvenido a ejemplo.com!<br/><br/>" .
-	        "<a href='http://ejemplo.com' class=\"btn\"'>Continuar</a>"; */
+	mysqli_close($conexion);
 ?>
 
 
@@ -127,7 +106,6 @@
 			<div class="banner-info">
 				<div class="container">
 
-			<!--VER VER VER VER VER VER VER VER VER VER VER VER VER VER VER VER VER VER-->
 				<?PHP
 					echo "<div style='margin-top:10%; margin-left:0%; margin-bottom: 10%; padding-top: 5%; padding-bottom: 5%; background:rgba(114, 189, 163, 0.90); font-size:50px; text-align: center; color: black;' <br>Usuario activado exitosamente!</br> Para ingresar a su cuenta haga click <a href='signin.php' style='color: #EDEDED;  font-style:italic';>AQUI</a><br>
 						<br></div>";

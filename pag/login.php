@@ -149,25 +149,17 @@
 
 				//mando un mail para que active
 
-					$para = $email;
-					$titulo = 'El título del correo';
-					$mensaje = 'Hola, bienvenido a mi sitio web \r\n Saludos'; //Mensaje de 2 lineas
-					$cabeceras = 'From: webmaster1@midominio.com' . "\r\n" . //La direccion de correo desde donde supuestamente se envió
-					    'Reply-To: webmaster2@midominio.com' . "\r\n" . //La direccion de correo a donde se responderá (cuando el recepto haga click en RESPONDER)
-					    'X-Mailer: PHP/' . phpversion();  //información sobre el sistema de envio de correos, en este caso la version de PHP
-					 
+					$para = 'bareiro.rsb@gmail.com';			///	NO ME DEJA METER COMILLAS PARA MANDAR UN MAIL
+					$titulo = 'Viba - Validacion de Usuario';
+					$mensaje = 'Hola Viba Usuario! 
+					Para activar tu cuenta haz click aqui:
+					http://localhost/viba/pag/registroExitoso.php?clave_activacion='.$clave_activacion.' 
+					o copia y pega la direccion en tu navegador.'; 
+					$cabeceras = 'From: vibamusic@hotmail.com'; //La direccion de correo desde donde supuestamente se envió
+
+					//envio el mail				 
 					mail($para, $titulo, $mensaje, $cabeceras);
 
-						mail("'".$email."'", 'ejemplo.com - Activación de la cuenta
-						     Bienvenido a ejemplo.com!
-						 
-						     Gracias por registrarse en nuestro sitio.
-						     Su cuenta ha sido creada, y debe ser activada antes de poder ser utilizada.
-						     Para activar la cuenta, haga click en el siguiente enlace o copielo en la
-						     barra de direcciones del navegador:
-
-						     http://localhost/viba/registroExitoso.php?valorActivacion='.$clave_activacion); 
-						     //ver bien el path
 						header("Location:usuarioAValidar.php");
 					}
 					else{
