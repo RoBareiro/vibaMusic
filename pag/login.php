@@ -156,7 +156,7 @@
 
 				//mando un mail para que active
 
-					$para = 'bareiro.rsb@gmail.com';			///	NO ME DEJA METER COMILLAS PARA MANDAR UN MAIL
+					$para = $_POST['email'];			///	cambiamos el $_post y volamos en email
 					$titulo = 'Viba - Validacion de Usuario';
 					$mensaje = 'Hola Viba Usuario! 
 					Para activar tu cuenta haz click aqui:
