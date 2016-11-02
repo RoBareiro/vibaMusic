@@ -1,6 +1,10 @@
 <?php
 	error_reporting(0);	/*Desactiva cualquier notificacion*/
 	session_start();
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/master
 	$_SESSION["registrado"] = "true";
 ?>
 

@@ -81,7 +81,11 @@
 						 <nav class="top-nav">
 							<ul class="top-nav">
 								<li><a href="indexRegistrado.php">VIBA!</a></li>
+<<<<<<< HEAD
 								<li><a href="playlists.php">Playlists</a></li>
+=======
+								<li><a href="playlists.php">Playlist</a></li>
+>>>>>>> origin/master
 								<li><a href="usuario.php">Usuario</a></li>
 								<li><a href="cerrarSesion.php">Cerrar Sesi&oacute;n</a></li>
 								<li><?PHP echo "<div style= 'color: #FFF;
