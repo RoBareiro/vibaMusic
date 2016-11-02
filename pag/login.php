@@ -1,6 +1,13 @@
 <?php
 		error_reporting(0);	/*Desactiva cualquier notificacion*/
 		include("../inc/conexionbd.php");
+
+		if($_SESSION["registrado"] == "true")
+		session_start();
+		$_SESSION["registrado"]= "true";
+		require_once("../inc/seguridad.php");
+
+
 		
 		$nombre = $_POST["nombre"];
 
@@ -153,8 +160,8 @@
 					$titulo = 'Viba - Validacion de Usuario';
 					$mensaje = 'Hola Viba Usuario! 
 					Para activar tu cuenta haz click aqui:
-					http://localhost/viba/pag/registroExitoso.php?clave_activacion='.$clave_activacion.' 
-					o copia y pega la direccion en tu navegador.'; 
+					http://localhost/vibaMusic/pag/registroExitoso.php?clave_activacion='.$clave_activacion.' 
+					o copia y pega la direccion en tu navegador.';  //CAMBIAR DEPENDIENDO DE DONDE ESTOY!!!!!!!!!!!!!!!!!!!!
 					$cabeceras = 'From: vibamusic@hotmail.com'; //La direccion de correo desde donde supuestamente se envió
 
 					//envio el mail				 
