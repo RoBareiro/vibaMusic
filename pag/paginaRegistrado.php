@@ -81,19 +81,18 @@
 						<!----start-top-nav---->
 						 <nav class="top-nav">
 							<ul class="top-nav">
-								<li><a href="../index.php">VIBA!</a></li>
-								<li><a href="premium.php">Premium</a></li>
-								<li><a href="ayuda.php">Ayuda</a></li>
+								<li><a href="indexRegistrado.php">VIBA!</a></li>
+								<li><a href="playlists.php">Playlist</a></li>
+								<li><a href="usuario.php">Usuario</a></li>
 								<li><a href="cerrarSesion.php">Cerrar Sesi&oacute;n</a></li>
 								<li><?PHP echo "<div style= 'color: #FFF;
 												padding: 0.84em 3.0804em;
 												background: rgba(166, 203, 163, 0.55);
-												font-size: 1.25em;
-												font-weight: 499;
+												font-size: 1.20em;
 												text-align: center;
 												text-transform: uppercase;
 												position: relative'>
-												Bienvenido ".$_SESSION["usuario"]."</div>" ?></li>
+												Bienvenid@ ".$_SESSION["usuario"]."</div>" ?></li>
 							</ul>
 							<a href="#" id="pull"><img src="images/nav-icon.png" title="menu" /></a>
 						</nav>

@@ -2,39 +2,33 @@
 	error_reporting(0);	/*Desactiva cualquier notificacion*/
 	session_start();
 
-	if($_SESSION["registrado"] == "true"){
-		header("Location:indexRegistrado.php");
-	}
-	else{
-		session_destroy();
-	}
-
+	$_SESSION["registrado"] = "true";
 ?>
 
 <!DOCTYPE HTML>
 <html>
 	<head>
 		<title>Viba Music!</title>
-		<link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
+		<link href="../css/bootstrap.css" rel='stylesheet' type='text/css' />
 		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-		<script src="js/jquery.min.js"></script>
+		<script src="../js/jquery.min.js"></script>
 		 <!-- Custom Theme files -->
-		<link href="css/style.css" rel='stylesheet' type='text/css' />
+		<link href="../css/style.css" rel='stylesheet' type='text/css' />
    		 <!-- Custom Theme files -->
 		<meta name="viewport" content="width=device-width, initial-scale=1, text/html; utf-8">
 		<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 		</script>
 		<!---- animated-css ---->
-		<link href="css/animate.css" rel="stylesheet" type="text/css" media="all">
-		<script type="text/javascript" src="js/jquery.corner.js"></script> 
-		<script src="js/wow.min.js"></script>
+		<link href="../css/animate.css" rel="stylesheet" type="text/css" media="all">
+		<script type="text/javascript" src="../js/jquery.corner.js"></script> 
+		<script src="../js/wow.min.js"></script>
 		<script>
 		 new WOW().init();
 		</script>
 		<!---- animated-css ---->
 		<!---- start-smoth-scrolling---->
-		<script type="text/javascript" src="js/move-top.js"></script>
-		<script type="text/javascript" src="js/easing.js"></script>
+		<script type="text/javascript" src="../js/move-top.js"></script>
+		<script type="text/javascript" src="../js/easing.js"></script>
 		<script type="text/javascript">
 			jQuery(document).ready(function($) {
 				$(".scroll").click(function(event){		
@@ -82,10 +76,18 @@
 						 <nav class="top-nav">
 							<ul class="top-nav">
 								<li class="active-join"><a href="#">VIBA!</a></li>
-								<li><a href="pag\premium.php">Premium</a></li>
-								<li><a href="pag\ayuda.php">Ayuda</a></li>
-								<li class="page-scroll"><a href="pag\login.php">Registrate</a></li>
-								<li><a href="pag\signin.php">Iniciar Sesi&oacute;n</a></li>
+								<li><a href="playlists.php">Playlists</a></li>
+								<li><a href="usuario.php">Usuario</a></li>
+								<li class="page-scroll"><a href="cerrarSesion.php">Cerrar Sesi&oacute;n</a></li>
+								<li><?PHP echo "<div style= 'color: #FFF;
+												padding: 0.84em 3.0804em;
+												background: rgba(166, 203, 163, 0.55);
+												font-size: 1.20em;
+												text-align: center;
+												text-transform: uppercase;
+												position: relative'>
+												".$_SESSION["usuario"]."</div>" ?>
+								</li>
 							</ul>
 						</nav>
 						<div class="clearfix"> </div>
