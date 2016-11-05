@@ -156,7 +156,7 @@
 
 				//mando un mail para que active
 
-					$para = 'bareiro.rsb@gmail.com';			///	NO ME DEJA METER COMILLAS PARA MANDAR UN MAIL
+					$para = 'rochito3.9@gmail.com';			///	NO ME DEJA METER COMILLAS PARA MANDAR UN MAIL
 					$titulo = 'Viba - Validacion de Usuario';
 					$mensaje = 'Hola Viba Usuario! 
 					Para activar tu cuenta haz click aqui:
