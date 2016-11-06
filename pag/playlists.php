@@ -154,7 +154,7 @@
 						 <nav class="top-nav">
 							<ul class="top-nav">
 								<li><a href="indexRegistrado.php">VIBA!</a></li>
-								<li class="active-join"><a href="#">Playlists</a></li>
+								<li class="active-join"><a href="playlists.php">Playlists</a></li>
 								<li><a href="usuario.php">Usuario</a></li>
 								<li><a href="cerrarSesion.php">Cerrar Sesi&oacute;n</a></li>
 								<li><?PHP echo "<div style= 'color: #FFF;
@@ -183,7 +183,14 @@
 							<a href="#" class="btnUsu" onclick="misPlaylists()">MIS PLAYLISTS</a></br>
 					</div>
 					</br>
-					<div class="modificar" id="central">HOLA PLAY</div>
+					<div class="modificar" id="central">
+						PLAYLIST OPERACIONES
+					</br></br>
+					<div>
+						<img src="../images/playlist.gif" width="785" height="400"></img>
+					</div>
+					</br></br>
+					</div>
 				</div>
 			</div>
 			

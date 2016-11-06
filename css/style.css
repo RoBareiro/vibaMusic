@@ -1591,6 +1591,7 @@ a.contact-me:hover{
 
 /*DIVS DEL AJAX*/
 .modificar{
+	/*text-align: center;*/
 	background-image: url(../images/vinilo.jpg);
 	background-repeat: no-repeat;
 	margin-top: -8%;
