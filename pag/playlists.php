@@ -2,8 +2,6 @@
 	error_reporting(0);	/*Desactiva cualquier notificacion*/
 	session_start();
 	$_SESSION["registrado"] = "true";
-	
-
 ?>
 
 
@@ -17,6 +15,80 @@
 
 <html>
 	<head>
+	<!--Para cambiar solo el contenido central-->
+	<script type="text/javascript" src="../js/jquery-ui-1.8.13.custom.min.js"></script>
+
+	<!--Para validar el navegador ajax-->
+	<script type="text/javascript">
+		
+		function getXMLHTTP() {
+	        var xmlhttp=false;
+	        try{
+	            xmlhttp=new XMLHttpRequest();
+	        }
+	        catch(e)	{
+	            try{
+	                xmlhttp= new ActiveXObject("Microsoft.XMLHTTP");
+	            }
+	            catch(e){
+	                try{
+	                    xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
+	                }
+	                catch(e){
+	                    xmlhttp=false;
+	                }
+	            }
+	        }
+	        return xmlhttp;
+    	}
+
+
+    	//FUNCION QUE MODIFICA LA PARTE DEL PERFIL Y LLAMA AL PHP modificarPerfil
+		function crearPlaylist() {
+		    var strURL="crearPlaylist.php";
+		    var req = getXMLHTTP();
+		    if (req) {
+		        req.onreadystatechange = function() {
+		            if (req.readyState == 4) {
+		                // only if "OK"
+		                if (req.status == 200) {
+		                    document.getElementById('central').innerHTML = req.responseText ;
+		                } else {
+		                    alert("There was a problem while using XMLHTTP:\n" + req.statusText);
+		                }
+		            }
+		        }
+					req.open("GET", strURL, true);
+					req.send();
+				}   
+			} 
+
+
+		//FUNCION QUE ME MUESTRA LOS QUE ME SIGUEN Y ME LLEVA AL PHP seguidores
+		function misPlaylists() {
+		    var strURL="misPlaylists.php";
+		    var req = getXMLHTTP();
+		    if (req) {
+		        req.onreadystatechange = function() {
+		            if (req.readyState == 4) {
+		                // only if "OK"
+		                if (req.status == 200) {
+		                    document.getElementById('central').innerHTML = req.responseText ;
+		                } else {
+		                    alert("There was a problem while using XMLHTTP:\n" + req.statusText);
+		                }
+		            }
+		        }
+					req.open("GET", strURL, true);
+					req.send();
+				}   
+			}
+
+
+
+</script>
+
+
 	<link href="../css/bootstrap.css" rel='stylesheet' type='text/css' />
 		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 		<script src="../js/jquery.min.js"></script>
@@ -91,8 +163,8 @@
 												font-size: 1.20em;
 												text-align: center;
 												text-transform: uppercase;
-												position: relative'>
-												Bienvenid@ ".$_SESSION["usuario"]."</div>" ?></li>
+												position: relative'> USUARIO
+												 ".$_SESSION["usuario"]."</div>" ?></li>
 							</ul>
 							<a href="#" id="pull"><img src="images/nav-icon.png" title="menu" /></a>
 						</nav>
@@ -105,7 +177,13 @@
 			<!---- banner-info ---->
 			<div class="banner-info">
 				<div class="container">
-							LO QUE SE TE CANTE PONER DE CONTENIDO
+					</br>
+					<div class="opciones bounceIn">
+							<a href="#" class="btnUsu" onclick="crearPlaylist()">CREAR PLAYLIST</button></br>
+							<a href="#" class="btnUsu" onclick="misPlaylists()">MIS PLAYLISTS</a></br>
+					</div>
+					</br>
+					<div class="modificar" id="central">HOLA PLAY</div>
 				</div>
 			</div>
 			

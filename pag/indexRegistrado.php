@@ -1,13 +1,6 @@
 <?php
 	error_reporting(0);	/*Desactiva cualquier notificacion*/
 	session_start();
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/master
->>>>>>> parent of 788f425... agrego contenido a varias paginas
 	$_SESSION["registrado"] = "true";
 ?>
 

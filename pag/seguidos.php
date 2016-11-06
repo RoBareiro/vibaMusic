@@ -20,7 +20,7 @@
 	}
 	else{
 		echo "<div id='central'>PERSONAS QUE SIGO</br></br>";
-		echo "<div id='central'>NO SEGUIS A NADIE VIRGO</br></br>";
+		echo "<div id='central'>NO SEGUIS A NADIE</br></br>";
 		echo "</div>";
 	}
 ?>

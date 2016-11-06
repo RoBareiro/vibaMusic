@@ -20,7 +20,7 @@
 	}
 	else{
 		echo "<div id='central'>PERSONAS QUE ME SIGUEN</br></br>";
-		echo "<div id='central'>NO TE SIGUE NADIE LOSER</br></br>";
+		echo "<div id='central'>NO TE SIGUE NADIE</br></br>";
 		echo "</div>";
 	}
 ?>
