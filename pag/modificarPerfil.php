@@ -3,6 +3,6 @@
 	session_start();
 	$_SESSION["registrado"] = "true";
 	
-	echo "<div id='central'>popopopopopopopopopop</div>";
+	echo "<div id='central'>MODIFICAR PERFIL</div>";
 ?>
 

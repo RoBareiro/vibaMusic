@@ -175,7 +175,7 @@
 							<ul class="top-nav">
 								<li><a href="indexRegistrado.php">VIBA!</a></li>
 								<li><a href="playlists.php">Playlists</a></li>
-								<li  class="active-join"><a href="#">Usuario</a></li>
+								<li  class="active-join"><a href="usuario.php">Usuario</a></li>
 								<li><a href="cerrarSesion.php">Cerrar Sesi&oacute;n</a></li>
 								<li><?PHP echo "<div style= 'color: #FFF;
 												padding: 0.84em 3.0804em;
@@ -199,11 +199,19 @@
 				<div class="container">
 					</br>
 					<div class="opciones bounceIn">
-							<a href="#" class="btnUsu" onclick="modificarPerfil()">MODIFICAR PERFIL</button></br>
+							<a href="#" class="btnUsu" onclick="modificarPerfil()">MODIFICAR PERFIL</a></br>
 							<a href="#" class="btnUsu" onclick="seguidores()">LOS QUE ME SIGUEN</a></br>
 							<a href="#" class="btnUsu" onclick="seguidos()">LOS QUE SIGO</a>
 					</div>
-					<div class="modificar" id="central">BLAVLA</div>
+					<div class="modificar" id="central">
+						Perfil de usuario de: <?PHP echo $_SESSION["usuario"]; ?></br></br>
+						<div>
+							<img src="../images/pop.gif" width="600" height="400"></img>
+						</div>
+
+					</br></br>
+					</div>
+
 				</div>
 			</div>
 			
