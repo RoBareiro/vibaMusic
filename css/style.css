@@ -1563,4 +1563,42 @@ a.contact-me:hover{
 	margin-left:15%;
 }
 
+/*BOTONES DE PAGINA USUARIO*/
+.opciones{
+		width: 250px;
+		height: auto;
+		background:rgba(00, 00, 00, 0.60);
+		}
 
+.btnUsu{
+		text-align: center;
+		margin-left: 10px;
+		text-decoration:none;
+		font-weight: bold;
+	    cursor: pointer;
+	    color:white;
+	    border-radius: 0px 0px 0px 0px;
+	    font-size: x-large;
+		}
+
+.btnUsu:hover {
+	text-align: center;
+	margin-left: 10px;
+	font-size: x-large;
+	text-decoration:none;
+    color: #00ff1d;
+}
+
+/*DIVS DEL AJAX*/
+.modificar{
+	background-image: url(../images/vinilo.gif);
+	background-repeat: no-repeat;
+	margin-top: -11%;
+	margin-bottom: 5%;
+	float: right;
+	height: 100%;
+	width: 75%;
+	color: black;
+	font-size: 1.50em;
+	padding: 0.84em 1.50em;
+}
