@@ -2,8 +2,6 @@
 	error_reporting(0);	/*Desactiva cualquier notificacion*/
 	session_start();
 	$_SESSION["registrado"] = "true";
-	
-
 ?>
 
 
@@ -17,6 +15,100 @@
 
 <html>
 	<head>
+	<!--Para cambiar solo el contenido central-->
+	<script type="text/javascript" src="../js/jquery-ui-1.8.13.custom.min.js"></script>
+
+	<!--Para validar el navegador ajax-->
+	<script type="text/javascript">
+		
+		function getXMLHTTP() {
+	        var xmlhttp=false;
+	        try{
+	            xmlhttp=new XMLHttpRequest();
+	        }
+	        catch(e)	{
+	            try{
+	                xmlhttp= new ActiveXObject("Microsoft.XMLHTTP");
+	            }
+	            catch(e){
+	                try{
+	                    xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
+	                }
+	                catch(e){
+	                    xmlhttp=false;
+	                }
+	            }
+	        }
+	        return xmlhttp;
+    	}
+
+
+    	//FUNCION QUE MODIFICA LA PARTE DEL PERFIL Y LLAMA AL PHP modificarPerfil
+		function modificarPerfil() {
+		    var strURL="modificarPerfil.php";
+		    var req = getXMLHTTP();
+		    if (req) {
+		        req.onreadystatechange = function() {
+		            if (req.readyState == 4) {
+		                // only if "OK"
+		                if (req.status == 200) {
+		                    document.getElementById('central').innerHTML = req.responseText ;
+		                } else {
+		                    alert("There was a problem while using XMLHTTP:\n" + req.statusText);
+		                }
+		            }
+		        }
+					req.open("GET", strURL, true);
+					req.send();
+				}   
+			} 
+
+
+		//FUNCION QUE ME MUESTRA LOS QUE ME SIGUEN Y ME LLEVA AL PHP seguidores
+		function seguidores() {
+		    var strURL="seguidores.php";
+		    var req = getXMLHTTP();
+		    if (req) {
+		        req.onreadystatechange = function() {
+		            if (req.readyState == 4) {
+		                // only if "OK"
+		                if (req.status == 200) {
+		                    document.getElementById('central').innerHTML = req.responseText ;
+		                } else {
+		                    alert("There was a problem while using XMLHTTP:\n" + req.statusText);
+		                }
+		            }
+		        }
+					req.open("GET", strURL, true);
+					req.send();
+				}   
+			}
+
+		//FUNCION QUE ME MUESTRA A LOS QUE SIGO Y ME LLEVA AL PHP seguidos
+		function seguidos() {
+		    var strURL="seguidos.php";
+		    var req = getXMLHTTP();
+		    if (req) {
+		        req.onreadystatechange = function() {
+		            if (req.readyState == 4) {
+		                // only if "OK"
+		                if (req.status == 200) {
+		                    document.getElementById('central').innerHTML = req.responseText ;
+		                } else {
+		                    alert("There was a problem while using XMLHTTP:\n" + req.statusText);
+		                }
+		            }
+		        }
+					req.open("GET", strURL, true);
+					req.send();
+				}   
+			}
+
+
+
+</script>
+
+
 	<link href="../css/bootstrap.css" rel='stylesheet' type='text/css' />
 		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 		<script src="../js/jquery.min.js"></script>
@@ -83,16 +175,16 @@
 							<ul class="top-nav">
 								<li><a href="indexRegistrado.php">VIBA!</a></li>
 								<li><a href="playlists.php">Playlists</a></li>
-								<li><a href="#">Usuario</a></li>
+								<li  class="active-join"><a href="#">Usuario</a></li>
 								<li><a href="cerrarSesion.php">Cerrar Sesi&oacute;n</a></li>
 								<li><?PHP echo "<div style= 'color: #FFF;
 												padding: 0.84em 3.0804em;
-												background: rgba(166, 203, 163, 0.55);
+												
 												font-size: 1.20em;
 												text-align: center;
 												text-transform: uppercase;
-												position: relative'>
-												Bienvenid@ ".$_SESSION["usuario"]."</div>" ?></li>
+												position: relative'> Bienveni@
+												 ".$_SESSION["usuario"]."</div>" ?></li>
 							</ul>
 							<a href="#" id="pull"><img src="images/nav-icon.png" title="menu" /></a>
 						</nav>
@@ -105,7 +197,14 @@
 			<!---- banner-info ---->
 			<div class="banner-info">
 				<div class="container">
-							LO QUE SE TE CANTE PONER DE CONTENIDO
+					</br>
+					<div class="opciones bounceIn">
+							<a href="#" class="btnUsu" onclick="modificarPerfil()">MODIFICAR PERFIL</button></br>
+							<a href="#" class="btnUsu" onclick="seguidores()">LOS QUE ME SIGUEN</a></br>
+							<a href="#" class="btnUsu" onclick="seguidos()">LOS QUE SIGO</a></br>
+					</div>
+					</br>
+					<div class="modificar" id="central">blablabalbalbala</div>
 				</div>
 			</div>
 			
@@ -115,13 +214,13 @@
 				<div class="wow bounceInUp">
 					<div class="wow bounceIn vibalogo"><img src="..\images\vibalogo.jpg"></img></div>
 					
-					<div class="wow bounceIn logot"><img src="..\images\logofb.jpg" width="60" height="60"><a href="https://www.facebook.com/vibamusic"><h2>FACEBOOK</h2></a></div>
+					<div class="wow bounceIn logot"><a href="https://www.facebook.com/vibamusic"><img src="..\images\logofb.jpg" width="60" height="60"><h2>FACEBOOK</h2></a></div>
 					
-					<div class="wow bounceIn logot"><img src="..\images\logoyt.jpg" width="60" height="60"><a href="https://youtube.com/vibamusic"><h2>YOUTUBE</h2></a></div>
+					<div class="wow bounceIn logot"><a href="https://youtube.com/vibamusic"><img src="..\images\logoyt.jpg" width="60" height="60"><h2>YOUTUBE</h2></a></div>
 
-					<div class="wow bounceIn logot"><img src="..\images\logot.jpg" width="60" height="60"><a href="https://www.twitter.com/vibamusic"><h2>TWITTER</h2></a></div>
+					<div class="wow bounceIn logot"><a href="https://www.twitter.com/vibamusic"><img src="..\images\logot.jpg" width="60" height="60"><h2>TWITTER</h2></a></div>
 
-					<div class="wow bounceIn logot"><img src="..\images\logop.jpg" width="60" height="60"><a href="https://es.pinterest.com/vibamusic"><h2>PINTEREST</h2></a></div>
+					<div class="wow bounceIn logot"><a href="https://es.pinterest.com/vibamusic"><img src="..\images\logop.jpg" width="60" height="60"><h2>PINTEREST</h2></a></div>
 				</div>
 				
 		</div>

@@ -104,62 +104,18 @@
 						</div>
 					<div class="top-banner-grids wow bounceInUp" data-wow-delay="0.4s">
 					<div class="banner-grid text-center">
-						<span class="top-icon4"> </span>
-						<h3>BUSCAR</h3>
-						<h4>Buscar una canción, un álbum, un artista,</br>
+						<span class="top-icon1"> </span>
+						<h2>BUSCAR</h2>
+						<h1>Buscar una canción, un álbum, un artista,</br>
 						 un sello, un género, un estado de ánimo, </br>
-						 una actividad o un amigo en VIBA!</BR> 
-						 </BR>
-						 </BR>
-						 </BR>
-						 <a href="#">Más Información</a></h4>
-					</div>
-
-					<div class="banner-grid text-center">
-						<span class="top-icon2"> </span>
-						<h3>RADIO</h3>
-						<h4>Sintoniza una de nuestras estaciones o </BR> 
-						crea la tuya desde tu artista,</BR> 
-						álbum o canción favoritos.</BR> 
-						</BR>
-						</BR>
-						<a href="#">Más Información</a></h4>
+						 una actividad o un amigo en Viba! Music.</h1>
 					</div>
 
 					<div class="banner-grid text-center">
 						<span class="top-icon1"> </span>
-						<h3>EXPLORAR</h3>
-						<h4>Explora música nueva y listas de éxitos.</BR>
-						Encuentra playlists para acompañar </BR>
-						(o cambiar) tu estado de ánimo.</BR>
-						</BR>
-						</BR>
-						<a href="#">Más Información</a></h4>
+						<h2>RADIO</h2>
+						<h1>Sintoniza una de nuestras estaciones o </BR> crea la tuya desde tu artista,</BR> álbum o canción favoritos.</h1>
 					</div>
-
-					<div class="banner-grid text-center">
-						<span class="top-icon3"> </span>
-						<h3>PLAYLIST</h3>
-						<h4>Son como recopilatorios que
-						puedes crear en VIBA!
-						Puedes compartirlas, suscribirte a ellas o hacerlas con tus amigos.
-						</BR>
-						</BR>
-						<a href="#">Más Información</a></h4>
-					</div>
-
-					<div class="banner-grid text-center">
-						<span class="top-icon5"> </span>
-						<h3>PREMIUM</h3>
-						<H4>Podes utilizar VIBA! Totalmente gratis</br>
-						Pero si queres escuchar música sin interrupciones<br>
-						Suscribite a nuestro VIBA! Premium</br>
-						</br>
-						</br>
-						<a href="#">Más Información</a></h4>
-					</div>
-
-
 					</div>
 
 				</div>
