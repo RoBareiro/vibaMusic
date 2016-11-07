@@ -2,12 +2,6 @@
 		error_reporting(0);	/*Desactiva cualquier notificacion*/
 		include("../inc/conexionbd.php");
 
-		if($_SESSION["registrado"] == "true")
-		session_start();
-		$_SESSION["registrado"]= "true";
-		require_once("../inc/seguridad.php");
-
-
 		
 		$nombre = $_POST["nombre"];
 
