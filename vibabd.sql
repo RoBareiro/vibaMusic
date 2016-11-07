@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.4.14
+-- version 4.5.1
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-10-2016 a las 04:51:48
--- Versión del servidor: 5.6.26
--- Versión de PHP: 5.6.12
+-- Tiempo de generación: 07-11-2016 a las 17:39:46
+-- Versión del servidor: 10.1.16-MariaDB
+-- Versión de PHP: 5.6.24
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -26,7 +26,7 @@ SET time_zone = "+00:00";
 -- Estructura de tabla para la tabla `banneado`
 --
 
-CREATE TABLE IF NOT EXISTS `banneado` (
+CREATE TABLE `banneado` (
   `id_banneado` int(11) NOT NULL,
   `id_denunciante` int(255) NOT NULL,
   `id_denunciado` int(255) NOT NULL,
@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS `banneado` (
 -- Estructura de tabla para la tabla `favorita`
 --
 
-CREATE TABLE IF NOT EXISTS `favorita` (
+CREATE TABLE `favorita` (
   `id_favorita` int(11) NOT NULL,
   `id_playlist` int(255) NOT NULL,
   `fecha_favorita` datetime NOT NULL
@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS `favorita` (
 -- Estructura de tabla para la tabla `genero`
 --
 
-CREATE TABLE IF NOT EXISTS `genero` (
+CREATE TABLE `genero` (
   `id_genero` int(100) NOT NULL,
   `genero` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `genero` (
 -- Estructura de tabla para la tabla `playlist`
 --
 
-CREATE TABLE IF NOT EXISTS `playlist` (
+CREATE TABLE `playlist` (
   `id_playlist` int(11) NOT NULL,
   `id_usuario` int(11) NOT NULL,
   `id_genero` int(11) NOT NULL,
@@ -79,7 +79,7 @@ CREATE TABLE IF NOT EXISTS `playlist` (
 -- Estructura de tabla para la tabla `playlist_cancion`
 --
 
-CREATE TABLE IF NOT EXISTS `playlist_cancion` (
+CREATE TABLE `playlist_cancion` (
   `id_cancion` int(255) NOT NULL,
   `id_playlist` int(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -90,7 +90,7 @@ CREATE TABLE IF NOT EXISTS `playlist_cancion` (
 -- Estructura de tabla para la tabla `reproduccion`
 --
 
-CREATE TABLE IF NOT EXISTS `reproduccion` (
+CREATE TABLE `reproduccion` (
   `id_reproduccion` int(11) NOT NULL,
   `id_playlist` int(255) NOT NULL,
   `cantidad` int(11) NOT NULL
@@ -102,7 +102,7 @@ CREATE TABLE IF NOT EXISTS `reproduccion` (
 -- Estructura de tabla para la tabla `sigue_a`
 --
 
-CREATE TABLE IF NOT EXISTS `sigue_a` (
+CREATE TABLE `sigue_a` (
   `id_seguimiento` int(255) NOT NULL COMMENT 'NOS FALTO AGREGAR ESTO',
   `id_seguidor` int(255) NOT NULL,
   `id_seguido` int(255) NOT NULL,
@@ -115,7 +115,7 @@ CREATE TABLE IF NOT EXISTS `sigue_a` (
 -- Estructura de tabla para la tabla `usuario`
 --
 
-CREATE TABLE IF NOT EXISTS `usuario` (
+CREATE TABLE `usuario` (
   `id_usuario` int(255) NOT NULL,
   `nombre` varchar(15) NOT NULL,
   `apellido` varchar(30) NOT NULL,
@@ -129,14 +129,15 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `cantidad_playlist` int(255) DEFAULT NULL,
   `estado_activo` varchar(1) NOT NULL,
   `clave_momentanea` varchar(100) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=79 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `usuario`
 --
 
 INSERT INTO `usuario` (`id_usuario`, `nombre`, `apellido`, `email`, `usuario`, `clave`, `rol`, `foto_de_perfil`, `pais`, `localidad`, `cantidad_playlist`, `estado_activo`, `clave_momentanea`) VALUES
-(78, 'RocÃ­o', 'Bareiro', 'bareiro.rsb@hotmail.com', 'rocio', '325daa03a34823cef2fc367c779561ba', 'usuario', '', '', 0, 0, '1', 'a0064ac145ee9f807f09e1cf06f22c32');
+(78, 'RocÃ­o', 'Bareiro', 'bareiro.rsb@hotmail.com', 'rocio', '325daa03a34823cef2fc367c779561ba', 'admin', '', '', 0, 0, '1', 'a0064ac145ee9f807f09e1cf06f22c32'),
+(79, 'RocÃ­o', 'CastaÃ±er', 'rncastaniervivas@hotmail.com.a', 'rocho', '21232f297a57a5a743894a0e4a801fc3', 'admin', '', '', 0, 0, '1', '05a7ba2633a7056a74aef8038eb5bdac');
 
 -- --------------------------------------------------------
 
@@ -144,7 +145,7 @@ INSERT INTO `usuario` (`id_usuario`, `nombre`, `apellido`, `email`, `usuario`, `
 -- Estructura de tabla para la tabla `voto`
 --
 
-CREATE TABLE IF NOT EXISTS `voto` (
+CREATE TABLE `voto` (
   `id_voto` int(255) NOT NULL COMMENT 'AA???',
   `id_playlist` int(255) NOT NULL COMMENT 'AA???'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -200,7 +201,7 @@ ALTER TABLE `sigue_a`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id_usuario` int(255) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=79;
+  MODIFY `id_usuario` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
