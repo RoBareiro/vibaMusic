@@ -78,14 +78,10 @@
 								<li><a href="playlists.php">Playlists</a></li>
 								<li><a href="usuario.php">Usuario</a></li>
 								<li class="page-scroll"><a href="cerrarSesion.php">Cerrar Sesi&oacute;n</a></li>
-								<li><?PHP echo "<div style= 'color: #FFF;
-												padding: 0.84em 3.0804em;
-											
-												font-size: 1.20em;
-												text-align: center;
-												text-transform: uppercase;
-												position: relative'> Usuario
-												".$_SESSION["usuario"]."</div>" ?>
+								<li><li><a href="paginaRegistrado.php">USUARIO
+										 <?PHP echo $_SESSION['usuario']; ?>
+  									</a>
+								</li>
 								</li>
 							</ul>
 						</nav>

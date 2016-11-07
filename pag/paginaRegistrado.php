@@ -104,7 +104,18 @@
 			<!---- banner-info ---->
 			<div class="banner-info">
 				<div class="container">
-							LO QUE SE TE CANTE PONER DE CONTENIDO
+				</br>
+							<div class="inicioRegistrado">
+								Una experiencia <div style="color: #77FF6B;">&Uacute;NICA!</div></br> Aca vas a encontrar toda
+								la m&uacute;sica que quer&eacute;s escuchar para cada momento,</br> cada estado de &aacute;nimo...
+								Lo que se te ocurra para musicalizar tus momentos!</br></br> Nuestra prioridad es:</br><div style="color: #77FF6B;">HACERTE VOLAR UNOS CUANTOS MINUTOS O... UNAS CUANTAS HORAS!</div>
+								</br></br>
+								<img src="../images/dj.gif"></img></br></br>
+								Tenemos todas las playlist que te imagines.</br>
+								Pod&eacute;s interactuar con otras Playlist, escucharlas y si te gustan, seguirlas!!
+								</br></br> Empez&aacute; a explorar la p&aacute;gina, investig&aacute; cada rinc&oacute;n.. Te vas a <div style="color: #77FF6B;">SORPRENDER!</div></br>
+							</div>
+				</br>
 				</div>
 			</div>
 			
