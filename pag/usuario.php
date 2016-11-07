@@ -177,14 +177,10 @@
 								<li><a href="playlists.php">Playlists</a></li>
 								<li  class="active-join"><a href="usuario.php">Usuario</a></li>
 								<li><a href="cerrarSesion.php">Cerrar Sesi&oacute;n</a></li>
-								<li><?PHP echo "<div style= 'color: #FFF;
-												padding: 0.84em 3.0804em;
-												
-												font-size: 1.20em;
-												text-align: center;
-												text-transform: uppercase;
-												position: relative'> USUARIO
-												 ".$_SESSION["usuario"]."</div>" ?></li>
+								<li><li><a href="paginaRegistrado.php">USUARIO
+										 <?PHP echo $_SESSION['usuario']; ?>
+  									</a>
+								</li>
 							</ul>
 							<a href="#" id="pull"><img src="images/nav-icon.png" title="menu" /></a>
 						</nav>

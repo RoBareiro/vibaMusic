@@ -1603,3 +1603,13 @@ a.contact-me:hover{
 	font-size: 1.50em;
 	padding: 0.84em 1.50em;
 }
+
+/*incioRegistrado.php*/
+.inicioRegistrado{
+	font-size: 1.50em;
+	color: white;
+	background:rgba(00, 00, 00, 0.80);
+	text-align: center;
+	padding: 0.84em 1.50em;
+
+}
