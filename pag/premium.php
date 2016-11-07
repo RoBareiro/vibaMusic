@@ -62,9 +62,7 @@
 		<div class="container">
 			<div id="home" class="header wow bounceInDown" data-wow-delay="0.4s">
 					<div class="top-header">
-						<!--<div class="vibalogo">
-							sacamos el home de la barra
-						</div>-->
+						
 						<!----start-top-nav---->
 						 <nav class="top-nav">
 							<ul class="top-nav">
@@ -83,18 +81,25 @@
 			<!----- //End-header---->
 
 			<!---- banner-info ---->
-			<div class="banner-info">
-				<div class="container">
-					<h1 class="wow fadeIn" data-wow-delay="0.5s"><span>Somos</span><br /><label>VIBA Music!</label></h1>
-					
-					
+				<div class="banner-info">
+					<div class="container">
+						<h1 class="wow fadeIn" data-wow-delay="0.5s"><span>Somos</span><br/><label>VIBA Music!</label></h1>
 						<div class="topcinco wow fadeIn container banner-info"  data-wow-delay="0.5s">
-							<h3>TOP 5 MEJORES</h3>
-
-
-							
-						</div>
+							<ul class="top-nav">
+								<h3>Prueba Premium gratis durante 30 días</h3>
+									<li><h4>Escucha sin distracciones de anuncios</h4></li>
+							    	<li><h4>Pon música sin necesidad de cobertura del teléfono</h4></li>
+							    	<li><h4>Salta todas las canciones que quieras</h4></li>
+							 </ul>
+						</div>	
+						<h1><span>Hazte Premium. Sé feliz.</span></h1>
+						<img src="../images/portpic4.jpg"></img>
+							<h2>Prueba Premium gratis durante 30 días. Después solo $ 69,00/mes.*</h2>
+							<h2>Aceptamos todas la tarjetas de crédito ;)</h2>
+						<h3>* Rigen términos y condiciones. Oferta apta solo para usuarios que todavía no hayan probado Premium.</h3>
+					</div>
 				</div>
+
 			</div>
 
 		</div>
