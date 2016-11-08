@@ -5,9 +5,9 @@
 		/*validaciones como el login*/
 
 	$usuarioViejo = $_SESSION["usuario"];
-	$errores = array();
 	
 	if(isset($_POST["usuarioNuevo"])){
+			$errores = array();
 
 			if(!($_POST["nuevoUsuario"] == "")){
 				$usuarioNuevo = $_POST["nuevoUsuario"];
@@ -17,7 +17,7 @@
 
 	 							$segundaConsulta = "SELECT usuario FROM usuario WHERE usuario = '$usuarioNuevo'";
 	 							$segundoResultado = mysqli_query($conexion,$segundaConsulta);
-	 							
+
 	 							if(mysqli_num_rows($segundaConsulta) == 0){
 		 							$actualizoUsuario = "UPDATE usuario SET usuario = '$usuarioNuevo' WHERE usuario = '$usuarioViejo'";
 		 							mysqli_query($conexion,$actualizoUsuario);

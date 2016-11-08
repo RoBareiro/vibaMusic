@@ -202,7 +202,7 @@
 					<div class="modificar" id="central">
 						Perfil de usuario de <?PHP echo $_SESSION["usuario"]; ?></br></br>
 						<div>
-							<img src="../images/pop.gif" width="600" height="400"></img>
+							<img src="../images/perfilSombra.jpg" width="400" height="400"></img>
 						</div>
 
 					</br></br>

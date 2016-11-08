@@ -6,10 +6,11 @@
 
 	$claveVieja = $_POST["claveVieja"];
 	$usuario = $_SESSION["usuario"];
-	$errores = array();
 	
-	if(isset($_POST["entrar"])){
+	if(isset($_POST["claveNueva"])){
+		$errores = array();
 
+		/*valido clave vieja*/
 			if(!($_POST["claveVieja"] == "")){
 
 					if(ereg("^[a-zA-Z0-9]*", $claveVieja)){
@@ -18,37 +19,43 @@
 
 							$busqueda = "SELECT clave FROM usuario WHERE usuario = '$usuario' AND clave = '$claveVieja' ";
 							$accion = mysqli_query($conexion, $busqueda);
-
 							if(mysqli_num_rows($accion) == 1){
-
-								if(!($_POST["nuevaClave"] == "")){
-										$nuevaClave = $_POST["nuevaClave"];	
-
-											if(ereg("^[a-zA-Z0-9]*", $nuevaClave)){
-												if((strlen($nuevaClave)>=4)&&(strlen($nuevaClave)<=10)){
-													$nuevaClave = md5($nuevaClave);
-
-														$actualizacion = "UPDATE usuario SET clave = '$nuevaClave' WHERE usuario = '$usuario' ";
-														$sql = mysqli_query($conexion, $actualizacion);
-														echo "<script type='text/javascript'> 
-							 									alert('Clave Actualizada Correctamente'); 	 
-							 								 </script>";
-												}
-												else{
-													$errores[3] = "La clave debe tener entre 4 y 10 letras";
-												}
-											}
-											else{
-												$errores[3] = "La clave debe tener solo letras y/o numeros";
-											}
-									}
-									else{
-										$errores[3] = "Debe ingresar una clave nueva";
-									}		
-					/*abajo: los else de la clave vieja*/
+									/*si la encuentra no pasa nada*/
 							}
 							else{
-								$errores[4] = "La clave original es incorrecta";
+								$errores[3] = "</br>La clave original es incorrecta";
+							}
+						}
+						else{
+							$errores[3] = "La clave debe tener entre 4 y 10 letras";
+						}
+					}
+					else{
+						$errores[3] = "La clave debe tener solo letras y/o numeros";
+					}
+			}
+			else{
+				$errores[3] = "Debe ingresar la clave original";
+			}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+		/*valido clave nueva*/
+			if(!($_POST["nuevaClave"] == "")){
+				$nuevaClave = $_POST["nuevaClave"];
+
+					if(ereg("^[a-zA-Z0-9]*", $nuevaClave)){
+						if((strlen($nuevaClave)>=4)&&(strlen($nuevaClave)<=10)){
+							$nuevaClave = md5($nuevaClave);
+
+							$busqueda = "SELECT clave FROM usuario WHERE usuario = '$usuario' AND clave = '$claveVieja' ";
+							$accion = mysqli_query($conexion, $busqueda);
+							if(mysqli_num_rows($accion) == 1){
+								$nuevaConsulta = "UPDATE usuario SET clave = '$nuevaClave' WHERE usuario = '$usuario'";
+								$resultado = mysqli_query($conexion,$nuevaConsulta);
+							}
+							else{
+								$errores[4] = "La clave original no se encontro";
 							}
 						}
 						else{
@@ -60,8 +67,51 @@
 					}
 			}
 			else{
-				$errores[4] = "Debe ingresar la clave original";
+				$errores[4] = "Debe ingresar la clave nueva";
 			}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+			/*valido clave nueva REPETIR*/
+			if(!($_POST["nuevaClaveRepetir"] == "")){
+				$nuevaClaveRepetir = $_POST["nuevaClaveRepetir"];
+
+
+					if(ereg("^[a-zA-Z0-9]*", $nuevaClaveRepetir)){
+						if((strlen($nuevaClaveRepetir)>=4)&&(strlen($nuevaClaveRepetir)<=10)){
+							$nuevaClaveRepetir = md5($nuevaClaveRepetir);
+							if($nuevaClaveRepetir == $nuevaClave){
+								/*no pasa nada*/
+							}
+							else{
+								$errores[2] = "La repeticion de la clave no es igual a la clave nueva";
+								echo $nuevaClave;
+								echo $nuevaClaveRepetir;
+							}
+						}
+						else{
+							$errores[2] = "La clave debe tener entre 4 y 10 letras";
+						}
+					}
+					else{
+						$errores[2] = "La clave debe tener solo letras y/o numeros";
+					}
+			}
+			else{
+				$errores[2] = "Debe repetir la clave nueva";
+			}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+			if(empty($errores)){
+				echo "<script type='text/javascript'> 
+						alert('Usuario Actualizado Correctamente'); 	 
+				 	  </script>";
+					}
+					else{
+						mysqli_close($conexion);
+					}
 
 	}	
 ?>
@@ -169,11 +219,14 @@
 						<div>
 						<form class="formulario wow bounceIn" data-wow-delay="0.4s" method="POST" action="actualizarClave.php">
 							<h3>Clave anterior</h3><input type="password" name="claveVieja" size="20"></input>
-							<span><?PHP echo "<font color='red'>"."$errores[4]"."</font>"; ?></span>
+							<span><?PHP echo "<font color='red'>"."$errores[3]"."</font>"; ?></span>
 							</br>
 							<h3>Clave Nueva</h3><input type="password" name="nuevaClave" size="20"></input></br>
-							<span><?PHP echo "<font color='red'>"."$errores[3]"."</font>"; ?></span>
-							</br></br>
+							<span><?PHP echo "<font color='red'>"."$errores[4]"."</font>"; ?></span>
+							
+							<h3>Repetir Clave Nueva</h3><input type="password" name="nuevaClaveRepetir" size="20"></input></br>
+							<span><?PHP echo "<font color='red'>"."$errores[2]"."</font>"; ?></span>
+							</br>
 							<input class="botonlogin" type="submit" name="claveNueva" value="Cambiar"></input>
 						</form>
 						</div>
