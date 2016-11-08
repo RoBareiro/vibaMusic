@@ -1,132 +1,11 @@
-<?PHP
+<?PHP 
 	error_reporting(0);	/*Desactiva cualquier notificacion*/
 	session_start();
 	include("../inc/conexionbd.php");
-
-
-	$claveVieja = $_POST["claveVieja"];
-	$usuario = $_SESSION["usuario"];
-	
-	if(isset($_POST["claveNueva"])){
-		$errores = array();
-
-		/*valido clave vieja*/
-			if(!($_POST["claveVieja"] == "")){
-
-					if(ereg("^[a-zA-Z0-9]*", $claveVieja)){
-						if((strlen($claveVieja)>=4)&&(strlen($claveVieja)<=10)){
-							$claveVieja = md5($claveVieja);
-
-							$busqueda = "SELECT clave FROM usuario WHERE usuario = '$usuario' AND clave = '$claveVieja' ";
-							$accion = mysqli_query($conexion, $busqueda);
-							if(mysqli_num_rows($accion) == 1){
-									/*si la encuentra no pasa nada*/
-							}
-							else{
-								$errores[3] = "</br>La clave original es incorrecta";
-							}
-						}
-						else{
-							$errores[3] = "La clave debe tener entre 4 y 10 letras";
-						}
-					}
-					else{
-						$errores[3] = "La clave debe tener solo letras y/o numeros";
-					}
-			}
-			else{
-				$errores[3] = "Debe ingresar la clave original";
-			}
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-		/*valido clave nueva*/
-			if(!($_POST["nuevaClave"] == "")){
-				$nuevaClave = $_POST["nuevaClave"];
-
-					if(ereg("^[a-zA-Z0-9]*", $nuevaClave)){
-						if((strlen($nuevaClave)>=4)&&(strlen($nuevaClave)<=10)){
-							$nuevaClave = md5($nuevaClave);
-
-							$busqueda = "SELECT clave FROM usuario WHERE usuario = '$usuario' AND clave = '$claveVieja' ";
-							$accion = mysqli_query($conexion, $busqueda);
-							if(mysqli_num_rows($accion) == 1){
-								$nuevaConsulta = "UPDATE usuario SET clave = '$nuevaClave' WHERE usuario = '$usuario'";
-								$resultado = mysqli_query($conexion,$nuevaConsulta);
-							}
-							else{
-								$errores[4] = "La clave original no se encontro";
-							}
-						}
-						else{
-							$errores[4] = "La clave debe tener entre 4 y 10 letras";
-						}
-					}
-					else{
-						$errores[4] = "La clave debe tener solo letras y/o numeros";
-					}
-			}
-			else{
-				$errores[4] = "Debe ingresar la clave nueva";
-			}
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-			/*valido clave nueva REPETIR*/
-			if(!($_POST["nuevaClaveRepetir"] == "")){
-				$nuevaClaveRepetir = $_POST["nuevaClaveRepetir"];
-
-
-					if(ereg("^[a-zA-Z0-9]*", $nuevaClaveRepetir)){
-						if((strlen($nuevaClaveRepetir)>=4)&&(strlen($nuevaClaveRepetir)<=10)){
-							$nuevaClaveRepetir = md5($nuevaClaveRepetir);
-							if($nuevaClaveRepetir == $nuevaClave){
-								/*no pasa nada*/
-							}
-							else{
-								$errores[2] = "La repeticion de la clave no es igual a la clave nueva";
-								echo $nuevaClave;
-								echo $nuevaClaveRepetir;
-							}
-						}
-						else{
-							$errores[2] = "La clave debe tener entre 4 y 10 letras";
-						}
-					}
-					else{
-						$errores[2] = "La clave debe tener solo letras y/o numeros";
-					}
-			}
-			else{
-				$errores[2] = "Debe repetir la clave nueva";
-			}
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-			if(empty($errores)){
-				echo "<script type='text/javascript'> 
-						alert('Usuario Actualizado Correctamente'); 	 
-				 	  </script>";
-					}
-					else{
-						mysqli_close($conexion);
-					}
-
-	}	
 ?>
 
-
-
-
-
-
-
-
-
-
 <html>
-</head>
+<head>
 <link href="../css/bootstrap.css" rel='stylesheet' type='text/css' />
 		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 		<script src="../js/jquery.min.js"></script>
@@ -217,20 +96,46 @@
 					</div>
 					</br></br>
 					<div class="modificar" id="central">
-						<div>
-						<form class="formulario wow bounceIn" data-wow-delay="0.4s" method="POST" action="actualizarClave.php">
-							<h3>Clave anterior</h3><input type="password" name="claveVieja" size="20"></input>
-							<span><?PHP echo "<font color='red'>"."$errores[3]"."</font>"; ?></span>
-							</br>
-							<h3>Clave Nueva</h3><input type="password" name="nuevaClave" size="20"></input></br>
-							<span><?PHP echo "<font color='red'>"."$errores[4]"."</font>"; ?></span>
-							
-							<h3>Repetir Clave Nueva</h3><input type="password" name="nuevaClaveRepetir" size="20"></input></br>
-							<span><?PHP echo "<font color='red'>"."$errores[2]"."</font>"; ?></span>
-							</br>
-							<input class="botonlogin" type="submit" name="claveNueva" value="Cambiar"></input>
+						<form action="" method="post" enctype="multipart/form-data">
+						    <span for="file">Cambi&aacute; tu foto de Perfil:</span></br></br>
+						    <input type="file" name="archivo" id="archivo"></input></br>
+						    <input type="submit" class="botonlogin" name="boton" value="Subir"></input>
 						</form>
-						</div>
+
+						<!--Para subir imagenes-->
+						<div class="resultado">
+								<?PHP
+									if(isset($_POST['boton'])){
+									    // Hacemos una condicion en la que solo permitiremos que se suban imagenes y que sean menores a 20 KB
+									    if ((($_FILES["archivo"]["type"] == "image/jpeg") ||
+									    ($_FILES["archivo"]["type"] == "image/pjpeg") &&
+									    ($_FILES["archivo"]["size"] < 20000))){
+									 
+									    //Si es que hubo un error en la subida, mostrarlo, de la variable $_FILES podemos extraer el valor de [error], que almacena un valor booleano (1 o 0).
+									      if ($_FILES["archivo"]["error"] > 0){
+									        echo $_FILES["archivo"]["error"] . "";
+									      }
+									      else{
+									        // Si no hubo ningun error, hacemos otra condicion para asegurarnos que el archivo no sea repetido
+									        if (file_exists("../imgPerfil/" . $_FILES["archivo"]["name"])){
+									          echo $_FILES["archivo"]["name"] . " ya existe. ";
+									        }
+									        else{
+									         // Si no es un archivo repetido y no hubo ningun error, procedemos a subir a la carpeta /archivos, seguido de eso mostramos la imagen subida
+									          move_uploaded_file($_FILES["archivo"]["tmp_name"],
+									          "../imgPerfil/" . $_FILES["archivo"]["name"]);
+									          echo "Archivo Subido ";
+									          echo "<img src='../imgPerfil/".$_FILES["archivo"]["name"]."' width='400' height='400'>";
+									        }
+									      }
+									    }
+									    else{
+									        // Si el usuario intenta subir algo que no es una imagen o una imagen que pesa mas de 20 KB mostramos este mensaje
+									        echo "Archivo no permitido";
+									    }
+									}
+							?> 
+						</div> <!--div class resultado de la img-->
 					</br></br>
 					</div>
 
