@@ -200,7 +200,7 @@
 							<a href="#" class="btnUsu" onclick="seguidos()">LOS QUE SIGO</a>
 					</div>
 					<div class="modificar" id="central">
-						Perfil de usuario de: <?PHP echo $_SESSION["usuario"]; ?></br></br>
+						Perfil de usuario de <?PHP echo $_SESSION["usuario"]; ?></br></br>
 						<div>
 							<img src="../images/pop.gif" width="600" height="400"></img>
 						</div>

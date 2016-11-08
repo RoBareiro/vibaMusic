@@ -1,8 +1,10 @@
 <?php
 	error_reporting(0);	/*Desactiva cualquier notificacion*/
 	session_start();
-	$_SESSION["registrado"] = "true";
-	
-	echo "<div id='central'>MODIFICAR PERFIL</div>";
-?>
 
+	echo "<a href='actualizarUsuario.php'><div style='color: white;'>Cambiar Nombre De Usuario</div></a></br>";
+	echo "<a href='actualizarClave.php'><div style='color: white;'>Cambiar Clave</div></a></br>";
+	echo "<a href='actualizarFoto.php'><div style='color: white;'>Cambiar Foto De Perfil</div></a></br>";
+	echo "<a href='actualizarUbicacion.php'><div style='color: white;'>Actualizar Ubicaci&oacute;n</div></a></br>";
+
+?>

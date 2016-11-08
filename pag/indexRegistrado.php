@@ -1,7 +1,6 @@
 <?php
 	error_reporting(0);	/*Desactiva cualquier notificacion*/
 	session_start();
-	$_SESSION["registrado"] = "true";
 ?>
 
 <!DOCTYPE HTML>

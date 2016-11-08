@@ -39,7 +39,7 @@
 					}			  
 			}
 			else{
-				$error[1] = "El usuario no esta registrado o alguno de los campos que ingreso es incorrecto</br>";
+				$error[1] = "</br>El usuario no esta registrado o alguno de los campos que ingreso es incorrecto</br>";
 				session_destroy();									
 				$usuario = $_POST["usuario"];	
 				} 

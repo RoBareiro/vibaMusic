@@ -1,7 +1,69 @@
-<?php
+<?PHP
 	error_reporting(0);	/*Desactiva cualquier notificacion*/
 	session_start();
+	include("../inc/conexionbd.php");
 
+
+	$claveVieja = $_POST["claveVieja"];
+	$usuario = $_SESSION["usuario"];
+	$errores = array();
+	
+	if(isset($_POST["entrar"])){
+
+			if(!($_POST["claveVieja"] == "")){
+
+					if(ereg("^[a-zA-Z0-9]*", $claveVieja)){
+						if((strlen($claveVieja)>=4)&&(strlen($claveVieja)<=10)){
+							$claveVieja = md5($claveVieja);
+
+							$busqueda = "SELECT clave FROM usuario WHERE usuario = '$usuario' AND clave = '$claveVieja' ";
+							$accion = mysqli_query($conexion, $busqueda);
+
+							if(mysqli_num_rows($accion) == 1){
+
+								if(!($_POST["nuevaClave"] == "")){
+										$nuevaClave = $_POST["nuevaClave"];	
+
+											if(ereg("^[a-zA-Z0-9]*", $nuevaClave)){
+												if((strlen($nuevaClave)>=4)&&(strlen($nuevaClave)<=10)){
+													$nuevaClave = md5($nuevaClave);
+
+														$actualizacion = "UPDATE usuario SET clave = '$nuevaClave' WHERE usuario = '$usuario' ";
+														$sql = mysqli_query($conexion, $actualizacion);
+														echo "<script type='text/javascript'> 
+							 									alert('Clave Actualizada Correctamente'); 	 
+							 								 </script>";
+												}
+												else{
+													$errores[3] = "La clave debe tener entre 4 y 10 letras";
+												}
+											}
+											else{
+												$errores[3] = "La clave debe tener solo letras y/o numeros";
+											}
+									}
+									else{
+										$errores[3] = "Debe ingresar una clave nueva";
+									}		
+					/*abajo: los else de la clave vieja*/
+							}
+							else{
+								$errores[4] = "La clave original es incorrecta";
+							}
+						}
+						else{
+							$errores[4] = "La clave debe tener entre 4 y 10 letras";
+						}
+					}
+					else{
+						$errores[4] = "La clave debe tener solo letras y/o numeros";
+					}
+			}
+			else{
+				$errores[4] = "Debe ingresar la clave original";
+			}
+
+	}	
 ?>
 
 
@@ -14,82 +76,7 @@
 
 
 <html>
-	<head>
-	<!--Para cambiar solo el contenido central-->
-	<script type="text/javascript" src="../js/jquery-ui-1.8.13.custom.min.js"></script>
-
-	<!--Para validar el navegador ajax-->
-	<script type="text/javascript">
-		
-		function getXMLHTTP() {
-	        var xmlhttp=false;
-	        try{
-	            xmlhttp=new XMLHttpRequest();
-	        }
-	        catch(e)	{
-	            try{
-	                xmlhttp= new ActiveXObject("Microsoft.XMLHTTP");
-	            }
-	            catch(e){
-	                try{
-	                    xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
-	                }
-	                catch(e){
-	                    xmlhttp=false;
-	                }
-	            }
-	        }
-	        return xmlhttp;
-    	}
-
-
-    	//FUNCION QUE MODIFICA LA PARTE DEL PERFIL Y LLAMA AL PHP modificarPerfil
-		function crearPlaylist() {
-		    var strURL="crearPlaylist.php";
-		    var req = getXMLHTTP();
-		    if (req) {
-		        req.onreadystatechange = function() {
-		            if (req.readyState == 4) {
-		                // only if "OK"
-		                if (req.status == 200) {
-		                    document.getElementById('central').innerHTML = req.responseText ;
-		                } else {
-		                    alert("There was a problem while using XMLHTTP:\n" + req.statusText);
-		                }
-		            }
-		        }
-					req.open("GET", strURL, true);
-					req.send();
-				}   
-			} 
-
-
-		//FUNCION QUE ME MUESTRA LOS QUE ME SIGUEN Y ME LLEVA AL PHP seguidores
-		function misPlaylists() {
-		    var strURL="misPlaylists.php";
-		    var req = getXMLHTTP();
-		    if (req) {
-		        req.onreadystatechange = function() {
-		            if (req.readyState == 4) {
-		                // only if "OK"
-		                if (req.status == 200) {
-		                    document.getElementById('central').innerHTML = req.responseText ;
-		                } else {
-		                    alert("There was a problem while using XMLHTTP:\n" + req.statusText);
-		                }
-		            }
-		        }
-					req.open("GET", strURL, true);
-					req.send();
-				}   
-			}
-
-
-
-</script>
-
-
-	<link href="../css/bootstrap.css" rel='stylesheet' type='text/css' />
+<link href="../css/bootstrap.css" rel='stylesheet' type='text/css' />
 		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 		<script src="../js/jquery.min.js"></script>
 		 <!-- Custom Theme files -->
@@ -154,10 +141,10 @@
 						 <nav class="top-nav">
 							<ul class="top-nav">
 								<li><a href="indexRegistrado.php">VIBA!</a></li>
-								<li class="active-join"><a href="playlists.php">Playlists</a></li>
-								<li><a href="usuario.php">Usuario</a></li>
+								<li><a href="playlists.php">Playlists</a></li>
+								<li  class="active-join"><a href="usuario.php">Usuario</a></li>
 								<li><a href="cerrarSesion.php">Cerrar Sesi&oacute;n</a></li>
-								<li><a href="paginaRegistrado.php">USUARIO
+								<li><li><a href="paginaRegistrado.php">USUARIO
 										 <?PHP echo $_SESSION['usuario']; ?>
   									</a>
 								</li>
@@ -175,18 +162,24 @@
 				<div class="container">
 					</br>
 					<div class="opciones bounceIn">
-							<a href="#" class="btnUsu" onclick="crearPlaylist()">CREAR PLAYLIST</button></br>
-							<a href="#" class="btnUsu" onclick="misPlaylists()">MIS PLAYLISTS</a></br>
+							<a href="usuario.php" class="btnUsu">VOLVER AL MEN&Uacute;</a></br>
 					</div>
-					</br>
+					</br></br>
 					<div class="modificar" id="central">
-						PLAYLIST OPERACIONES
+						<div>
+						<form class="formulario wow bounceIn" data-wow-delay="0.4s" method="POST" action="actualizarClave.php">
+							<h3>Clave anterior</h3><input type="password" name="claveVieja" size="20"></input>
+							<span><?PHP echo "<font color='red'>"."$errores[4]"."</font>"; ?></span>
+							</br>
+							<h3>Clave Nueva</h3><input type="password" name="nuevaClave" size="20"></input></br>
+							<span><?PHP echo "<font color='red'>"."$errores[3]"."</font>"; ?></span>
+							</br></br>
+							<input class="botonlogin" type="submit" name="claveNueva" value="Cambiar"></input>
+						</form>
+						</div>
 					</br></br>
-					<div>
-						<img src="../images/playlist.gif" width="785" height="400"></img>
 					</div>
-					</br></br>
-					</div>
+
 				</div>
 			</div>
 			
