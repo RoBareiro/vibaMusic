@@ -2,6 +2,8 @@
 	error_reporting(0);	/*Desactiva cualquier notificacion*/
 	session_start();
 	$_SESSION["registrado"] = "true";
+	include("../inc/conexionbd.php");
+	$usuario = $_SESSION["usuario"];
 ?>
 
 
@@ -200,9 +202,21 @@
 							<a href="#" class="btnUsu" onclick="seguidos()">LOS QUE SIGO</a>
 					</div>
 					<div class="modificar" id="central">
-						Perfil de usuario de <?PHP echo $_SESSION["usuario"]; ?></br></br>
+						Perfil de usuario de <?PHP echo "<div style='color: #77FF6B; text-transform: uppercase;'>".$_SESSION["usuario"]."</div>"?></br>
 						<div>
-							<img src="../images/perfilSombra.jpg" width="400" height="400"></img>
+							<?PHP 
+								$consulta = "SELECT foto_de_perfil FROM usuario WHERE usuario = '$usuario' ";
+								$resultado = mysqli_query($conexion,$consulta);
+
+								if(mysqli_num_rows($resultado) == 1){
+										while($fila = mysqli_fetch_row($resultado)){
+       									echo "<img src='".$fila[0]."' width='40%'></img>";
+       									}
+								}
+								else{
+									echo "<img src='../imgPerfil/perfilSombra.jpg' width='40%'></img>";
+								}
+							?>			
 						</div>
 
 					</br></br>

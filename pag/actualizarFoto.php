@@ -2,6 +2,7 @@
 	error_reporting(0);	/*Desactiva cualquier notificacion*/
 	session_start();
 	include("../inc/conexionbd.php");
+	$usuario = $_SESSION["usuario"];
 ?>
 
 <html>
@@ -99,11 +100,9 @@
 						<form action="" method="post" enctype="multipart/form-data">
 						    <span for="file">Cambi&aacute; tu foto de Perfil:</span></br></br>
 						    <input type="file" name="archivo" id="archivo"></input></br>
-						    <input type="submit" class="botonlogin" name="boton" value="Subir"></input>
-						</form>
 
 						<!--Para subir imagenes-->
-						<div class="resultado">
+						<div>
 								<?PHP
 									if(isset($_POST['boton'])){
 									    // Hacemos una condicion en la que solo permitiremos que se suban imagenes y que sean menores a 20 KB
@@ -118,14 +117,20 @@
 									      else{
 									        // Si no hubo ningun error, hacemos otra condicion para asegurarnos que el archivo no sea repetido
 									        if (file_exists("../imgPerfil/" . $_FILES["archivo"]["name"])){
-									          echo $_FILES["archivo"]["name"] . " ya existe. ";
+									          echo $_FILES["archivo"]["name"] . " ya existe una imagen con el mismo nombre de archivo. ";
 									        }
 									        else{
 									         // Si no es un archivo repetido y no hubo ningun error, procedemos a subir a la carpeta /archivos, seguido de eso mostramos la imagen subida
 									          move_uploaded_file($_FILES["archivo"]["tmp_name"],
 									          "../imgPerfil/" . $_FILES["archivo"]["name"]);
-									          echo "Archivo Subido ";
-									          echo "<img src='../imgPerfil/".$_FILES["archivo"]["name"]."' width='400' height='400'>";
+									          echo "<div style='color: #77FF6B;'>Foto Actualizada: </div>";
+
+									          $rutaImagen = "../imgPerfil/".$_FILES['archivo']['name'];
+
+									          echo "<img src='../imgPerfil/".$_FILES["archivo"]["name"]."' width='40%'>";
+
+									          $sql = "UPDATE usuario SET foto_de_perfil = '$rutaImagen' WHERE usuario = '$usuario'";
+									          $accion = mysqli_query($conexion,$sql);
 									        }
 									      }
 									    }
@@ -136,6 +141,10 @@
 									}
 							?> 
 						</div> <!--div class resultado de la img-->
+						</br>
+						<input type="submit" class="botonlogin" name="boton" value="Actualizar Foto"></input>
+						</form>
+
 					</br></br>
 					</div>
 
