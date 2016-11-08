@@ -97,13 +97,31 @@
 					</div>
 					</br></br>
 					<div class="modificar" id="central">
-						<form action="" method="post" enctype="multipart/form-data">
-						    <span for="file">Cambi&aacute; tu foto de Perfil:</span></br></br>
-						    <input type="file" name="archivo" id="archivo"></input></br>
+					<?PHP
+						echo "<form action='#' method='POST' enctype='multipart/form-data'>";
+						echo "<span for='file'>Cambi&aacute; tu foto de Perfil:</span></br></br>";
+						echo "<input type='file' name='archivo' id='archivo'></input></br>";
 
-						<!--Para subir imagenes-->
-						<div>
-								<?PHP
+						/*Para subir imagenes*/
+						echo "<div class='modificar2'>";
+
+
+									/*foto antigua*/
+									$consulta = "SELECT foto_de_perfil FROM usuario WHERE usuario = '$usuario' ";
+									$resultado = mysqli_query($conexion,$consulta);
+
+									if(mysqli_num_rows($resultado) == 1){
+											while($fila = mysqli_fetch_row($resultado)){
+											echo "<div style='color: #77FF6B;'>Mi Foto:";
+	       									echo "<div><img src='".$fila[0]."' width='40%'></img></div></div>";
+	       									}
+									}
+									else{
+										echo "<img src='../imgPerfil/perfilSombra.jpg' width='40%'></img>";
+									}
+
+
+
 									if(isset($_POST['boton'])){
 									    // Hacemos una condicion en la que solo permitiremos que se suban imagenes y que sean menores a 20 KB
 									    if ((($_FILES["archivo"]["type"] == "image/jpeg") ||
@@ -121,13 +139,15 @@
 									        }
 									        else{
 									         // Si no es un archivo repetido y no hubo ningun error, procedemos a subir a la carpeta /archivos, seguido de eso mostramos la imagen subida
+									          $numeroAleatorio =  rand(0,1000000);	/*LO AGREGO PARA QUE NO SE REPITAN LOS NOMBRES DE LAS IMG*/
+									          
 									          move_uploaded_file($_FILES["archivo"]["tmp_name"],
-									          "../imgPerfil/" . $_FILES["archivo"]["name"]);
-									          echo "<div style='color: #77FF6B;'>Foto Actualizada: </div>";
+									          "../imgPerfil/". $numeroAleatorio . $_FILES["archivo"]["name"]);
+									          echo "<div style='color: #77FF6B;'>Foto Actualizada:";
 
-									          $rutaImagen = "../imgPerfil/".$_FILES['archivo']['name'];
+									          $rutaImagen = "../imgPerfil/". $numeroAleatorio . $_FILES['archivo']['name'];
 
-									          echo "<img src='../imgPerfil/".$_FILES["archivo"]["name"]."' width='40%'>";
+									          echo "<div><img src='".$rutaImagen."' width='40%'></img></div></div>";
 
 									          $sql = "UPDATE usuario SET foto_de_perfil = '$rutaImagen' WHERE usuario = '$usuario'";
 									          $accion = mysqli_query($conexion,$sql);
@@ -136,15 +156,14 @@
 									    }
 									    else{
 									        // Si el usuario intenta subir algo que no es una imagen o una imagen que pesa mas de 20 KB mostramos este mensaje
-									        echo "Archivo no permitido";
+									        echo "</br>Archivo no permitido o Quiere subir una foto de perfil igual a la anterior";
 									    }
 									}
-							?> 
-						</div> <!--div class resultado de la img-->
-						</br>
-						<input type="submit" class="botonlogin" name="boton" value="Actualizar Foto"></input>
-						</form>
-
+						echo "</div>"; /*div class resultado de la img*/
+						echo "</br>";
+						echo "<input type='submit' class='botonlogin' name='boton' value='Actualizar Foto'></input>
+						</form>";
+						?> 
 					</br></br>
 					</div>
 

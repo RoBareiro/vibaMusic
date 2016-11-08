@@ -202,7 +202,7 @@
 							<a href="#" class="btnUsu" onclick="seguidos()">LOS QUE SIGO</a>
 					</div>
 					<div class="modificar" id="central">
-						Perfil de usuario de <?PHP echo "<div style='color: #77FF6B; text-transform: uppercase;'>".$_SESSION["usuario"]."</div>"?></br>
+						Perfil de usuario de <?PHP echo "</br></br><div style='color: #77FF6B; text-transform: uppercase; '>".$_SESSION["usuario"]."</div>"?></br>
 						<div>
 							<?PHP 
 								$consulta = "SELECT foto_de_perfil FROM usuario WHERE usuario = '$usuario' ";
