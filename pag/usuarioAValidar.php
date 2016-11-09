@@ -82,8 +82,15 @@
 				<div class="container">
 
 				<?PHP
-					echo "<div style='margin-top:10%; margin-left:0%; margin-bottom: 10%; padding-top: 5%; padding-bottom: 5%; background:rgba(114, 189, 163, 0.90); font-size:50px; text-align: center; color: black;' <br>Usuario Registrado exitosamente.</br> Recuerde Activar su cuenta a traves de su Email. Para ingresar a su sesi&oacute;n de Viba haga click <a href='signin.php' style='color: #EDEDED;  font-style:italic';>AQUI</a><br>
-						<br></div>";
+					echo "<div style='margin-top:10%; margin-left:0%; margin-bottom: 10%; padding-top: 5%; padding-bottom: 5%; background:rgba(114, 189, 163, 0.90); font-size:50px; text-align: center; color: black;' <br>Usuario Registrado exitosamente.</br> Recuerde Activar su cuenta a traves de su Email. 
+
+						<a href='https://accounts.google.com/ServiceLogin?service=mail&passive=true&rm=false&continue=https://mail.google.com/mail/?rli%3D1vlkdijsfcagh%26rld%3D1&scc=1&ltmpl=default&ltmplcache=2&emr=1&osid=1#inbox' style='color: #EDEDED;  font-style:italic';>GMAIL</a><br>
+
+						<a href='https://login.live.com/login.srf?wa=wsignin1.0&rpsnv=12&ct=1420032163&rver=6.4.6456.0&wp=MBI_SSL_SHARED&wreply=https:%2F%2Fmail.live.com%2Fdefault.aspx%3Fmkt%3Des&lc=2058&id=64855&mkt=es-US&cbcxt=mai' style='color: #EDEDED;  font-style:italic';>HOTMAIL</a><br>
+						
+						<a href='https://login.yahoo.com/config/mail?&.src=ym&.intl=ar' style='color: #EDEDED;  font-style:italic';>YAHOO</a><br>
+
+						</div>";
 				?>   					
 			
 				</div>

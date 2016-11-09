@@ -11,14 +11,35 @@
 			$consulta = "SELECT * FROM usuario WHERE usuario = '$usuario' AND clave= '$clave'";
 			$resultado = mysqli_query($conexion,$consulta);
 			$contador = mysqli_num_rows($resultado);
-	
+
 
 			if($contador == 1){
 				//Ahora busco que la activacion sea 1 para que pueda entrar
-				$otraConsulta = "SELECT * FROM usuario WHERE clave = '$clave' AND estado_activo = '1'";
+				$otraConsulta = "SELECT * FROM usuario WHERE usuario = '$usuario' AND clave = '$clave' AND estado_activo = '1'";
 				$consultaEstadoActivo = mysqli_query($conexion, $otraConsulta);
 
 					if(mysqli_num_rows($consultaEstadoActivo) == 1){
+
+						/*para saber si entra como admin o como usuario*/
+							$consultaSql = "SELECT * FROM usuario WHERE usuario = '$usuario' AND rol = 'admin' ";
+							$ejecuto = mysqli_query($conexion, $consultaSql);
+							
+							if(mysqli_num_rows($ejecuto)==1){ /*pertenece a admin*/
+								session_start();
+								$_SESSION["registrado"] = "true";
+								$_SESSION["usuario"] = $usuario;
+											
+								if ($_POST['recordar']){
+									setcookie("usuario", $_POST['usuario'] , time()+(60*60*20),"/");
+								}
+								else{
+						  			setcookie("usuario","",time()-3600,"/");
+								}
+
+								header("Location:paginaAdmin.php");
+							}
+							/*pertenece a usuario -> */
+							else{ 
 								session_start();
 								$_SESSION["registrado"] = "true";
 								$_SESSION["usuario"] = $usuario;
@@ -31,6 +52,7 @@
 								}
 
 								header("Location:paginaRegistrado.php"); 
+						}
 					}
 					else{
 						$error[1] = "</br>El usuario no ha sido activado.</br> Activelo desde su Email</a>";

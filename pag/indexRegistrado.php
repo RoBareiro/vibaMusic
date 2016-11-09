@@ -77,10 +77,9 @@
 								<li><a href="playlists.php">Playlists</a></li>
 								<li><a href="usuario.php">Usuario</a></li>
 								<li class="page-scroll"><a href="cerrarSesion.php">Cerrar Sesi&oacute;n</a></li>
-								<li><li><a href="paginaRegistrado.php">USUARIO
+								<li><<a href="paginaRegistrado.php">USUARIO
 										 <?PHP echo $_SESSION['usuario']; ?>
   									</a>
-								</li>
 								</li>
 							</ul>
 						</nav>

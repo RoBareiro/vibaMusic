@@ -1,8 +1,8 @@
 <?php
 	error_reporting(0);	/*Desactiva cualquier notificacion*/
 	session_start();
-
-
+	$usuario = $_SESSION["usuario"];
+	include("../inc/conexionbd.php");
 ?>
 
 
@@ -80,20 +80,10 @@
 						<!----start-top-nav---->
 						 <nav class="top-nav">
 							<ul class="top-nav">
-								<li><a href="indexRegistrado.php">VIBA!</a></li>
-								<li><a href="playlists.php">Playlists</a></li>
-								<li><a href="usuario.php">Usuario</a></li>
-								<li><a href="cerrarSesion.php">Cerrar Sesi&oacute;n</a></li>
-								<li><?PHP echo "<div style= 'color: #FFF;
-												padding: 0.84em 3.0804em;
-												background: rgba(166, 203, 163, 0.55);
-												font-size: 1.20em;
-												text-align: center;
-												text-transform: uppercase;
-												position: relative'>
-												HOLA
-												".$_SESSION["usuario"]."</div>" ?>
-								</li>
+								<li><a href="reportes.php">Reportes</a></li>
+								<li><a href="banneados.php">Banneados</a></li>
+								<li><a href="usuarioAdmin.php">Administrador</a></li>
+								<li><a href="cerrarSesion.php">Salir</a></li>
 							</ul>
 							<a href="#" id="pull"><img src="images/nav-icon.png" title="menu" /></a>
 						</nav>
@@ -108,14 +98,26 @@
 				<div class="container">
 				</br>
 							<div class="inicioRegistrado">
-								Una experiencia <div style="color: #77FF6B;">&Uacute;NICA!</div></br> Aca vas a encontrar toda
-								la m&uacute;sica que quer&eacute;s escuchar para cada momento,</br> cada estado de &aacute;nimo...
-								Lo que se te ocurra para musicalizar tus momentos!</br></br> Nuestra prioridad es</br><div style="color: #77FF6B;">HACERTE VOLAR UNOS CUANTOS MINUTOS O... UNAS CUANTAS HORAS!</div>
 								</br></br>
-								<img src="../images/dj.gif"></img></br></br>
-								Tenemos todas las playlist que te imagines.</br>
-								Pod&eacute;s interactuar con otras Playlist, escucharlas y si te gustan, seguirlas!!
-								</br></br> Empez&aacute; a explorar la p&aacute;gina, investig&aacute; cada rinc&oacute;n.. Te vas a <div style="color: #77FF6B;">SORPRENDER!</div></br>
+								AMINISTRADOR</br>
+								<div style="color: #77FF6B;"><?PHP echo $usuario; ?></div></br>
+								</br>
+								<div>
+									<?PHP 
+										$consulta = "SELECT foto_de_perfil FROM usuario WHERE usuario = '$usuario' ";
+										$resultado = mysqli_query($conexion,$consulta);
+
+										if(mysqli_num_rows($resultado) == 1){
+												while($fila = mysqli_fetch_row($resultado)){
+		       									echo "<img src='".$fila[0]."' width='40%'></img>";
+		       									}
+										}
+										else{
+											echo "<img src='../imgPerfil/perfilSombra.jpg' width='40%'></img>";
+										}
+									?>			
+								</div>
+								</br></br>
 							</div>
 				</br>
 				</div>

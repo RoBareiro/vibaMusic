@@ -177,9 +177,9 @@
 							<ul class="top-nav">
 								<li><a href="indexRegistrado.php">VIBA!</a></li>
 								<li><a href="playlists.php">Playlists</a></li>
-								<li  class="active-join"><a href="usuario.php">Usuario</a></li>
+								<li class="active-join"><a href="usuario.php">Usuario</a></li>
 								<li><a href="cerrarSesion.php">Cerrar Sesi&oacute;n</a></li>
-								<li><li><a href="paginaRegistrado.php">USUARIO
+								<li><a href="paginaRegistrado.php">USUARIO
 										 <?PHP echo $_SESSION['usuario']; ?>
   									</a>
 								</li>

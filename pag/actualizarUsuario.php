@@ -18,7 +18,7 @@
 	 							$segundaConsulta = "SELECT usuario FROM usuario WHERE usuario = '$usuarioNuevo'";
 	 							$segundoResultado = mysqli_query($conexion,$segundaConsulta);
 
-	 							if(mysqli_num_rows($segundaConsulta) == 0){
+	 							if(mysqli_num_rows($segundoResultado) == 0){
 		 							$actualizoUsuario = "UPDATE usuario SET usuario = '$usuarioNuevo' WHERE usuario = '$usuarioViejo'";
 		 							mysqli_query($conexion,$actualizoUsuario);
 
@@ -126,7 +126,7 @@
 								<li><a href="playlists.php">Playlists</a></li>
 								<li  class="active-join"><a href="usuario.php">Usuario</a></li>
 								<li><a href="cerrarSesion.php">Cerrar Sesi&oacute;n</a></li>
-								<li><li><a href="paginaRegistrado.php">USUARIO
+								<li><a href="paginaRegistrado.php">USUARIO
 										 <?PHP echo $_SESSION['usuario']; ?>
   									</a>
 								</li>
