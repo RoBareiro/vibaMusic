@@ -1,9 +1,8 @@
 <?php
 	error_reporting(0);	/*Desactiva cualquier notificacion*/
 	session_start();
-	$_SESSION["registrado"] = "true";
-	include("../inc/conexionbd.php");
 	$usuario = $_SESSION["usuario"];
+	include("../inc/conexionbd.php");
 ?>
 
 
@@ -17,11 +16,8 @@
 
 <html>
 	<head>
-	<!--Para cambiar solo el contenido central-->
-	<script type="text/javascript" src="../js/jquery-ui-1.8.13.custom.min.js"></script>
 
-	<!--Para validar el navegador ajax-->
-	<script type="text/javascript">
+		<script type="text/javascript">
 		
 		function getXMLHTTP() {
 	        var xmlhttp=false;
@@ -46,8 +42,8 @@
 
 
     	//FUNCION QUE MODIFICA LA PARTE DEL PERFIL Y LLAMA AL PHP modificarPerfil
-		function modificarPerfil() {
-		    var strURL="modificarPerfilAdmin.php";
+		function banneados() {
+		    var strURL="usuariosBanneados.php";
 		    var req = getXMLHTTP();
 		    if (req) {
 		        req.onreadystatechange = function() {
@@ -64,6 +60,27 @@
 					req.send();
 				}   
 			} 
+
+
+		//FUNCION QUE ME MUESTRA LOS QUE ME SIGUEN Y ME LLEVA AL PHP seguidores
+		function porPais() {
+		    var strURL="porPais.php";
+		    var req = getXMLHTTP();
+		    if (req) {
+		        req.onreadystatechange = function() {
+		            if (req.readyState == 4) {
+		                // only if "OK"
+		                if (req.status == 200) {
+		                    document.getElementById('central').innerHTML = req.responseText ;
+		                } else {
+		                    alert("There was a problem while using XMLHTTP:\n" + req.statusText);
+		                }
+		            }
+		        }
+					req.open("GET", strURL, true);
+					req.send();
+				}   
+			}
 
 </script>
 
@@ -133,13 +150,9 @@
 						 <nav class="top-nav">
 							<ul class="top-nav">
 								<li><a href="reportes.php">Reportes</a></li>
-								<li><a href="banneados.php">Usuarios</a></li>
-								<li class="active-join"><a href="usuarioAdmin.php">ADMINISTRADOR</a></li>
+								<li class="active-join"><a href="banneados.php">Usuarios</a></li>
+								<li><a href="usuarioAdmin.php">Administrador</a></li>
 								<li><a href="cerrarSesion.php">Salir</a></li>
-								<li><a href="paginaAdmin.php">
-										 <?PHP echo $_SESSION['usuario']; ?>
-  									</a>
-								</li>
 							</ul>
 							<a href="#" id="pull"><img src="images/nav-icon.png" title="menu" /></a>
 						</nav>
@@ -152,33 +165,18 @@
 			<!---- banner-info ---->
 			<div class="banner-info">
 				<div class="container">
-					</br>
+				</br>
 					<div class="opciones bounceIn">
-							<a href="#" class="btnUsu" onclick="modificarPerfil()">MODIFICAR PERFIL</a></br>
+							<a href="#" class="btnUsu" onclick="banneados()">BANNEADOS</a></br>
+							<a href="#" class="btnUsu" onclick="porPais()">POR PAIS</a>
 					</div>
 					</br>
-					</br>
 					<div class="modificar" id="central">
-						Pefil de Administrador <?PHP echo "</br></br><div style='color: #77FF6B; text-transform: uppercase; '>".$_SESSION["usuario"]."</div>"?></br>
-						<div>
-							<?PHP 
-								$consulta = "SELECT foto_de_perfil FROM usuario WHERE usuario = '$usuario' ";
-								$resultado = mysqli_query($conexion,$consulta);
 
-								if(mysqli_num_rows($resultado) == 1){
-										while($fila = mysqli_fetch_row($resultado)){
-       									echo "<img src='".$fila[0]."' width='40%'></img>";
-       									}
-								}
-								else{
-									echo "<img src='../imgPerfil/perfilSombra.jpg' width='40%'></img>";
-								}
-							?>			
-						</div>
 
 					</br></br>
 					</div>
-
+				</br>
 				</div>
 			</div>
 			
