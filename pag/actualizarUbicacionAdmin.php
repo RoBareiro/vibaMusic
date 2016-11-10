@@ -1,95 +1,107 @@
-<?php
+<?PHP
 	error_reporting(0);	/*Desactiva cualquier notificacion*/
 	session_start();
+	include("../inc/conexionbd.php");
+
 
 ?>
 
-
-
-
-
-
-
-
-
-
 <html>
-	<head>
-	<!--Para cambiar solo el contenido central-->
-	<script type="text/javascript" src="../js/jquery-ui-1.8.13.custom.min.js"></script>
+<head>
 
-	<!--Para validar el navegador ajax-->
-	<script type="text/javascript">
-		
-		function getXMLHTTP() {
-	        var xmlhttp=false;
-	        try{
-	            xmlhttp=new XMLHttpRequest();
-	        }
-	        catch(e)	{
-	            try{
-	                xmlhttp= new ActiveXObject("Microsoft.XMLHTTP");
-	            }
-	            catch(e){
-	                try{
-	                    xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
-	                }
-	                catch(e){
-	                    xmlhttp=false;
-	                }
-	            }
-	        }
-	        return xmlhttp;
-    	}
+<!--Para el google maps 
+	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=true&key=AIzaSyDVf4hQbFybBwz2POTYdYKHGeq70HXJKBM"></script>
+-->
+
+<!-- Se determina y escribe la localizacion -->
+<script type="text/javascript">
+	if(navigator.geolocation){
+		navigator.geolocation.getCurrentPosition(mostrarUbicacion);
+	}
+	else{
+		alert("¡Error! Este navegador no soporta la Geolocalización.");
+	}
+
+function mostrarUbicacion(position){
+	var latitud = position.coords.latitude;
+	var longitud = position.coords.longitude;
+	var exactitud = position.coords.accuracy;	
+	var div = document.getElementById("ubicacion");
+
+	var div = document.getElementById("ubicacion");
+	div.innerHTML = "<br>Latitud: " + latitud + "<br>Longitud: " + longitud;
+		}	
 
 
-    	//FUNCION QUE MODIFICA LA PARTE DEL PERFIL Y LLAMA AL PHP modificarPerfil
-		function crearPlaylist() {
-		    var strURL="crearPlaylist.php";
-		    var req = getXMLHTTP();
-		    if (req) {
-		        req.onreadystatechange = function() {
-		            if (req.readyState == 4) {
-		                // only if "OK"
-		                if (req.status == 200) {
-		                    document.getElementById('central').innerHTML = req.responseText ;
-		                } else {
-		                    alert("There was a problem while using XMLHTTP:\n" + req.statusText);
-		                }
-		            }
-		        }
-					req.open("GET", strURL, true);
-					req.send();
-				}   
-			} 
+function refrescarUbicacion(){	
+	navigator.geolocation.watchPosition(mostrarUbicacion);
+	}	
+</script>
 
+<!-- Se escribe un mapa con la localizacion anterior-->
 
-		//FUNCION QUE ME MUESTRA LOS QUE ME SIGUEN Y ME LLEVA AL PHP seguidores
-		function misPlaylists() {
-		    var strURL="misPlaylists.php";
-		    var req = getXMLHTTP();
-		    if (req) {
-		        req.onreadystatechange = function() {
-		            if (req.readyState == 4) {
-		                // only if "OK"
-		                if (req.status == 200) {
-		                    document.getElementById('central').innerHTML = req.responseText ;
-		                } else {
-		                    alert("There was a problem while using XMLHTTP:\n" + req.statusText);
-		                }
-		            }
-		        }
-					req.open("GET", strURL, true);
-					req.send();
-				}   
-			}
+<script src="http://maps.google.com/maps/api/js?sensor=false&key=AIzaSyDVf4hQbFybBwz2POTYdYKHGeq70HXJKBM"></script>
+<!--EN ESTA LINEA HAY QUE CONSEGUIR LA KEY DE GOOGLE API PARA QUE SE PUEDAN VER LOS MAPAS!!!!!!!!!!!!!!!!!!!!-->
+
+<script type="text/javascript">
+var x=document.getElementById("demo");
+
+function cargarmap(){
+	navigator.geolocation.getCurrentPosition(showPosition,showError);
+
+function showPosition(position){
+  lat=position.coords.latitude;
+  lon=position.coords.longitude;
+  latlon=new google.maps.LatLng(lat, lon)
+  mapholder=document.getElementById('mapholder')
+  mapholder.style.height='50%';
+  mapholder.style.width='100%';
+
+  var myOptions={
+	  center:latlon,
+	  zoom:17,
+	  mapTypeId:google.maps.MapTypeId.ROADMAP,
+	  mapTypeControl:false,
+	  navigationControlOptions:{
+	  style:google.maps.NavigationControlStyle.SMALL
+  			}
+  };
+
+  var map=new google.maps.Map(document.getElementById("mapholder"),myOptions);
+  var marker=new google.maps.Marker({
+  	position:latlon,
+  	map:map,
+  	title:"Estas Aqui!",
+  	animation: google.maps.Animation.Drop
+  });
+  }
+
+function showError(error)
+  {
+  switch(error.code) 
+    {
+    case error.PERMISSION_DENIED:
+      x.innerHTML="Denegada la peticion de Geolocalización en el navegador."
+      break;
+    case error.POSITION_UNAVAILABLE:
+      x.innerHTML="La información de la localización no esta disponible."
+      break;
+    case error.TIMEOUT:
+      x.innerHTML="El tiempo de petición ha expirado."
+      break;
+    case error.UNKNOWN_ERROR:
+      x.innerHTML="Ha ocurrido un error desconocido."
+      break;
+    }
+  }}
 
 
 
 </script>
 
+<!--google maps-->
 
-	<link href="../css/bootstrap.css" rel='stylesheet' type='text/css' />
+<link href="../css/bootstrap.css" rel='stylesheet' type='text/css' />
 		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 		<script src="../js/jquery.min.js"></script>
 		 <!-- Custom Theme files -->
@@ -143,7 +155,7 @@
 	<title>Viba Music!</title>
 	</head>
 
-<body>
+<body onload="loadMap()">
 		<div class="bg">
 		<!----- start-header---->
 		<div class="container">
@@ -153,11 +165,11 @@
 						<!----start-top-nav---->
 						 <nav class="top-nav">
 							<ul class="top-nav">
-								<li><a href="indexRegistrado.php">VIBA!</a></li>
-								<li class="active-join"><a href="playlists.php">Playlists</a></li>
-								<li><a href="usuario.php">Usuario</a></li>
-								<li><a href="cerrarSesion.php">Cerrar Sesi&oacute;n</a></li>
-								<li><a href="paginaRegistrado.php">USUARIO
+								<li><a href="reportes.php">Reportes</a></li>
+								<li><a href="banneados.php">Banneados</a></li>
+								<li class="active-join"><a href="usuarioAdmin.php">Administrador</a></li>
+								<li><a href="cerrarSesion.php">Salir</a></li>
+								<li><a href="paginaAdmin.php">
 										 <?PHP echo $_SESSION['usuario']; ?>
   									</a>
 								</li>
@@ -175,18 +187,27 @@
 				<div class="container">
 					</br>
 					<div class="opciones bounceIn">
-							<a href="#" class="btnUsu" onclick="crearPlaylist()">CREAR PLAYLIST</button></br>
-							<a href="#" class="btnUsu" onclick="misPlaylists()">MIS PLAYLISTS</a></br>
+							<a href="usuarioAdmin.php" class="btnUsu">VOLVER AL MEN&Uacute;</a></br>
 					</div>
 					</br>
-					<div class="modificar" id="central">
-						PLAYLIST OPERACIONES
-					</br></br>
-					<div>
-						<img src="../images/playlist.gif" width="785" height="400"></img>
-					</div>
-					</br></br>
-					</div>
+					</br>
+						<div class="modificar" id="central">
+							<span>Mi Ubicaci&oacute;n</span></br></br>
+							
+							<div id="demo"></div>	<!--demo id es para mostrar los errores que puedan llegar a salir-->
+							<div id="mapholder">
+								<!--ACA APARECE EL MAPA, SE TOMA EL ID mapholder y se trabaja sobre el-->
+							</div>
+							
+							<div id="ubicacion">
+					
+							</div>
+							</br>
+								<button class="botonlogin" onclick="cargarmap()">Cargar mapa</button>
+							</div>
+						</br>
+						</div> <!--del class modificar central-->
+
 				</div>
 			</div>
 			

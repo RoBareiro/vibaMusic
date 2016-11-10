@@ -1,7 +1,7 @@
 html, body{
   	font-family: 'Roboto', sans-serif;
     font-size: 100%;
-  	 background: black;
+  	background: black;
 }
 body a{
 	transition:0.5s all;
@@ -1604,12 +1604,62 @@ a.contact-me:hover{
 	padding: 0.84em 1.50em;
 }
 
+.modificar2{
+	text-align: left;
+	float: left;
+	height: auto;
+	padding: 0.84em 1.50em;
+}
+
+
 /*incioRegistrado.php*/
 .inicioRegistrado{
 	font-size: 1.50em;
 	color: white;
 	background:rgba(00, 00, 00, 0.80);
 	text-align: center;
-	padding: 0.84em 1.50em;
+	padding:0.00em 1.50em;
 
+}
+
+/*Botones de los seguidores*/
+.botonSeguidores{
+	width: 100%;
+	height: 100%;
+	font-size: 1.00em;
+    cursor: pointer;
+    color:white;
+    padding: 2px;
+    margin-top: 3px;
+    border: 1px solid white;
+    background: black;
+    text-transform: uppercase;
+}
+
+.botonSeguidores:hover {
+    background: red;
+    color:white;
+    border: 1px solid red;
+}
+
+/*Para la tabla de seguidores*/
+.seguidores{
+	background:rgba(45, 145, 45, 0.70);
+	border-spacing: 3px;
+    border-collapse: separate;
+    padding: 1px;
+    border: #bef4be 1px solid;
+    width: 70%;
+    height: auto;
+	font-size: 1.00em;
+}
+
+.trSeguidores{
+	text-align: center;
+	color: white;
+	border: #bef4be 1px solid;
+}
+
+.tdSeguidores{
+	border: #bef4be 1px solid;
 }

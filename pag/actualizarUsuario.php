@@ -1,8 +1,50 @@
-<?php
+<?PHP
 	error_reporting(0);	/*Desactiva cualquier notificacion*/
 	session_start();
+	include("../inc/conexionbd.php");
+		/*validaciones como el login*/
 
+	$usuarioViejo = $_SESSION["usuario"];
+	
+	if(isset($_POST["usuarioNuevo"])){
+			$errores = array();
 
+			if(!($_POST["nuevoUsuario"] == "")){
+				$usuarioNuevo = $_POST["nuevoUsuario"];
+					
+					if(ereg("^[a-zA-Z0-9_-]*", $usuarioNuevo)){
+						if((strlen($usuarioNuevo)>=4)&&(strlen($usuarioNuevo)<=10)){
+
+	 							$segundaConsulta = "SELECT usuario FROM usuario WHERE usuario = '$usuarioNuevo'";
+	 							$segundoResultado = mysqli_query($conexion,$segundaConsulta);
+
+	 							if(mysqli_num_rows($segundoResultado) == 0){
+		 							$actualizoUsuario = "UPDATE usuario SET usuario = '$usuarioNuevo' WHERE usuario = '$usuarioViejo'";
+		 							mysqli_query($conexion,$actualizoUsuario);
+
+		 							$_SESSION["usuario"] = $usuarioNuevo;
+		 							echo "<script type='text/javascript'> 
+		 									alert('Usuario Actualizado Correctamente'); 	 
+		 								 </script>";
+	 							}
+	 							else{
+	 								$errores[3] = "Nombre de usuario ya utilizado, elija otro nombre";
+	 							}
+						}
+						else{
+							$errores[3] = "El usuario debe tener entre 4 y 10 letras";
+							}
+					}
+					else{
+						$errores[3] = "El usuario debe tener solo letras y/o numeros";
+						}
+			}
+			else{
+				$errores[3] = "Debe ingresar un usuario";
+				}
+
+	}
+	
 ?>
 
 
@@ -15,8 +57,8 @@
 
 
 <html>
-	<head>
-	<link href="../css/bootstrap.css" rel='stylesheet' type='text/css' />
+<head>
+<link href="../css/bootstrap.css" rel='stylesheet' type='text/css' />
 		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 		<script src="../js/jquery.min.js"></script>
 		 <!-- Custom Theme files -->
@@ -82,17 +124,11 @@
 							<ul class="top-nav">
 								<li><a href="indexRegistrado.php">VIBA!</a></li>
 								<li><a href="playlists.php">Playlists</a></li>
-								<li><a href="usuario.php">Usuario</a></li>
+								<li  class="active-join"><a href="usuario.php">Usuario</a></li>
 								<li><a href="cerrarSesion.php">Cerrar Sesi&oacute;n</a></li>
-								<li><?PHP echo "<div style= 'color: #FFF;
-												padding: 0.84em 3.0804em;
-												background: rgba(166, 203, 163, 0.55);
-												font-size: 1.20em;
-												text-align: center;
-												text-transform: uppercase;
-												position: relative'>
-												HOLA
-												".$_SESSION["usuario"]."</div>" ?>
+								<li><a href="paginaRegistrado.php">USUARIO
+										 <?PHP echo $_SESSION['usuario']; ?>
+  									</a>
 								</li>
 							</ul>
 							<a href="#" id="pull"><img src="images/nav-icon.png" title="menu" /></a>
@@ -106,19 +142,28 @@
 			<!---- banner-info ---->
 			<div class="banner-info">
 				<div class="container">
-				</br>
-							<div class="inicioRegistrado">
-							</br>
-								Una experiencia <div style="color: #77FF6B;">&Uacute;NICA!</div></br> Aca vas a encontrar toda
-								la m&uacute;sica que quer&eacute;s escuchar para cada momento,</br> cada estado de &aacute;nimo...
-								Lo que se te ocurra para musicalizar tus momentos!</br></br> Nuestra prioridad es</br><div style="color: #77FF6B;">HACERTE VOLAR UNOS CUANTOS MINUTOS O... UNAS CUANTAS HORAS!</div>
-								</br></br>
-								<img src="../images/dj.gif"></img></br></br>
-								Tenemos todas las playlist que te imagines.</br>
-								Pod&eacute;s interactuar con otras Playlist, escucharlas y si te gustan, seguirlas!!
-								</br></br> Empez&aacute; a explorar la p&aacute;gina, investig&aacute; cada rinc&oacute;n.. Te vas a <div style="color: #77FF6B;">SORPRENDER!</div></br>
+					</br>
+					<div class="opciones bounceIn">
+							<a href="usuario.php" class="btnUsu">VOLVER AL MEN&Uacute;</a></br>
+					</div>
+					</br></br>
+					<div class="modificar" id="central">
+						<div>
+						<form class="formulario wow bounceIn" data-wow-delay="0.4s" method="POST" action="actualizarUsuario.php">
+							<h3>Usuario anterior</h3>
+							<div style="color: white; font-size: 1.50em;">
+								<?PHP echo $_SESSION['usuario'] ?>
 							</div>
-				</br>
+							</br>
+							<h3>Usuario Nuevo</h3><input type="text" name="nuevoUsuario" size="20"></input></br>
+							<span><?PHP echo "<font color='red'>"."$errores[3]"."</font>"; ?></span>
+							</br></br>
+							<input class="botonlogin" type="submit" name="usuarioNuevo" value="Cambiar"></input>
+						</form>
+						</div>
+					</br></br>
+					</div>
+
 				</div>
 			</div>
 			

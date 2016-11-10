@@ -1,3 +1,19 @@
+<?php
+	error_reporting(0);	/*Desactiva cualquier notificacion*/
+	session_start();
+	$usuario = $_SESSION["usuario"];
+	include("../inc/conexionbd.php");
+?>
+
+
+
+
+
+
+
+
+
+
 <html>
 	<head>
 	<link href="../css/bootstrap.css" rel='stylesheet' type='text/css' />
@@ -60,14 +76,14 @@
 		<div class="container">
 			<div id="home" class="header wow bounceInDown" data-wow-delay="0.4s">
 					<div class="top-header">
+					
 						<!----start-top-nav---->
 						 <nav class="top-nav">
 							<ul class="top-nav">
-								<li><a href="../index.php">VIBA!</a></li>
-								<li><a href="premium.php">Premium</a></li>
-								<li><a href="ayuda.php">Ayuda</a></li>
-								<li><a href="login.php">Registrate</a></li>
-								<li><a href="signin.php">Iniciar Sesi&oacute;n</a></li>
+								<li><a href="reportes.php">Reportes</a></li>
+								<li><a href="banneados.php">Banneados</a></li>
+								<li><a href="usuarioAdmin.php">Administrador</a></li>
+								<li><a href="cerrarSesion.php">Salir</a></li>
 							</ul>
 							<a href="#" id="pull"><img src="images/nav-icon.png" title="menu" /></a>
 						</nav>
@@ -80,19 +96,30 @@
 			<!---- banner-info ---->
 			<div class="banner-info">
 				<div class="container">
+				</br>
+							<div class="inicioRegistrado">
+								</br></br>
+								AMINISTRADOR</br>
+								<div style="color: #77FF6B;"><?PHP echo $usuario; ?></div></br>
+								</br>
+								<div>
+									<?PHP 
+										$consulta = "SELECT foto_de_perfil FROM usuario WHERE usuario = '$usuario' ";
+										$resultado = mysqli_query($conexion,$consulta);
 
-				<?PHP
-					echo "<div style='margin-top:10%; margin-left:0%; margin-bottom: 10%; padding-top: 5%; padding-bottom: 5%; background:rgba(114, 189, 163, 0.90); font-size:50px; text-align: center; color: black;' <br>Usuario Registrado exitosamente.</br> Recuerde Activar su cuenta a traves de su Email. 
-
-						<a href='https://accounts.google.com/ServiceLogin?service=mail&passive=true&rm=false&continue=https://mail.google.com/mail/?rli%3D1vlkdijsfcagh%26rld%3D1&scc=1&ltmpl=default&ltmplcache=2&emr=1&osid=1#inbox' style='color: #EDEDED;  font-style:italic';>GMAIL</a><br>
-
-						<a href='https://login.live.com/login.srf?wa=wsignin1.0&rpsnv=12&ct=1420032163&rver=6.4.6456.0&wp=MBI_SSL_SHARED&wreply=https:%2F%2Fmail.live.com%2Fdefault.aspx%3Fmkt%3Des&lc=2058&id=64855&mkt=es-US&cbcxt=mai' style='color: #EDEDED;  font-style:italic';>HOTMAIL</a><br>
-						
-						<a href='https://login.yahoo.com/config/mail?&.src=ym&.intl=ar' style='color: #EDEDED;  font-style:italic';>YAHOO</a><br>
-
-						</div>";
-				?>   					
-			
+										if(mysqli_num_rows($resultado) == 1){
+												while($fila = mysqli_fetch_row($resultado)){
+		       									echo "<img src='".$fila[0]."' width='40%'></img>";
+		       									}
+										}
+										else{
+											echo "<img src='../imgPerfil/perfilSombra.jpg' width='40%'></img>";
+										}
+									?>			
+								</div>
+								</br></br>
+							</div>
+				</br>
 				</div>
 			</div>
 			
@@ -100,16 +127,17 @@
 			
 			<!---- footer info ---->
 				<div class="wow bounceInUp">
-					<div class="wow bounceIn vibalogo"><img src="../images\vibalogo.jpg"></img></div>
+					<div class="wow bounceIn vibalogo"><img src="..\images\vibalogo.jpg"></img></div>
 					
-					<div class="wow bounceIn logot"><a href="https://www.facebook.com/vibamusic"><img src="../images\logofb.jpg" width="60" height="60"><h2>FACEBOOK</h2></a></div>
+					<div class="wow bounceIn logot"><a href="https://www.facebook.com/vibamusic"><img src="..\images\logofb.jpg" width="60" height="60"><h2>FACEBOOK</h2></a></div>
 					
-					<div class="wow bounceIn logot"><a href="https://youtube.com/vibamusic"><img src="../images\logoyt.jpg" width="60" height="60"><h2>YOUTUBE</h2></a></div>
+					<div class="wow bounceIn logot"><a href="https://youtube.com/vibamusic"><img src="..\images\logoyt.jpg" width="60" height="60"><h2>YOUTUBE</h2></a></div>
 
-					<div class="wow bounceIn logot"><a href="https://www.twitter.com/vibamusic"><img src="../images\logot.jpg" width="60" height="60"><h2>TWITTER</h2></a></div>
+					<div class="wow bounceIn logot"><a href="https://www.twitter.com/vibamusic"><img src="..\images\logot.jpg" width="60" height="60"><h2>TWITTER</h2></a></div>
 
-					<div class="wow bounceIn logot"><a href="https://es.pinterest.com/vibamusic"><img src="../images\logop.jpg" width="60" height="60"><h2>PINTEREST</h2></a></div>
+					<div class="wow bounceIn logot"><a href="https://es.pinterest.com/vibamusic"><img src="..\images\logop.jpg" width="60" height="60"><h2>PINTEREST</h2></a></div>
 				</div>
+				
 		</div>
 	</body>	
 </html>

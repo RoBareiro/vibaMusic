@@ -2,25 +2,32 @@
 	error_reporting(0);	/*Desactiva cualquier notificacion*/
 	session_start();
 	include("../inc/conexionbd.php");
-/*	$_SESSION["registrado"] = "true";	se supone que ya esta en true de otras paginas*/
+	$usuario = $_SESSION["usuario"];
 
-	$consulta = "SELECT usuario FROM usuario INNER JOIN sigue_a ON id_usuario = id_seguidor AND estado = 'sigo' "; /*sigo - noSigo*/
+	/*consulta para obtener mi ID*/
+	$consultaMiUsuario = "SELECT id_usuario FROM usuario WHERE usuario = '$usuario' ";
+	$resultadoMiUsuario = mysqli_query($conexion,$consultaMiUsuario);
+	$fila = mysqli_fetch_row($resultadoMiUsuario);
+
+	$consulta = "SELECT DISTINCT(usuario) FROM usuario INNER JOIN sigue_a ON id_seguidor = '$fila[0]' AND estado = 'sigue' ";
 	$resultado = mysqli_query($conexion, $consulta);
 
-	if (mysqli_num_rows($resultado) != 0){
-		echo "<div id='central'>PERSONAS QUE SIGO</br></br>";
-		echo "<table>";  
+	if(mysqli_num_rows($resultado) != 0){
+		echo "PERSONAS QUE SEGUIS</br></br>";
+
+		echo "<div>";
+		echo "<table class='seguidores'>";  
+	
 		while ($row = mysqli_fetch_row($resultado)){   
-		    echo "<tr>";  
-		    echo "<td>$row[0]></td>";  
+		    echo "<tr class='trSeguidores'><td class='trSeguidores'>".$row[0]."</td><td class='trSeguidores'><input type='button' class='botonSeguidores' value='Dejar de Seguir'></imput></td>"; 
 		    echo "</tr>";  
 		}  
+	
 		echo "</table>";
 		echo "</div>";
 	}
 	else{
-		echo "<div id='central'>PERSONAS QUE SIGO</br></br>";
-		echo "<div id='central'>NO SEGUIS A NADIE</br></br>";
+		echo "<div class='seguidores'>NO SEGUIS A NADIE</br></br>";
 		echo "</div>";
 	}
 ?>

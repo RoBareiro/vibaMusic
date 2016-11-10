@@ -1,95 +1,13 @@
-<?php
+<?PHP 
 	error_reporting(0);	/*Desactiva cualquier notificacion*/
 	session_start();
-
+	include("../inc/conexionbd.php");
+	$usuario = $_SESSION["usuario"];
 ?>
 
-
-
-
-
-
-
-
-
-
 <html>
-	<head>
-	<!--Para cambiar solo el contenido central-->
-	<script type="text/javascript" src="../js/jquery-ui-1.8.13.custom.min.js"></script>
-
-	<!--Para validar el navegador ajax-->
-	<script type="text/javascript">
-		
-		function getXMLHTTP() {
-	        var xmlhttp=false;
-	        try{
-	            xmlhttp=new XMLHttpRequest();
-	        }
-	        catch(e)	{
-	            try{
-	                xmlhttp= new ActiveXObject("Microsoft.XMLHTTP");
-	            }
-	            catch(e){
-	                try{
-	                    xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
-	                }
-	                catch(e){
-	                    xmlhttp=false;
-	                }
-	            }
-	        }
-	        return xmlhttp;
-    	}
-
-
-    	//FUNCION QUE MODIFICA LA PARTE DEL PERFIL Y LLAMA AL PHP modificarPerfil
-		function crearPlaylist() {
-		    var strURL="crearPlaylist.php";
-		    var req = getXMLHTTP();
-		    if (req) {
-		        req.onreadystatechange = function() {
-		            if (req.readyState == 4) {
-		                // only if "OK"
-		                if (req.status == 200) {
-		                    document.getElementById('central').innerHTML = req.responseText ;
-		                } else {
-		                    alert("There was a problem while using XMLHTTP:\n" + req.statusText);
-		                }
-		            }
-		        }
-					req.open("GET", strURL, true);
-					req.send();
-				}   
-			} 
-
-
-		//FUNCION QUE ME MUESTRA LOS QUE ME SIGUEN Y ME LLEVA AL PHP seguidores
-		function misPlaylists() {
-		    var strURL="misPlaylists.php";
-		    var req = getXMLHTTP();
-		    if (req) {
-		        req.onreadystatechange = function() {
-		            if (req.readyState == 4) {
-		                // only if "OK"
-		                if (req.status == 200) {
-		                    document.getElementById('central').innerHTML = req.responseText ;
-		                } else {
-		                    alert("There was a problem while using XMLHTTP:\n" + req.statusText);
-		                }
-		            }
-		        }
-					req.open("GET", strURL, true);
-					req.send();
-				}   
-			}
-
-
-
-</script>
-
-
-	<link href="../css/bootstrap.css" rel='stylesheet' type='text/css' />
+<head>
+<link href="../css/bootstrap.css" rel='stylesheet' type='text/css' />
 		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 		<script src="../js/jquery.min.js"></script>
 		 <!-- Custom Theme files -->
@@ -154,8 +72,8 @@
 						 <nav class="top-nav">
 							<ul class="top-nav">
 								<li><a href="indexRegistrado.php">VIBA!</a></li>
-								<li class="active-join"><a href="playlists.php">Playlists</a></li>
-								<li><a href="usuario.php">Usuario</a></li>
+								<li><a href="playlists.php">Playlists</a></li>
+								<li  class="active-join"><a href="usuario.php">Usuario</a></li>
 								<li><a href="cerrarSesion.php">Cerrar Sesi&oacute;n</a></li>
 								<li><a href="paginaRegistrado.php">USUARIO
 										 <?PHP echo $_SESSION['usuario']; ?>
@@ -175,18 +93,80 @@
 				<div class="container">
 					</br>
 					<div class="opciones bounceIn">
-							<a href="#" class="btnUsu" onclick="crearPlaylist()">CREAR PLAYLIST</button></br>
-							<a href="#" class="btnUsu" onclick="misPlaylists()">MIS PLAYLISTS</a></br>
+							<a href="usuario.php" class="btnUsu">VOLVER AL MEN&Uacute;</a></br>
 					</div>
-					</br>
+					</br></br>
 					<div class="modificar" id="central">
-						PLAYLIST OPERACIONES
+					<?PHP
+						echo "<form action='#' method='POST' enctype='multipart/form-data'>";
+						echo "<span for='file'>Cambi&aacute; tu foto de Perfil:</span></br></br>";
+						echo "<input type='file' name='archivo' id='archivo'></input></br>";
+
+						/*Para subir imagenes*/
+						echo "<div class='modificar2'>";
+
+
+									/*foto antigua*/
+									$consulta = "SELECT foto_de_perfil FROM usuario WHERE usuario = '$usuario' ";
+									$resultado = mysqli_query($conexion,$consulta);
+
+									if(mysqli_num_rows($resultado) == 1){
+											while($fila = mysqli_fetch_row($resultado)){
+											echo "<div style='color: #77FF6B;'>Mi Foto:";
+	       									echo "<div><img src='".$fila[0]."' width='40%'></img></div></div>";
+	       									}
+									}
+									else{
+										echo "<img src='../imgPerfil/perfilSombra.jpg' width='40%'></img>";
+									}
+
+
+
+									if(isset($_POST['boton'])){
+									    // Hacemos una condicion en la que solo permitiremos que se suban imagenes y que sean menores a 20 KB
+									    if ((($_FILES["archivo"]["type"] == "image/jpeg") ||
+									    ($_FILES["archivo"]["type"] == "image/pjpeg") &&
+									    ($_FILES["archivo"]["size"] < 20000))){
+									 
+									    //Si es que hubo un error en la subida, mostrarlo, de la variable $_FILES podemos extraer el valor de [error], que almacena un valor booleano (1 o 0).
+									      if ($_FILES["archivo"]["error"] > 0){
+									        echo $_FILES["archivo"]["error"] . "";
+									      }
+									      else{
+									        // Si no hubo ningun error, hacemos otra condicion para asegurarnos que el archivo no sea repetido
+									        if (file_exists("../imgPerfil/" . $_FILES["archivo"]["name"])){
+									          echo $_FILES["archivo"]["name"] . " ya existe una imagen con el mismo nombre de archivo. ";
+									        }
+									        else{
+									         // Si no es un archivo repetido y no hubo ningun error, procedemos a subir a la carpeta /archivos, seguido de eso mostramos la imagen subida
+									          $numeroAleatorio =  rand(0,1000000);	/*LO AGREGO PARA QUE NO SE REPITAN LOS NOMBRES DE LAS IMG*/
+									          
+									          move_uploaded_file($_FILES["archivo"]["tmp_name"],
+									          "../imgPerfil/". $numeroAleatorio . $_FILES["archivo"]["name"]);
+									          echo "<div style='color: #77FF6B;'>Foto Actualizada:";
+
+									          $rutaImagen = "../imgPerfil/". $numeroAleatorio . $_FILES['archivo']['name'];
+
+									          echo "<div><img src='".$rutaImagen."' width='40%'></img></div></div>";
+
+									          $sql = "UPDATE usuario SET foto_de_perfil = '$rutaImagen' WHERE usuario = '$usuario'";
+									          $accion = mysqli_query($conexion,$sql);
+									        }
+									      }
+									    }
+									    else{
+									        // Si el usuario intenta subir algo que no es una imagen o una imagen que pesa mas de 20 KB mostramos este mensaje
+									        echo "</br>Archivo no permitido o Quiere subir una foto de perfil igual a la anterior";
+									    }
+									}
+						echo "</div>"; /*div class resultado de la img*/
+						echo "</br>";
+						echo "<input type='submit' class='botonlogin' name='boton' value='Actualizar Foto'></input>
+						</form>";
+						?> 
 					</br></br>
-					<div>
-						<img src="../images/playlist.gif" width="785" height="400"></img>
 					</div>
-					</br></br>
-					</div>
+
 				</div>
 			</div>
 			
