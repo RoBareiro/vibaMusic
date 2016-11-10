@@ -84,25 +84,7 @@
 				}   
 			}
 
-		//FUNCION QUE AGREGA CANCIONES A LA BASE DE DATOS Y ME LLEVA AL PHP agregarCanciones
-		function agregarCanciones() {
-		    var strURL="agregarCanciones.php";
-		    var req = getXMLHTTP();
-		    if (req) {
-		        req.onreadystatechange = function() {
-		            if (req.readyState == 4) {
-		                // only if "OK"
-		                if (req.status == 200) {
-		                    document.getElementById('central').innerHTML = req.responseText ;
-		                } else {
-		                    alert("There was a problem while using XMLHTTP:\n" + req.statusText);
-		                }
-		            }
-		        }
-					req.open("GET", strURL, true);
-					req.send();
-				}   
-			}
+
 
 </script>
 
@@ -195,7 +177,6 @@
 					<div class="opciones bounceIn">
 							<a href="#" class="btnUsu" onclick="crearPlaylist()">CREAR PLAYLIST</button></br>
 							<a href="#" class="btnUsu" onclick="misPlaylists()">MIS PLAYLISTS</a></br>
-							<a href="#" class="btnUsu" onclick="agregarCanciones()">AGREGAR CANCIONES</a><br>
 					</div>
 					</br>
 					<div class="modificar" id="central">

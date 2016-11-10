@@ -40,7 +40,7 @@ function refrescarUbicacion(){
 
 <!-- Se escribe un mapa con la localizacion anterior-->
 
-<script src="http://maps.google.com/maps/api/js?sensor=false&key=AIzaSyDpkFwDJ8HZxZtB1MV66Ta_digxlzO9Dmk"></script>
+<script src="http://maps.google.com/maps/api/js?sensor=false&key=AIzaSyDVf4hQbFybBwz2POTYdYKHGeq70HXJKBM"></script>
 <!--EN ESTA LINEA HAY QUE CONSEGUIR LA KEY DE GOOGLE API PARA QUE SE PUEDAN VER LOS MAPAS!!!!!!!!!!!!!!!!!!!!-->
 
 <script type="text/javascript">
