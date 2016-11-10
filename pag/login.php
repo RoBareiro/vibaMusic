@@ -144,8 +144,8 @@
 				$clave_activacion = md5($email);
 				$foto_de_perfil = "../imgPerfil/perfilSombra.jpg";
 
-				$insertar = "INSERT INTO usuario (id_usuario, nombre, apellido, email, usuario, clave, rol, foto_de_perfil, latitud, longitud, cantidad_playlist, estado_activo, clave_momentanea) 
-							 VALUES('', '$nombre', '$apellido', '$email', '$usuario', '$clave', '$rol', '$foto_de_perfil', '', '', '', '$estado_activo', '$clave_activacion') ";
+				$insertar = "INSERT INTO usuario (id_usuario, nombre, apellido, email, usuario, clave, rol, foto_de_perfil, latitud, longitud, pais, cantidad_playlist, estado_activo, clave_momentanea) 
+							 VALUES('', '$nombre', '$apellido', '$email', '$usuario', '$clave', '$rol', '$foto_de_perfil', '', '', '', '', '$estado_activo', '$clave_activacion') ";
 				//ejecuto la query
 				mysqli_query($conexion, $insertar);
 

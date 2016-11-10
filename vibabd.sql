@@ -126,6 +126,7 @@ CREATE TABLE `usuario` (
   `foto_de_perfil` varchar(100) DEFAULT NULL,
   `latitud` varchar(100) DEFAULT NULL,
   `longitud` int(100) DEFAULT NULL,
+  `pais` int(100) DEFAULT NULL,
   `cantidad_playlist` int(255) DEFAULT NULL,
   `estado_activo` varchar(1) NOT NULL,
   `clave_momentanea` varchar(100) NOT NULL
@@ -135,9 +136,9 @@ CREATE TABLE `usuario` (
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`id_usuario`, `nombre`, `apellido`, `email`, `usuario`, `clave`, `rol`, `foto_de_perfil`, `latitud`, `longitud`, `cantidad_playlist`, `estado_activo`, `clave_momentanea`) VALUES
-(01, 'Rocío', 'Bareiro', 'bareiro.rsb@hotmail.com', 'rocio', '325daa03a34823cef2fc367c779561ba', 'admin', '', '', 0, 0, '1', 'a0064ac145ee9f807f09e1cf06f22c32'),
-(02, 'Rocío', 'Castañer', 'rncastaniervivas@hotmail.com.ar', 'rocho', '21232f297a57a5a743894a0e4a801fc3', 'admin', '', '', 0, 0, '1', '05a7ba2633a7056a74aef8038eb5bdac');
+INSERT INTO `usuario` (`id_usuario`, `nombre`, `apellido`, `email`, `usuario`, `clave`, `rol`, `foto_de_perfil`, `latitud`, `longitud`, `pais`, `cantidad_playlist`, `estado_activo`, `clave_momentanea`) VALUES
+(01, 'Rocío', 'Bareiro', 'bareiro.rsb@hotmail.com', 'rocio', '325daa03a34823cef2fc367c779561ba', 'admin', '', '', 0, 0, 0, '1', 'a0064ac145ee9f807f09e1cf06f22c32'),
+(02, 'Rocío', 'Castañer', 'rncastaniervivas@hotmail.com.ar', 'rocho', '21232f297a57a5a743894a0e4a801fc3', 'admin', '', '', 0, 0, 0, '1', '05a7ba2633a7056a74aef8038eb5bdac');
 
 -- --------------------------------------------------------
 
