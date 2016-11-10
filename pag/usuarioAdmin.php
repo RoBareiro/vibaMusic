@@ -47,7 +47,7 @@
 
     	//FUNCION QUE MODIFICA LA PARTE DEL PERFIL Y LLAMA AL PHP modificarPerfil
 		function modificarPerfil() {
-		    var strURL="modificarPerfilAdmin.php";
+		    var strURL="modificarPerfil.php";
 		    var req = getXMLHTTP();
 		    if (req) {
 		        req.onreadystatechange = function() {
