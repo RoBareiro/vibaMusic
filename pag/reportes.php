@@ -153,6 +153,10 @@
 								<li><a href="banneados.php">Usuarios</a></li>
 								<li><a href="usuarioAdmin.php">Administrador</a></li>
 								<li><a href="cerrarSesion.php">Salir</a></li>
+								<li><a href="paginaAdmin.php">
+										 <?PHP echo $_SESSION['usuario']; ?>
+  									</a>
+								</li>
 							</ul>
 							<a href="#" id="pull"><img src="images/nav-icon.png" title="menu" /></a>
 						</nav>

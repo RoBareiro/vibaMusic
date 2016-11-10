@@ -108,6 +108,7 @@
 				<div class="container">
 				</br>
 							<div class="inicioRegistrado">
+							</br>
 								Una experiencia <div style="color: #77FF6B;">&Uacute;NICA!</div></br> Aca vas a encontrar toda
 								la m&uacute;sica que quer&eacute;s escuchar para cada momento,</br> cada estado de &aacute;nimo...
 								Lo que se te ocurra para musicalizar tus momentos!</br></br> Nuestra prioridad es</br><div style="color: #77FF6B;">HACERTE VOLAR UNOS CUANTOS MINUTOS O... UNAS CUANTAS HORAS!</div>
