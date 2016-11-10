@@ -32,7 +32,7 @@ CREATE TABLE `banneado` (
   `id_denunciado` int(255) NOT NULL,
   `motivo` varchar(255) NOT NULL,
   `fecha_denuncia` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -44,7 +44,7 @@ CREATE TABLE `favorita` (
   `id_favorita` int(11) NOT NULL,
   `id_playlist` int(255) NOT NULL,
   `fecha_favorita` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -55,7 +55,7 @@ CREATE TABLE `favorita` (
 CREATE TABLE `genero` (
   `id_genero` int(100) NOT NULL,
   `genero` varchar(30) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -71,7 +71,7 @@ CREATE TABLE `playlist` (
   `estado` int(11) NOT NULL,
   `codigo_qr` int(11) NOT NULL,
   `fecha_creacion` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -82,7 +82,7 @@ CREATE TABLE `playlist` (
 CREATE TABLE `playlist_cancion` (
   `id_cancion` int(255) NOT NULL,
   `id_playlist` int(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -94,7 +94,7 @@ CREATE TABLE `reproduccion` (
   `id_reproduccion` int(11) NOT NULL,
   `id_playlist` int(255) NOT NULL,
   `cantidad` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -107,7 +107,7 @@ CREATE TABLE `sigue_a` (
   `id_seguidor` int(255) NOT NULL,
   `id_seguido` int(255) NOT NULL,
   `estado` varchar(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -119,25 +119,25 @@ CREATE TABLE `usuario` (
   `id_usuario` int(255) NOT NULL,
   `nombre` varchar(15) NOT NULL,
   `apellido` varchar(30) NOT NULL,
-  `email` varchar(50) NOT NULL,
+  `email` varchar(30) NOT NULL,
   `usuario` varchar(11) NOT NULL,
   `clave` varchar(50) NOT NULL,
   `rol` varchar(10) DEFAULT NULL,
   `foto_de_perfil` varchar(100) DEFAULT NULL,
-  `latitud` varchar(100) DEFAULT NULL,
-  `longitud` int(100) DEFAULT NULL,
+  `pais` varchar(20) DEFAULT NULL,
+  `localidad` int(20) DEFAULT NULL,
   `cantidad_playlist` int(255) DEFAULT NULL,
   `estado_activo` varchar(1) NOT NULL,
   `clave_momentanea` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`id_usuario`, `nombre`, `apellido`, `email`, `usuario`, `clave`, `rol`, `foto_de_perfil`, `latitud`, `longitud`, `cantidad_playlist`, `estado_activo`, `clave_momentanea`) VALUES
-(01, 'Rocío', 'Bareiro', 'bareiro.rsb@hotmail.com', 'rocio', '325daa03a34823cef2fc367c779561ba', 'admin', '', '', 0, 0, '1', 'a0064ac145ee9f807f09e1cf06f22c32'),
-(02, 'Rocío', 'Castañer', 'rncastaniervivas@hotmail.com.ar', 'rocho', '21232f297a57a5a743894a0e4a801fc3', 'admin', '', '', 0, 0, '1', '05a7ba2633a7056a74aef8038eb5bdac');
+INSERT INTO `usuario` (`id_usuario`, `nombre`, `apellido`, `email`, `usuario`, `clave`, `rol`, `foto_de_perfil`, `pais`, `localidad`, `cantidad_playlist`, `estado_activo`, `clave_momentanea`) VALUES
+(78, 'RocÃ­o', 'Bareiro', 'bareiro.rsb@hotmail.com', 'rocio', '325daa03a34823cef2fc367c779561ba', 'admin', '', '', 0, 0, '1', 'a0064ac145ee9f807f09e1cf06f22c32'),
+(79, 'RocÃ­o', 'CastaÃ±er', 'rncastaniervivas@hotmail.com.a', 'rocho', '21232f297a57a5a743894a0e4a801fc3', 'admin', '', '', 0, 0, '1', '05a7ba2633a7056a74aef8038eb5bdac');
 
 -- --------------------------------------------------------
 
@@ -148,7 +148,7 @@ INSERT INTO `usuario` (`id_usuario`, `nombre`, `apellido`, `email`, `usuario`, `
 CREATE TABLE `voto` (
   `id_voto` int(255) NOT NULL COMMENT 'AA???',
   `id_playlist` int(255) NOT NULL COMMENT 'AA???'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Índices para tablas volcadas
@@ -201,7 +201,7 @@ ALTER TABLE `sigue_a`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id_usuario` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=03;
+  MODIFY `id_usuario` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
