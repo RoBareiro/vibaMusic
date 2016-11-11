@@ -47,7 +47,7 @@
 
     	//FUNCION QUE MODIFICA LA PARTE DEL PERFIL Y LLAMA AL PHP modificarPerfil
 		function modificarPerfil() {
-		    var strURL="modificarPerfil.php";
+		    var strURL="modificarPerfilAdmin.php";
 		    var req = getXMLHTTP();
 		    if (req) {
 		        req.onreadystatechange = function() {
@@ -132,7 +132,7 @@
 						<!----start-top-nav---->
 						 <nav class="top-nav">
 							<ul class="top-nav">
-								<li><a href="reportes.php">Reportes</a></li>
+								<li><a href="reportes.php">Playlists</a></li>
 								<li><a href="banneados.php">Usuarios</a></li>
 								<li class="active-join"><a href="usuarioAdmin.php">ADMINISTRADOR</a></li>
 								<li><a href="cerrarSesion.php">Salir</a></li>

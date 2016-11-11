@@ -40,7 +40,7 @@ function refrescarUbicacion(){
 
 <!-- Se escribe un mapa con la localizacion anterior-->
 
-<script src="http://maps.google.com/maps/api/js?sensor=false&key=AIzaSyDVf4hQbFybBwz2POTYdYKHGeq70HXJKBM"></script>
+<script src="http://maps.google.com/maps/api/js?sensor=false&key=AIzaSyDpkFwDJ8HZxZtB1MV66Ta_digxlzO9Dmk"></script>
 <!--EN ESTA LINEA HAY QUE CONSEGUIR LA KEY DE GOOGLE API PARA QUE SE PUEDAN VER LOS MAPAS!!!!!!!!!!!!!!!!!!!!-->
 
 <script type="text/javascript">
@@ -165,7 +165,7 @@ function showError(error)
 						<!----start-top-nav---->
 						 <nav class="top-nav">
 							<ul class="top-nav">
-								<li><a href="reportes.php">Reportes</a></li>
+								<li><a href="reportes.php">Playlists</a></li>
 								<li><a href="banneados.php">Banneados</a></li>
 								<li class="active-join"><a href="usuarioAdmin.php">Administrador</a></li>
 								<li><a href="cerrarSesion.php">Salir</a></li>

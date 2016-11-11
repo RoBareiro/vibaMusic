@@ -16,75 +16,6 @@
 
 <html>
 	<head>
-
-		<script type="text/javascript">
-		
-		function getXMLHTTP() {
-	        var xmlhttp=false;
-	        try{
-	            xmlhttp=new XMLHttpRequest();
-	        }
-	        catch(e)	{
-	            try{
-	                xmlhttp= new ActiveXObject("Microsoft.XMLHTTP");
-	            }
-	            catch(e){
-	                try{
-	                    xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
-	                }
-	                catch(e){
-	                    xmlhttp=false;
-	                }
-	            }
-	        }
-	        return xmlhttp;
-    	}
-
-
-    	//FUNCION QUE MODIFICA LA PARTE DEL PERFIL Y LLAMA AL PHP modificarPerfil
-		function playlists() {
-		    var strURL="playlistsReporte.php";
-		    var req = getXMLHTTP();
-		    if (req) {
-		        req.onreadystatechange = function() {
-		            if (req.readyState == 4) {
-		                // only if "OK"
-		                if (req.status == 200) {
-		                    document.getElementById('central').innerHTML = req.responseText ;
-		                } else {
-		                    alert("There was a problem while using XMLHTTP:\n" + req.statusText);
-		                }
-		            }
-		        }
-					req.open("GET", strURL, true);
-					req.send();
-				}   
-			} 
-
-
-		//FUNCION QUE ME MUESTRA LOS QUE ME SIGUEN Y ME LLEVA AL PHP seguidores
-		function usuarios() {
-		    var strURL="usuariosReporte.php";
-		    var req = getXMLHTTP();
-		    if (req) {
-		        req.onreadystatechange = function() {
-		            if (req.readyState == 4) {
-		                // only if "OK"
-		                if (req.status == 200) {
-		                    document.getElementById('central').innerHTML = req.responseText ;
-		                } else {
-		                    alert("There was a problem while using XMLHTTP:\n" + req.statusText);
-		                }
-		            }
-		        }
-					req.open("GET", strURL, true);
-					req.send();
-				}   
-			}
-
-</script>
-
-
 	<link href="../css/bootstrap.css" rel='stylesheet' type='text/css' />
 		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 		<script src="../js/jquery.min.js"></script>
@@ -149,7 +80,7 @@
 						<!----start-top-nav---->
 						 <nav class="top-nav">
 							<ul class="top-nav">
-								<li class="active-join"><a href="reportes.php">Reportes</a></li>
+								<li class="active-join"><a href="reportes.php">Playlists</a></li>
 								<li><a href="banneados.php">Usuarios</a></li>
 								<li><a href="usuarioAdmin.php">Administrador</a></li>
 								<li><a href="cerrarSesion.php">Salir</a></li>
@@ -169,18 +100,18 @@
 			<!---- banner-info ---->
 			<div class="banner-info">
 				<div class="container">
-				</br>
+				</br></br>
 					<div class="opciones bounceIn">
-							<a href="#" class="btnUsu" onclick="playlistsReporte()">PLAYLISTS</a></br>
-							<a href="#" class="btnUsu" onclick="usuariosReporte()">USUARIOS</a>
+							<a href="#" class="btnUsu">PLAYLISTS</a></br>
 					</div>
 					</br>
 					<div class="modificar" id="central">
-
-
-					</br></br>
+							<?php
+								echo "<a href='playlistPorTiempo.php'><div style='color: white;'>Cantidad de Playlists creadas en un tiempo Determinado</div></a></br>";
+								echo "<a href='playlistPorCantidadReproducciones.php'><div style='color: white;'>Ranking de Playlist por Cantidad de Reproducciones</div></a></br>";
+								echo "<a href='playlistRankingVotos.php'><div style='color: white;'>Ranking de Playlist por Votos</div></a>";
+							?>
 					</div>
-				</br>
 				</div>
 			</div>
 			
