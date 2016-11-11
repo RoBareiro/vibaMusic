@@ -189,11 +189,7 @@
 						<!----start-top-nav---->
 						 <nav class="top-nav">
 							<ul class="top-nav">
-<<<<<<< HEAD
-								<li><a href="reportes.php">Reportes</a></li>
-=======
 								<li><a href="reportes.php">Playlists</a></li>
->>>>>>> refs/remotes/origin/Soledad
 								<li><a href="banneados.php">Banneados</a></li>
 								<li class="active-join"><a href="usuarioAdmin.php">Administrador</a></li>
 								<li><a href="cerrarSesion.php">Cerrar Sesi&oacute;n</a></li>
