@@ -1,9 +1,8 @@
 <?php
 	error_reporting(0);	/*Desactiva cualquier notificacion*/
 	session_start();
-	$_SESSION["registrado"] = "true";
-	include("../inc/conexionbd.php");
 	$usuario = $_SESSION["usuario"];
+	include("../inc/conexionbd.php");
 ?>
 
 
@@ -17,57 +16,6 @@
 
 <html>
 	<head>
-	<!--Para cambiar solo el contenido central-->
-	<script type="text/javascript" src="../js/jquery-ui-1.8.13.custom.min.js"></script>
-
-	<!--Para validar el navegador ajax-->
-	<script type="text/javascript">
-		
-		function getXMLHTTP() {
-	        var xmlhttp=false;
-	        try{
-	            xmlhttp=new XMLHttpRequest();
-	        }
-	        catch(e)	{
-	            try{
-	                xmlhttp= new ActiveXObject("Microsoft.XMLHTTP");
-	            }
-	            catch(e){
-	                try{
-	                    xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
-	                }
-	                catch(e){
-	                    xmlhttp=false;
-	                }
-	            }
-	        }
-	        return xmlhttp;
-    	}
-
-
-    	//FUNCION QUE MODIFICA LA PARTE DEL PERFIL Y LLAMA AL PHP modificarPerfil
-		function modificarPerfil() {
-		    var strURL="modificarPerfilAdmin.php";
-		    var req = getXMLHTTP();
-		    if (req) {
-		        req.onreadystatechange = function() {
-		            if (req.readyState == 4) {
-		                // only if "OK"
-		                if (req.status == 200) {
-		                    document.getElementById('central').innerHTML = req.responseText ;
-		                } else {
-		                    alert("There was a problem while using XMLHTTP:\n" + req.statusText);
-		                }
-		            }
-		        }
-					req.open("GET", strURL, true);
-					req.send();
-				}   
-			} 
-
-</script>
-
-
 	<link href="../css/bootstrap.css" rel='stylesheet' type='text/css' />
 		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 		<script src="../js/jquery.min.js"></script>
@@ -132,18 +80,10 @@
 						<!----start-top-nav---->
 						 <nav class="top-nav">
 							<ul class="top-nav">
-<<<<<<< HEAD
-								<li><a href="reportes.php">Reportes</a></li>
-=======
 								<li><a href="reportes.php">Playlists</a></li>
->>>>>>> refs/remotes/origin/Soledad
 								<li><a href="banneados.php">Usuarios</a></li>
-								<li class="active-join"><a href="usuarioAdmin.php">ADMINISTRADOR</a></li>
+								<li><a href="usuarioAdmin.php">Administrador</a></li>
 								<li><a href="cerrarSesion.php">Salir</a></li>
-								<li><a href="paginaAdmin.php">
-										 <?PHP echo $_SESSION['usuario']; ?>
-  									</a>
-								</li>
 							</ul>
 							<a href="#" id="pull"><img src="images/nav-icon.png" title="menu" /></a>
 						</nav>
@@ -156,33 +96,30 @@
 			<!---- banner-info ---->
 			<div class="banner-info">
 				<div class="container">
-					</br>
-					<div class="opciones bounceIn">
-							<a href="#" class="btnUsu" onclick="modificarPerfil()">MODIFICAR PERFIL</a></br>
-					</div>
-					</br>
-					</br>
-					<div class="modificar" id="central">
-						Pefil de Administrador <?PHP echo "</br></br><div style='color: #77FF6B; text-transform: uppercase; '>".$_SESSION["usuario"]."</div>"?></br>
-						<div>
-							<?PHP 
-								$consulta = "SELECT foto_de_perfil FROM usuario WHERE usuario = '$usuario' ";
-								$resultado = mysqli_query($conexion,$consulta);
+				</br>
+							<div class="inicioRegistrado">
+								</br></br>
+								AMINISTRADOR</br>
+								<div style="color: #77FF6B;"><?PHP echo $usuario; ?></div></br>
+								</br>
+								<div>
+									<?PHP 
+										$consulta = "SELECT foto_de_perfil FROM usuario WHERE usuario = '$usuario' ";
+										$resultado = mysqli_query($conexion,$consulta);
 
-								if(mysqli_num_rows($resultado) == 1){
-										while($fila = mysqli_fetch_row($resultado)){
-       									echo "<img src='".$fila[0]."' width='40%'></img>";
-       									}
-								}
-								else{
-									echo "<img src='../imgPerfil/perfilSombra.jpg' width='40%'></img>";
-								}
-							?>			
-						</div>
-
-					</br></br>
-					</div>
-
+										if(mysqli_num_rows($resultado) == 1){
+												while($fila = mysqli_fetch_row($resultado)){
+		       									echo "<img src='".$fila[0]."' width='40%'></img>";
+		       									}
+										}
+										else{
+											echo "<img src='../imgPerfil/perfilSombra.jpg' width='40%'></img>";
+										}
+									?>			
+								</div>
+								</br></br>
+							</div>
+				</br>
 				</div>
 			</div>
 			

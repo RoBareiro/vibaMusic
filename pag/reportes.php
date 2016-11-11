@@ -16,6 +16,7 @@
 
 <html>
 	<head>
+<<<<<<< HEAD
 
 		<script type="text/javascript">
 		
@@ -85,6 +86,8 @@
 </script>
 
 
+=======
+>>>>>>> refs/remotes/origin/Soledad
 	<link href="../css/bootstrap.css" rel='stylesheet' type='text/css' />
 		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 		<script src="../js/jquery.min.js"></script>
@@ -149,7 +152,11 @@
 						<!----start-top-nav---->
 						 <nav class="top-nav">
 							<ul class="top-nav">
+<<<<<<< HEAD
 								<li class="active-join"><a href="reportes.php">Reportes</a></li>
+=======
+								<li class="active-join"><a href="reportes.php">Playlists</a></li>
+>>>>>>> refs/remotes/origin/Soledad
 								<li><a href="banneados.php">Usuarios</a></li>
 								<li><a href="usuarioAdmin.php">Administrador</a></li>
 								<li><a href="cerrarSesion.php">Salir</a></li>
@@ -169,6 +176,7 @@
 			<!---- banner-info ---->
 			<div class="banner-info">
 				<div class="container">
+<<<<<<< HEAD
 				</br>
 					<div class="opciones bounceIn">
 							<a href="#" class="btnUsu" onclick="playlistsReporte()">PLAYLISTS</a></br>
@@ -181,6 +189,20 @@
 					</br></br>
 					</div>
 				</br>
+=======
+				</br></br>
+					<div class="opciones bounceIn">
+							<a href="#" class="btnUsu">PLAYLISTS</a></br>
+					</div>
+					</br>
+					<div class="modificar" id="central">
+							<?php
+								echo "<a href='playlistPorTiempo.php'><div style='color: white;'>Cantidad de Playlists creadas en un tiempo Determinado</div></a></br>";
+								echo "<a href='playlistPorCantidadReproducciones.php'><div style='color: white;'>Ranking de Playlist por Cantidad de Reproducciones</div></a></br>";
+								echo "<a href='playlistRankingVotos.php'><div style='color: white;'>Ranking de Playlist por Votos</div></a>";
+							?>
+					</div>
+>>>>>>> refs/remotes/origin/Soledad
 				</div>
 			</div>
 			
