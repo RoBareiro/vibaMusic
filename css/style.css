@@ -1516,6 +1516,15 @@ a.contact-me:hover{
 	margin-left: 150px;
 } 
 
+/*de la pagina de eliminar usuario/admin */
+.loginEliminar{
+	width: auto;
+	height: auto;
+	float: left;
+	margin-top: 2%;
+	margin-left: 8.50%;
+}
+
 .botonlogin{
     font-weight: bold;
     cursor: pointer;

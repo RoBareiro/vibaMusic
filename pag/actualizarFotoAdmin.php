@@ -126,7 +126,7 @@
 									    // Hacemos una condicion en la que solo permitiremos que se suban imagenes y que sean menores a 20 KB
 									    if ((($_FILES["archivo"]["type"] == "image/jpeg") ||
 									    ($_FILES["archivo"]["type"] == "image/pjpeg") &&
-									    ($_FILES["archivo"]["size"] < 20000))){
+									    ($_FILES["archivo"]["size"] < 5000000))){
 									 
 									    //Si es que hubo un error en la subida, mostrarlo, de la variable $_FILES podemos extraer el valor de [error], que almacena un valor booleano (1 o 0).
 									      if ($_FILES["archivo"]["error"] > 0){

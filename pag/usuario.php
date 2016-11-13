@@ -1,8 +1,8 @@
 <?php
 	error_reporting(0);	/*Desactiva cualquier notificacion*/
+	include("../inc/conexionbd.php");
 	session_start();
 	$_SESSION["registrado"] = "true";
-	include("../inc/conexionbd.php");
 	$usuario = $_SESSION["usuario"];
 ?>
 

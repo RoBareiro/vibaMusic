@@ -1,8 +1,16 @@
 <?PHP
 	error_reporting(0);	/*Desactiva cualquier notificacion*/
-	require("../inc/seguridad.php");
-	$_SESSION["registrado"] = "false";
-	session_destroy();
+	include("../inc/conexionbd.php");
+	session_start();
+	$usuario = $_SESSION["usuario"];
+
+	if(isset($_POST["eliminarAdmin"])){
+			$consulta = "DELETE FROM usuario WHERE usuario = '$usuario'";
+			$resultado = mysqli_query($conexion, $consulta);
+			
+			sleep(2);
+		 	header("Location:cerrarSesion.php");
+	}
 ?>
 
 <html>
@@ -71,11 +79,14 @@
 						<!----start-top-nav---->
 						 <nav class="top-nav">
 							<ul class="top-nav">
-								<li><a href="../index.php">VIBA!</a></li>
-								<li><a href="premium.php">Premium</a></li>
-								<li><a href="ayuda.php">Ayuda</a></li>
-								<li><a href="login.php">Registrate</a></li>
-								<li><a href="signin.php">Iniciar Sesi&oacute;n</a></li>
+								<li><a href="reportes.php">Playlists</a></li>
+								<li><a href="banneados.php">Usuarios</a></li>
+								<li class="active-join"><a href="usuarioAdmin.php">ADMINISTRADOR</a></li>
+								<li><a href="cerrarSesion.php">Salir</a></li>
+								<li><a href="paginaAdmin.php">
+										 <?PHP echo $_SESSION['usuario']; ?>
+  									</a>
+								</li>
 							</ul>
 							<a href="#" id="pull"><img src="images/nav-icon.png" title="menu" /></a>
 						</nav>
@@ -88,12 +99,19 @@
 			<!---- banner-info ---->
 			<div class="banner-info">
 				<div class="container">
-								<?PHP
-									echo "<div style='margin-top:10%; margin-left:0%; margin-bottom: 10%; padding-top: 5%; background:rgba(114, 189, 163, 0.90); font-size:50px; text-align: center; color: black;'> 
-											Te esperamos pronto!! 
-										<br></br></div>";
-										session_destroy();
-								?>
+					</br>
+					<div class="opciones bounceIn">
+							<a href="usuarioAdmin.php" class="btnUsu">VOLVER AL MEN&Uacute;</a></br>
+					</div>
+
+					<div class="wow bounceIn loginEliminar"><img src="..\images\warning.jpg"></img></div>
+
+						<form class="formulario wow bounceIn" data-wow-delay="0.4s" method="POST" action="eliminarAdmin.php">
+							</br>
+							<h3><font color='red'>¿ESTA SEGURO QUE DESEA ELIMINAR EL ADMINISTRADOR?</font></h3>
+							</br>
+							<input class="botonlogin" type="submit" name="eliminarAdmin" value="ELIMINAR"></input>
+						</form>
 				</div>
 			</div>
 			

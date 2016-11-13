@@ -1,9 +1,14 @@
 <?php
 		error_reporting(0);	/*Desactiva cualquier notificacion*/
 		include("../inc/conexionbd.php");
-
+		header("Content-Type: text/html;charset=utf-8");
 		
 		$nombre = $_POST["nombre"];
+
+		/*para la lista de paises*/
+		$sqli = "SELECT pais FROM pais ORDER BY pais;";
+		$result = mysqli_query($conexion, $sqli);
+		/*para la lista de paises*/
 
 		if(isset($_POST["entrar"])){
 			$errores = array();
@@ -143,15 +148,16 @@
 				$estado_activo = '0';
 				$clave_activacion = md5($email);
 				$foto_de_perfil = "../imgPerfil/perfilSombra.jpg";
+				$pais = $_POST["pais"];
 
 				$insertar = "INSERT INTO usuario (id_usuario, nombre, apellido, email, usuario, clave, rol, foto_de_perfil, latitud, longitud, pais, cantidad_playlist, estado_activo, clave_momentanea) 
-							 VALUES('', '$nombre', '$apellido', '$email', '$usuario', '$clave', '$rol', '$foto_de_perfil', '', '', '', '', '$estado_activo', '$clave_activacion') ";
+							 VALUES('', '$nombre', '$apellido', '$email', '$usuario', '$clave', '$rol', '$foto_de_perfil', '', '', '$pais', '', '$estado_activo', '$clave_activacion') ";
 				//ejecuto la query
 				mysqli_query($conexion, $insertar);
 
 				//mando un mail para que active
 
-					$para = $_POST['email'];			///	cambiamos el $_post y volamos en email
+					$para = $_POST["email"];			///	cambiamos el $_post y volamos en email
 					$titulo = 'Viba - Validacion de Usuario';
 					$mensaje = 'Hola Viba Usuario! 
 					Para activar tu cuenta haz click aqui:
@@ -164,7 +170,7 @@
 
 						header("Location:usuarioAValidar.php");
 					}
-					else{
+					else{					       	
 						mysqli_close($conexion);
 					}	
 
@@ -182,6 +188,7 @@
 
 <html>
 	<head>
+
 	<link href="../css/bootstrap.css" rel='stylesheet' type='text/css' />
 		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 		<script src="../js/jquery.min.js"></script>
@@ -272,6 +279,19 @@
 						<span><?PHP echo "<font color='red'>"."$errores[0]"."</font>"; ?></span>
 						<h3>Apellido</h3><input type="text" name="apellido" value="<?PHP echo $_POST['apellido']; ?>" size="20"></input></br>
 						<span><?PHP echo "<font color='red'>"."$errores[1]"."</font>"; ?></span>
+
+						<h3>Pa&iacute;s</h3>
+						<span>
+							<?php
+						        echo "<select id='pais' name='pais'>";
+						        while($fila = mysqli_fetch_assoc($result)){
+						            echo "<option value='" . $fila["pais"] . "'>" . $fila["pais"] . "</option>";
+						        }
+						        echo "</select></br>";
+
+				        	?>
+						</span>
+
 						<h3>E-Mail</h3><input type="text" name="email" value="<?PHP echo $_POST['email']; ?>" size="20"></input></br>
 						<span><?PHP echo "<font color='red'>"."$errores[2]"."</font>"; ?></span>
 						<h3>Usuario</h3><input type="text" name="usuario" value="<?PHP echo $_POST['usuario']; ?>" size="20"></input></br>
