@@ -17,6 +17,59 @@
 
 <html>
 	<head>
+
+	<!--Para grafico de torta-->
+			
+	<script type="text/javascript" src="../js/loader.js"></script>
+    <script type="text/javascript">
+     
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+     
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Pais', 'Cantidad'],
+          <?PHP
+					$consulta = "SELECT pais, COUNT(*) AS cantidad FROM usuario WHERE pais IS NOT NULL GROUP BY pais";
+
+					$resultado = mysqli_query($conexion, $consulta);
+
+					$numerodefilas = mysqli_num_rows($resultado);
+					$i=0;
+
+					while($fila = mysqli_fetch_array($resultado)){
+						$i++;
+
+						if($i<$numerodefilas){ // No es la última fila
+							echo "['" . $fila['pais'] . "', " . $fila['cantidad'] . "],\n";
+						}
+						else{ // Sí es la última fila
+							echo "['" . $fila['pais'] . "', " . $fila['cantidad'] . "]\n";
+						}
+
+					}
+
+					mysql_close($conexion);
+				?>
+        ]);
+
+        var options = {
+          title: 'Porcentaje de Personas por Pais',
+          titleTextStyle: { color: 'black',  fontSize: 25,  bold: 1 },
+          is3D: true,
+          fontSize: 20,
+          legend: {position: 'right', alignment: 'top' ,textStyle: {color: 'black', fontSize: 20}},
+
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
+        chart.draw(data, options);
+      }
+    </script>
+
+
+
+
 	<link href="../css/bootstrap.css" rel='stylesheet' type='text/css' />
 		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 		<script src="../js/jquery.min.js"></script>
@@ -108,31 +161,11 @@
 					</br></br>
 					<div class="modificar" id="central">
 						
-						<?PHP
-							//preparamos la consulta
-							$SQLDatos = "SELECT pais, COUNT(*) FROM usuario WHERE pais IS NOT NULL GROUP BY pais";
-
-
-						function mostrarDatos($resultados){
-							if ($resultados !=NULL) {
-								echo "- Pais: ".$resultados[0]."<br/> ";
-								echo "- Cantidad: ".$resultados[1]."<br/>";
-								echo "**********************************<br/>";
-							}
-							else{
-								echo "<br/>No hay más datos!!! <br/>";
-								}
-
-							}
-
-
-						$result = mysqli_query($conexion, "SELECT pais, COUNT(*) FROM usuario WHERE pais IS NOT NULL GROUP BY pais");
-
-							while($fila = mysqli_fetch_array($result)){
-								mostrarDatos($fila);
-							}
-						?>
-
+						<!--GRAFICO GOOGLE CHARTS-->
+						<span>PORCENTAJE DE PERSONAS POR PAIS</span></br></br>
+						<div id="piechart_3d" style="width: 90%; height: 60%;">
+							<!--APARECE EL GRAFICO-->
+						</div>
 
 					</br></br>
 					</div>

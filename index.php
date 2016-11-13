@@ -3,7 +3,6 @@
 	session_start();
 
 	/*artilugio para cerrar la sesion sino no anda $_SESSION["registrado"] = false; */
-	
 	if($_SESSION["registrado"] == "true"){
 		header("Location:indexRegistrado.php");
 	}

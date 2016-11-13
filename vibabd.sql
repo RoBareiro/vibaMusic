@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-11-2016 a las 04:11:44
+-- Tiempo de generación: 13-11-2016 a las 19:27:44
 -- Versión del servidor: 5.6.26
 -- Versión de PHP: 5.6.12
 
@@ -370,7 +370,7 @@ CREATE TABLE IF NOT EXISTS `usuario` (
 INSERT INTO `usuario` (`id_usuario`, `nombre`, `apellido`, `email`, `usuario`, `clave`, `rol`, `foto_de_perfil`, `latitud`, `longitud`, `pais`, `cantidad_playlist`, `estado_activo`, `clave_momentanea`) VALUES
 (1, 'Rocío', 'Bareiro', 'bareiro.rsb@hotmail.com', 'rocio', '325daa03a34823cef2fc367c779561ba', 'admin', '../imgPerfil/338043breaking_bad__jesse_pinkman__by_fiikii-d8prnhz.jpg', '', '0', 'Argentina', 0, '1', 'a0064ac145ee9f807f09e1cf06f22c32'),
 (2, 'Rocío', 'Castañer', 'rncastaniervivas@hotmail.com.ar', 'rocho', '21232f297a57a5a743894a0e4a801fc3', 'admin', '', '', '0', 'Argentina', 0, '1', '05a7ba2633a7056a74aef8038eb5bdac'),
-(22, 'Soledad', 'Bareiro', 'rous_nc_712@hotmail.com', 'sole', 'beb7f7a395dc21ad97425bbc061afbaf', 'usuario', '../imgPerfil/270324maxresdefault.jpg', '', '', 'Argentina', 0, '1', 'bf7a5c46723b9ba4ae5cd28855e324f0');
+(22, 'Soledad', 'Bareiro', 'rous_nc_712@hotmail.com', 'sole', 'beb7f7a395dc21ad97425bbc061afbaf', 'usuario', '../imgPerfil/270324maxresdefault.jpg', '', '', 'Uruguay', 0, '1', 'bf7a5c46723b9ba4ae5cd28855e324f0');
 
 -- --------------------------------------------------------
 
