@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
+-- version 4.4.14
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-11-2016 a las 17:39:46
--- Versión del servidor: 10.1.16-MariaDB
--- Versión de PHP: 5.6.24
+-- Tiempo de generación: 13-11-2016 a las 04:11:44
+-- Versión del servidor: 5.6.26
+-- Versión de PHP: 5.6.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -26,7 +26,7 @@ SET time_zone = "+00:00";
 -- Estructura de tabla para la tabla `banneado`
 --
 
-CREATE TABLE `banneado` (
+CREATE TABLE IF NOT EXISTS `banneado` (
   `id_banneado` int(11) NOT NULL,
   `id_denunciante` int(255) NOT NULL,
   `id_denunciado` int(255) NOT NULL,
@@ -40,7 +40,7 @@ CREATE TABLE `banneado` (
 -- Estructura de tabla para la tabla `favorita`
 --
 
-CREATE TABLE `favorita` (
+CREATE TABLE IF NOT EXISTS `favorita` (
   `id_favorita` int(11) NOT NULL,
   `id_playlist` int(255) NOT NULL,
   `fecha_favorita` datetime NOT NULL
@@ -52,96 +52,10 @@ CREATE TABLE `favorita` (
 -- Estructura de tabla para la tabla `genero`
 --
 
-CREATE TABLE `genero` (
+CREATE TABLE IF NOT EXISTS `genero` (
   `id_genero` int(100) NOT NULL,
   `genero` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `playlist`
---
-
-CREATE TABLE `playlist` (
-  `id_playlist` int(11) NOT NULL,
-  `id_usuario` int(11) NOT NULL,
-  `id_genero` int(11) NOT NULL,
-  `id_reproduccion` int(11) NOT NULL,
-  `estado` int(11) NOT NULL,
-  `codigo_qr` int(11) NOT NULL,
-  `fecha_creacion` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `playlist_cancion`
---
-
-CREATE TABLE `playlist_cancion` (
-  `id_cancion` int(255) NOT NULL,
-  `id_playlist` int(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `reproduccion`
---
-
-CREATE TABLE `reproduccion` (
-  `id_reproduccion` int(11) NOT NULL,
-  `id_playlist` int(255) NOT NULL,
-  `cantidad` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `sigue_a`
---
-
-CREATE TABLE `sigue_a` (
-  `id_seguimiento` int(255) NOT NULL COMMENT 'NOS FALTO AGREGAR ESTO',
-  `id_seguidor` int(255) NOT NULL,
-  `id_seguido` int(255) NOT NULL,
-  `estado` varchar(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `usuario`
---
-
-CREATE TABLE `usuario` (
-  `id_usuario` int(255) NOT NULL,
-  `nombre` varchar(15) NOT NULL,
-  `apellido` varchar(30) NOT NULL,
-  `email` varchar(50) NOT NULL,
-  `usuario` varchar(11) NOT NULL,
-  `clave` varchar(50) NOT NULL,
-  `rol` varchar(10) DEFAULT NULL,
-  `foto_de_perfil` varchar(100) DEFAULT NULL,
-  `latitud` varchar(100) DEFAULT NULL,
-  `longitud` int(100) DEFAULT NULL,
-  `pais` int(100) DEFAULT NULL,
-  `cantidad_playlist` int(255) DEFAULT NULL,
-  `estado_activo` varchar(1) NOT NULL,
-  `clave_momentanea` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-
---
--- Volcado de datos para la tabla `usuario`
---
-
-INSERT INTO `usuario` (`id_usuario`, `nombre`, `apellido`, `email`, `usuario`, `clave`, `rol`, `foto_de_perfil`, `latitud`, `longitud`, `pais`, `cantidad_playlist`, `estado_activo`, `clave_momentanea`) VALUES
-(01, 'Rocío', 'Bareiro', 'bareiro.rsb@hotmail.com', 'rocio', '325daa03a34823cef2fc367c779561ba', 'admin', '', '', 0, 0, 0, '1', 'a0064ac145ee9f807f09e1cf06f22c32'),
-(02, 'Rocío', 'Castañer', 'rncastaniervivas@hotmail.com.ar', 'rocho', '21232f297a57a5a743894a0e4a801fc3', 'admin', '', '', 0, 0, 0, '1', '05a7ba2633a7056a74aef8038eb5bdac');
-
--- --------------------------------------------------------
 
 -- --------------------------------------------------------
 
@@ -150,13 +64,12 @@ INSERT INTO `usuario` (`id_usuario`, `nombre`, `apellido`, `email`, `usuario`, `
 --
 
 CREATE TABLE IF NOT EXISTS `pais` (
-  `id_pais` varchar(3) NOT NULL,
-  `pais` varchar(100) NOT NULL,
-  PRIMARY KEY (`pais`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `id_pais` int(11) NOT NULL,
+  `pais` varchar(250) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=247 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `Paises`
+-- Volcado de datos para la tabla `pais`
 --
 
 INSERT INTO `pais` (`id_pais`, `pais`) VALUES
@@ -375,12 +288,97 @@ INSERT INTO `pais` (`id_pais`, `pais`) VALUES
 (243, 'Yemen'),
 (246, 'Puerto Rico');
 
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `playlist`
+--
+
+CREATE TABLE IF NOT EXISTS `playlist` (
+  `id_playlist` int(11) NOT NULL,
+  `id_usuario` int(11) NOT NULL,
+  `id_genero` int(11) NOT NULL,
+  `id_reproduccion` int(11) NOT NULL,
+  `estado` int(11) NOT NULL,
+  `codigo_qr` int(11) NOT NULL,
+  `fecha_creacion` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `playlist_cancion`
+--
+
+CREATE TABLE IF NOT EXISTS `playlist_cancion` (
+  `id_cancion` int(255) NOT NULL,
+  `id_playlist` int(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `reproduccion`
+--
+
+CREATE TABLE IF NOT EXISTS `reproduccion` (
+  `id_reproduccion` int(11) NOT NULL,
+  `id_playlist` int(255) NOT NULL,
+  `cantidad` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `sigue_a`
+--
+
+CREATE TABLE IF NOT EXISTS `sigue_a` (
+  `id_seguimiento` int(255) NOT NULL COMMENT 'NOS FALTO AGREGAR ESTO',
+  `id_seguidor` int(255) NOT NULL,
+  `id_seguido` int(255) NOT NULL,
+  `estado` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `usuario`
+--
+
+CREATE TABLE IF NOT EXISTS `usuario` (
+  `id_usuario` int(255) NOT NULL,
+  `nombre` varchar(15) NOT NULL,
+  `apellido` varchar(30) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `usuario` varchar(11) NOT NULL,
+  `clave` varchar(50) NOT NULL,
+  `rol` varchar(10) DEFAULT NULL,
+  `foto_de_perfil` varchar(100) DEFAULT NULL,
+  `latitud` varchar(100) DEFAULT NULL,
+  `longitud` varchar(100) DEFAULT NULL,
+  `pais` varchar(100) DEFAULT NULL,
+  `cantidad_playlist` int(255) DEFAULT NULL,
+  `estado_activo` varchar(1) NOT NULL,
+  `clave_momentanea` varchar(100) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `usuario`
+--
+
+INSERT INTO `usuario` (`id_usuario`, `nombre`, `apellido`, `email`, `usuario`, `clave`, `rol`, `foto_de_perfil`, `latitud`, `longitud`, `pais`, `cantidad_playlist`, `estado_activo`, `clave_momentanea`) VALUES
+(1, 'Rocío', 'Bareiro', 'bareiro.rsb@hotmail.com', 'rocio', '325daa03a34823cef2fc367c779561ba', 'admin', '../imgPerfil/338043breaking_bad__jesse_pinkman__by_fiikii-d8prnhz.jpg', '', '0', 'Argentina', 0, '1', 'a0064ac145ee9f807f09e1cf06f22c32'),
+(2, 'Rocío', 'Castañer', 'rncastaniervivas@hotmail.com.ar', 'rocho', '21232f297a57a5a743894a0e4a801fc3', 'admin', '', '', '0', 'Argentina', 0, '1', '05a7ba2633a7056a74aef8038eb5bdac'),
+(22, 'Soledad', 'Bareiro', 'rous_nc_712@hotmail.com', 'sole', 'beb7f7a395dc21ad97425bbc061afbaf', 'usuario', '../imgPerfil/270324maxresdefault.jpg', '', '', 'Argentina', 0, '1', 'bf7a5c46723b9ba4ae5cd28855e324f0');
+
+-- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `voto`
 --
 
-CREATE TABLE `voto` (
+CREATE TABLE IF NOT EXISTS `voto` (
   `id_voto` int(255) NOT NULL COMMENT 'AA???',
   `id_playlist` int(255) NOT NULL COMMENT 'AA???'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -394,6 +392,12 @@ CREATE TABLE `voto` (
 --
 ALTER TABLE `favorita`
   ADD PRIMARY KEY (`id_favorita`);
+
+--
+-- Indices de la tabla `pais`
+--
+ALTER TABLE `pais`
+  ADD PRIMARY KEY (`id_pais`);
 
 --
 -- Indices de la tabla `reproduccion`
@@ -423,6 +427,11 @@ ALTER TABLE `usuario`
 ALTER TABLE `favorita`
   MODIFY `id_favorita` int(11) NOT NULL AUTO_INCREMENT;
 --
+-- AUTO_INCREMENT de la tabla `pais`
+--
+ALTER TABLE `pais`
+  MODIFY `id_pais` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=247;
+--
 -- AUTO_INCREMENT de la tabla `reproduccion`
 --
 ALTER TABLE `reproduccion`
@@ -436,7 +445,7 @@ ALTER TABLE `sigue_a`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id_usuario` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=03;
+  MODIFY `id_usuario` int(255) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=23;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
