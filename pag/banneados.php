@@ -16,6 +16,56 @@
 
 <html>
 	<head>
+	
+	<!--Menu ajax-->
+	<script type="text/javascript" src="../js/jquery-ui-1.8.13.custom.min.js"></script>
+
+	<!--Para validar el navegador ajax-->
+	<script type="text/javascript">
+		
+		function getXMLHTTP() {
+	        var xmlhttp=false;
+	        try{
+	            xmlhttp=new XMLHttpRequest();
+	        }
+	        catch(e)	{
+	            try{
+	                xmlhttp= new ActiveXObject("Microsoft.XMLHTTP");
+	            }
+	            catch(e){
+	                try{
+	                    xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
+	                }
+	                catch(e){
+	                    xmlhttp=false;
+	                }
+	            }
+	        }
+	        return xmlhttp;
+    	}
+
+
+		function reportesUsuarios() {
+		    var strURL="reportesUsuarios.php";
+		    var req = getXMLHTTP();
+		    if (req) {
+		        req.onreadystatechange = function() {
+		            if (req.readyState == 4) {
+		                // only if "OK"
+		                if (req.status == 200) {
+		                    document.getElementById('central').innerHTML = req.responseText ;
+		                } else {
+		                    alert("There was a problem while using XMLHTTP:\n" + req.statusText);
+		                }
+		            }
+		        }
+					req.open("GET", strURL, true);
+					req.send();
+				}   
+			}
+</script>
+	
+
 	<link href="../css/bootstrap.css" rel='stylesheet' type='text/css' />
 		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 		<script src="../js/jquery.min.js"></script>
@@ -102,14 +152,12 @@
 				<div class="container">
 				</br>
 					<div class="opciones bounceIn">
-							<a href="#" class="btnUsu">USUARIOS</a></br>
+							<a href="suspenderUsuario.php" class="btnUsu">BANEAR</a></br>
+							<a href="bajaUsuario.php" class="btnUsu" >ELIMINAR</a></br>
+							<a href="#" class="btnUsu" onclick="reportesUsuarios()">REPORTES</a></br>
 					</div>
-					</br></br>
 					<div class="modificar" id="central">
-						<?php
-							echo "<a href='usuariosBanneados.php'><div style='color: white;'>Usuarios Banneados</div></a></br>";
-							echo "<a href='usuariosPais.php'><div style='color: white;'>Usuarios Por Pa&iacute;s</div></a>";
-						?>
+						<!--Aparece el ajax correspondiente -->
 					</div>
 				</div>
 			</div>

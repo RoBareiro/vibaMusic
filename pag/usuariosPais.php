@@ -58,11 +58,11 @@
           titleTextStyle: { color: 'black',  fontSize: 25,  bold: 1 },
           is3D: true,
           fontSize: 20,
-          legend: {position: 'right', alignment: 'top' ,textStyle: {color: 'black', fontSize: 20}},
+          legend: {position: 'right', alignment: 'top' ,textStyle: {color: 'black', fontSize: 15}},
 
         };
 
-        var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
+        var chart = new google.visualization.BarChart(document.getElementById('piechart_3d'));
         chart.draw(data, options);
       }
     </script>
@@ -163,7 +163,7 @@
 						
 						<!--GRAFICO GOOGLE CHARTS-->
 						<span>PORCENTAJE DE PERSONAS POR PAIS</span></br></br>
-						<div id="piechart_3d" style="width: 90%; height: 60%;">
+						<div id="piechart_3d" style="width: 100%; height: 60%;">
 							<!--APARECE EL GRAFICO-->
 						</div>
 

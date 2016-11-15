@@ -6,7 +6,7 @@
 		$nombre = $_POST["nombre"];
 
 		/*para la lista de paises*/
-		$sqli = "SELECT pais FROM pais ORDER BY pais;";
+		$sqli = "SELECT pais FROM pais ORDER BY pais";
 		$result = mysqli_query($conexion, $sqli);
 		/*para la lista de paises*/
 
@@ -150,19 +150,24 @@
 				$foto_de_perfil = "../imgPerfil/perfilSombra.jpg";
 				$pais = $_POST["pais"];
 
-				$insertar = "INSERT INTO usuario (id_usuario, nombre, apellido, email, usuario, clave, rol, foto_de_perfil, latitud, longitud, pais, cantidad_playlist, estado_activo, clave_momentanea) 
-							 VALUES('', '$nombre', '$apellido', '$email', '$usuario', '$clave', '$rol', '$foto_de_perfil', '', '', '$pais', '', '$estado_activo', '$clave_activacion') ";
+				$insertar = "INSERT INTO usuario (id_usuario, nombre, apellido, email, usuario, clave, rol, foto_de_perfil, pais, cantidad_playlist, estado_activo, clave_momentanea) 
+							 VALUES('', '$nombre', '$apellido', '$email', '$usuario', '$clave', '$rol', '$foto_de_perfil', '$pais', '', '$estado_activo', '$clave_activacion') ";
 				//ejecuto la query
 				mysqli_query($conexion, $insertar);
 
 				//mando un mail para que active
 
-					$para = $_POST["email"];			///	cambiamos el $_post y volamos en email
+					/*$para = "rous_nc_712@hotmail.com";*/
+					/*$para = "bareiro.rsb@gmail.com";*/
+					/*$para = "rsb.bareiro@live.com.ar";*/			///	cambiamos el $_post y volamos en email
+					
+
+					$para = $_POST["email"];
 					$titulo = 'Viba - Validacion de Usuario';
 					$mensaje = 'Hola Viba Usuario! 
 					Para activar tu cuenta haz click aqui:
 					http://localhost/vibaMusic/pag/registroExitoso.php?clave_activacion='.$clave_activacion.' 
-					o copia y pega la direccion en tu navegador.';  //CAMBIAR DEPENDIENDO DE DONDE ESTOY!!!!!!!!!!!!!!!!!!!!
+					o copia y pega la direccion en tu navegador.'; 
 					$cabeceras = 'From: vibamusic@hotmail.com'; //La direccion de correo desde donde supuestamente se envió
 
 					//envio el mail				 

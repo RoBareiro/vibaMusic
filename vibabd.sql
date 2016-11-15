@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-11-2016 a las 19:27:44
+-- Tiempo de generación: 15-11-2016 a las 23:03:16
 -- Versión del servidor: 5.6.26
 -- Versión de PHP: 5.6.12
 
@@ -23,16 +23,67 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `artista`
+--
+
+CREATE TABLE IF NOT EXISTS `artista` (
+  `idArtista` int(11) NOT NULL,
+  `nombre` varchar(50) COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Volcado de datos para la tabla `artista`
+--
+
+INSERT INTO `artista` (`idArtista`, `nombre`) VALUES
+(1, 'Ariana Grande'),
+(2, 'Rihanna'),
+(3, 'Nick Jonas');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `banneado`
 --
 
 CREATE TABLE IF NOT EXISTS `banneado` (
   `id_banneado` int(11) NOT NULL,
-  `id_denunciante` int(255) NOT NULL,
   `id_denunciado` int(255) NOT NULL,
   `motivo` varchar(255) NOT NULL,
-  `fecha_denuncia` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `fecha_banneo` varchar(10) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `banneado`
+--
+
+INSERT INTO `banneado` (`id_banneado`, `id_denunciado`, `motivo`, `fecha_banneo`) VALUES
+(1, 25, 'prueba\r\n', '16-11-15');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `cancion`
+--
+
+CREATE TABLE IF NOT EXISTS `cancion` (
+  `idCancion` int(11) NOT NULL,
+  `titulo` varchar(50) COLLATE utf8_bin NOT NULL,
+  `idArtista` int(11) NOT NULL,
+  `album` varchar(50) COLLATE utf8_bin NOT NULL,
+  `duracion` varchar(50) COLLATE utf8_bin NOT NULL,
+  `id_genero` int(11) NOT NULL,
+  `archivo` varchar(100) COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Volcado de datos para la tabla `cancion`
+--
+
+INSERT INTO `cancion` (`idCancion`, `titulo`, `idArtista`, `album`, `duracion`, `id_genero`, `archivo`) VALUES
+(1, 'Greedy', 1, 'Dangerous Woman', '3:35', 1, 'Greedy.mp3'),
+(3, 'Kiss It Better', 2, 'ANTI', '4:13', 3, 'Kiss It Better.mp3'),
+(5, 'Bacon', 3, 'Last Year Was Complicated', '3:02', 1, 'Bacon.mp3');
 
 -- --------------------------------------------------------
 
@@ -55,7 +106,16 @@ CREATE TABLE IF NOT EXISTS `favorita` (
 CREATE TABLE IF NOT EXISTS `genero` (
   `id_genero` int(100) NOT NULL,
   `genero` varchar(30) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `genero`
+--
+
+INSERT INTO `genero` (`id_genero`, `genero`) VALUES
+(1, 'Pop'),
+(2, 'Rock'),
+(3, 'R&B');
 
 -- --------------------------------------------------------
 
@@ -355,22 +415,23 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `clave` varchar(50) NOT NULL,
   `rol` varchar(10) DEFAULT NULL,
   `foto_de_perfil` varchar(100) DEFAULT NULL,
-  `latitud` varchar(100) DEFAULT NULL,
-  `longitud` varchar(100) DEFAULT NULL,
   `pais` varchar(100) DEFAULT NULL,
   `cantidad_playlist` int(255) DEFAULT NULL,
   `estado_activo` varchar(1) NOT NULL,
   `clave_momentanea` varchar(100) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`id_usuario`, `nombre`, `apellido`, `email`, `usuario`, `clave`, `rol`, `foto_de_perfil`, `latitud`, `longitud`, `pais`, `cantidad_playlist`, `estado_activo`, `clave_momentanea`) VALUES
-(1, 'Rocío', 'Bareiro', 'bareiro.rsb@hotmail.com', 'rocio', '325daa03a34823cef2fc367c779561ba', 'admin', '../imgPerfil/338043breaking_bad__jesse_pinkman__by_fiikii-d8prnhz.jpg', '', '0', 'Argentina', 0, '1', 'a0064ac145ee9f807f09e1cf06f22c32'),
-(2, 'Rocío', 'Castañer', 'rncastaniervivas@hotmail.com.ar', 'rocho', '21232f297a57a5a743894a0e4a801fc3', 'admin', '', '', '0', 'Argentina', 0, '1', '05a7ba2633a7056a74aef8038eb5bdac'),
-(22, 'Soledad', 'Bareiro', 'rous_nc_712@hotmail.com', 'sole', 'beb7f7a395dc21ad97425bbc061afbaf', 'usuario', '../imgPerfil/270324maxresdefault.jpg', '', '', 'Uruguay', 0, '1', 'bf7a5c46723b9ba4ae5cd28855e324f0');
+INSERT INTO `usuario` (`id_usuario`, `nombre`, `apellido`, `email`, `usuario`, `clave`, `rol`, `foto_de_perfil`, `pais`, `cantidad_playlist`, `estado_activo`, `clave_momentanea`) VALUES
+(1, 'Rocío', 'Bareiro', 'bareiro.rsb@hotmail.com', 'rocio', '325daa03a34823cef2fc367c779561ba', 'admin', '../imgPerfil/338043breaking_bad__jesse_pinkman__by_fiikii-d8prnhz.jpg', 'Argentina', 0, '1', 'a0064ac145ee9f807f09e1cf06f22c32'),
+(2, 'Rocío', 'Castañer', 'rncastaniervivas@hotmail.com.ar', 'rocho', '21232f297a57a5a743894a0e4a801fc3', 'admin', '../imgPerfil/breaking_bad__heisenberg__by_fiikii-d8prnb4.jpg', 'Argentina', 0, '1', '05a7ba2633a7056a74aef8038eb5bdac'),
+(23, 'Morita', 'Castañer', 'rocio_la2287@hotmail.com', 'morita', 'f8032d5cae3de20fcec887f395ec9a6a', 'usuario', '../imgPerfil/655884IMG-20160910-WA0003.jpg', 'Argentina', 0, '1', 'c2418619f445f5405aa4f5b4837efea8'),
+(24, 'Jake', 'Kodish', 'rous_nc_712@hotmail.com', 'jake', '1200cf8ad328a60559cf5e7c5f46ee6d', 'usuario', '../imgPerfil/659912tumblr_inline_ntly73H11h1ttabe2_500.jpg', 'Estados Unidos', 0, '1', 'bf7a5c46723b9ba4ae5cd28855e324f0'),
+(25, 'Soledad', 'Miño', 'bareiro.rsb@gmail.com', 'sole', 'beb7f7a395dc21ad97425bbc061afbaf', 'usuario', '../imgPerfil/61453320150430_174828.jpg', 'Brasil', 0, '1', '7ee08ce728cdf9aefd6e80fe3c825e17'),
+(26, 'Olivia', 'Milo', 'rsb.bareiro@live.com.ar', 'milo', '4bbe97464db8b8665411740d5c2a5e4a', 'usuario', '../imgPerfil/691712IMG_20160603_135153.jpg', 'Uruguay', 0, '1', 'f27d4998e8222424384a9c580acbe6eb');
 
 -- --------------------------------------------------------
 
@@ -388,16 +449,46 @@ CREATE TABLE IF NOT EXISTS `voto` (
 --
 
 --
+-- Indices de la tabla `artista`
+--
+ALTER TABLE `artista`
+  ADD PRIMARY KEY (`idArtista`);
+
+--
+-- Indices de la tabla `banneado`
+--
+ALTER TABLE `banneado`
+  ADD PRIMARY KEY (`id_banneado`);
+
+--
+-- Indices de la tabla `cancion`
+--
+ALTER TABLE `cancion`
+  ADD PRIMARY KEY (`idCancion`);
+
+--
 -- Indices de la tabla `favorita`
 --
 ALTER TABLE `favorita`
   ADD PRIMARY KEY (`id_favorita`);
 
 --
+-- Indices de la tabla `genero`
+--
+ALTER TABLE `genero`
+  ADD PRIMARY KEY (`id_genero`);
+
+--
 -- Indices de la tabla `pais`
 --
 ALTER TABLE `pais`
   ADD PRIMARY KEY (`id_pais`);
+
+--
+-- Indices de la tabla `playlist`
+--
+ALTER TABLE `playlist`
+  ADD PRIMARY KEY (`id_playlist`);
 
 --
 -- Indices de la tabla `reproduccion`
@@ -422,10 +513,30 @@ ALTER TABLE `usuario`
 --
 
 --
+-- AUTO_INCREMENT de la tabla `artista`
+--
+ALTER TABLE `artista`
+  MODIFY `idArtista` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT de la tabla `banneado`
+--
+ALTER TABLE `banneado`
+  MODIFY `id_banneado` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT de la tabla `cancion`
+--
+ALTER TABLE `cancion`
+  MODIFY `idCancion` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
+--
 -- AUTO_INCREMENT de la tabla `favorita`
 --
 ALTER TABLE `favorita`
   MODIFY `id_favorita` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `genero`
+--
+ALTER TABLE `genero`
+  MODIFY `id_genero` int(100) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT de la tabla `pais`
 --
@@ -445,7 +556,7 @@ ALTER TABLE `sigue_a`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id_usuario` int(255) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=23;
+  MODIFY `id_usuario` int(255) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=27;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
