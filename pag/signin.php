@@ -7,6 +7,12 @@
 
 		if(isset($_POST["entrar"])){
 
+			/*BUSCO SI ESTA BANNEADO*/
+			$sqlBaneado="SELECT usuario FROM usuario INNER JOIN banneado ON id_usuario = id_denunciado AND usuario = '$usuario'";
+			$ejecutoBaneado = mysqli_query($conexion,$sqlBaneado);
+			/*BUSCO SI ESTA BANNEADO*/
+
+			if($cantidad = mysqli_num_rows($ejecutoBaneado) != 1){
 			//VALIDO USUARIO Y CONTRASEÑA QUE ESTEN EN LA BD
 			$consulta = "SELECT * FROM usuario WHERE usuario = '$usuario' AND clave= '$clave'";
 			$resultado = mysqli_query($conexion,$consulta);
@@ -64,7 +70,11 @@
 				$error[1] = "</br>El usuario no esta registrado o alguno de los campos que ingreso es incorrecto</br>";
 				session_destroy();									
 				$usuario = $_POST["usuario"];	
-				} 
+				}
+	}
+	else{
+		$error[1] = "</br><font color='red'>Su Usuario se encuentra SUSPENDIDO</font>";
+	} 
 		 mysqli_close($conexion);
 		}				
 ?>

@@ -16,8 +16,12 @@
 
 <html>
 	<head>
+	
+	<!--Menu ajax-->
+	<script type="text/javascript" src="../js/jquery-ui-1.8.13.custom.min.js"></script>
 
-		<script type="text/javascript">
+	<!--Para validar el navegador ajax-->
+	<script type="text/javascript">
 		
 		function getXMLHTTP() {
 	        var xmlhttp=false;
@@ -41,30 +45,8 @@
     	}
 
 
-    	//FUNCION QUE MODIFICA LA PARTE DEL PERFIL Y LLAMA AL PHP modificarPerfil
-		function banneados() {
-		    var strURL="usuariosBanneados.php";
-		    var req = getXMLHTTP();
-		    if (req) {
-		        req.onreadystatechange = function() {
-		            if (req.readyState == 4) {
-		                // only if "OK"
-		                if (req.status == 200) {
-		                    document.getElementById('central').innerHTML = req.responseText ;
-		                } else {
-		                    alert("There was a problem while using XMLHTTP:\n" + req.statusText);
-		                }
-		            }
-		        }
-					req.open("GET", strURL, true);
-					req.send();
-				}   
-			} 
-
-
-		//FUNCION QUE ME MUESTRA LOS QUE ME SIGUEN Y ME LLEVA AL PHP seguidores
-		function porPais() {
-		    var strURL="porPais.php";
+		function reportesUsuarios() {
+		    var strURL="reportesUsuarios.php";
 		    var req = getXMLHTTP();
 		    if (req) {
 		        req.onreadystatechange = function() {
@@ -81,9 +63,8 @@
 					req.send();
 				}   
 			}
-
 </script>
-
+	
 
 	<link href="../css/bootstrap.css" rel='stylesheet' type='text/css' />
 		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -149,7 +130,7 @@
 						<!----start-top-nav---->
 						 <nav class="top-nav">
 							<ul class="top-nav">
-								<li><a href="reportes.php">Reportes</a></li>
+								<li><a href="reportes.php">Playlists</a></li>
 								<li class="active-join"><a href="banneados.php">Usuarios</a></li>
 								<li><a href="usuarioAdmin.php">Administrador</a></li>
 								<li><a href="cerrarSesion.php">Salir</a></li>
@@ -171,16 +152,13 @@
 				<div class="container">
 				</br>
 					<div class="opciones bounceIn">
-							<a href="#" class="btnUsu" onclick="banneados()">BANNEADOS</a></br>
-							<a href="#" class="btnUsu" onclick="porPais()">POR PAIS</a>
+							<a href="suspenderUsuario.php" class="btnUsu">BANEAR</a></br>
+							<a href="bajaUsuario.php" class="btnUsu" >ELIMINAR</a></br>
+							<a href="#" class="btnUsu" onclick="reportesUsuarios()">REPORTES</a></br>
 					</div>
-					</br>
 					<div class="modificar" id="central">
-
-
-					</br></br>
+						<!--Aparece el ajax correspondiente -->
 					</div>
-				</br>
 				</div>
 			</div>
 			

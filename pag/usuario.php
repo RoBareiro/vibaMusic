@@ -1,8 +1,8 @@
 <?php
 	error_reporting(0);	/*Desactiva cualquier notificacion*/
+	include("../inc/conexionbd.php");
 	session_start();
 	$_SESSION["registrado"] = "true";
-	include("../inc/conexionbd.php");
 	$usuario = $_SESSION["usuario"];
 ?>
 
@@ -106,7 +106,25 @@
 				}   
 			}
 
-
+		//FUNCION QUE ME DENUNCIA USUARIO
+		function denunciar(){
+		    var strURL="denunciasUsuarioPlaylist.php";
+		    var req = getXMLHTTP();
+		    if (req) {
+		        req.onreadystatechange = function() {
+		            if (req.readyState == 4) {
+		                // only if "OK"
+		                if (req.status == 200) {
+		                    document.getElementById('central').innerHTML = req.responseText ;
+		                } else {
+		                    alert("There was a problem while using XMLHTTP:\n" + req.statusText);
+		                }
+		            }
+		        }
+					req.open("GET", strURL, true);
+					req.send();
+				}   
+			}
 
 </script>
 
@@ -199,7 +217,8 @@
 					<div class="opciones bounceIn">
 							<a href="#" class="btnUsu" onclick="modificarPerfil()">MODIFICAR PERFIL</a></br>
 							<a href="#" class="btnUsu" onclick="seguidores()">LOS QUE ME SIGUEN</a></br>
-							<a href="#" class="btnUsu" onclick="seguidos()">LOS QUE SIGO</a>
+							<a href="#" class="btnUsu" onclick="seguidos()">LOS QUE SIGO</a></br>
+							<a href="#" class="btnUsu" onclick="denunciar()">DENUNCIAR</a>
 					</div>
 					<div class="modificar" id="central">
 						Perfil de usuario de <?PHP echo "</br></br><div style='color: #77FF6B; text-transform: uppercase; '>".$_SESSION["usuario"]."</div>"?></br>

@@ -6,5 +6,6 @@
 	echo "<a href='actualizarClaveAdmin.php'><div style='color: white;'>Cambiar Clave</div></a></br>";
 	echo "<a href='actualizarFotoAdmin.php'><div style='color: white;'>Cambiar Foto De Perfil</div></a></br>";
 	echo "<a href='actualizarUbicacionAdmin.php'><div style='color: white;'>Ver Mi Ubicaci&oacute;n Geogr&aacute;fica actual</div></a></br>";
+	echo "<a href='eliminarAdmin.php'><div style='color: white;'>Eliminar mi Cuenta</div></a></br>";
 
 ?>

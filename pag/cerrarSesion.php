@@ -2,6 +2,7 @@
 	error_reporting(0);	/*Desactiva cualquier notificacion*/
 	require("../inc/seguridad.php");
 	$_SESSION["registrado"] = "false";
+	session_destroy();
 ?>
 
 <html>
