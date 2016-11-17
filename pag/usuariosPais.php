@@ -1,28 +1,55 @@
 <?php
+
 	error_reporting(0);	/*Desactiva cualquier notificacion*/
 	session_start();
 	$_SESSION["registrado"] = "true";
 	include("../inc/conexionbd.php");
 	$usuario = $_SESSION["usuario"];
+
+
+
+	/*PARA EL PDF*/
+	require_once ('../dompdf/dompdf_config.custom.inc.php');
+	require_once('../dompdf/dompdf_config.inc.php');
+
+	if(isset($_POST["generar"])){
+
+    	$graficoBarras  = $_POST['barras'];
+   		list(, $graficoBarras) = explode(';', $graficoBarras);
+  		list(, $graficoBarras) = explode(',', $graficoBarras);
+   		$graficoBarras = base64_decode($graficoBarras);
+   		file_put_contents('../tmp/graficoBarras.png', $graficoBarras);
+
+		$html = '<html>
+				<head>
+ 					<title></title>
+    			</head>
+					
+					<body>
+						<span>GRAFICO DE PERSONAS POR PAIS</span></br></br>
+						<img src="../tmp/graficoBarras.png" width"100%" height="60%"></img>		
+					</body>
+
+    			</html>';
+
+		$dompdf = new DOMPDF();
+		$dompdf->load_html($html);
+		$dompdf->render();
+		$pdf = $dompdf->output();
+		$dompdf->stream("graficoUsuariosPorPais", array("Attachment" => false));
+
+	}
+
 ?>
-
-
-
-
-
-
-
 
 
 
 <html>
 	<head>
-
-	<!--Para grafico de torta-->
+	<!--Para grafico-->
 			
 	<script type="text/javascript" src="../js/loader.js"></script>
-    <script type="text/javascript">
-     
+    <script type="text/javascript">    
       google.charts.load("current", {packages:["corechart"]});
       google.charts.setOnLoadCallback(drawChart);
      
@@ -62,8 +89,18 @@
 
         };
 
-        var chart = new google.visualization.BarChart(document.getElementById('piechart_3d'));
+        var chart = new google.visualization.BarChart(document.getElementById('barras'));
+
+
         chart.draw(data, options);
+         
+         // Wait for the chart to finish drawing before calling the getImageURI() method.
+         //PARA GENERAR IMAGEN DE GRAFICO
+	      	google.visualization.events.addListener(chart, 'ready', function () {
+	        barras.innerHTML = '<img src="' + chart.getImageURI() + '">';
+	        console.log(barras.innerHTML);
+	      });
+
       }
     </script>
 
@@ -162,14 +199,18 @@
 					<div class="modificar" id="central">
 						
 						<!--GRAFICO GOOGLE CHARTS-->
-						<span>PORCENTAJE DE PERSONAS POR PAIS</span></br></br>
-						<div id="piechart_3d" style="width: 100%; height: 60%;">
+						<span>GRAFICO DE PERSONAS POR PAIS</span></br></br>
+						
+						<form method="POST" action="usuariosPais.php">		
+						<div id="barras" style="width: 100%; height: 60%;">
 							<!--APARECE EL GRAFICO-->
-						</div>
+						</div> 
+						
+						</br>
+							<input type="submit" name="generar" value="GENERAR PDF" class="botonlogin"></input>
+						</form>
 
-					</br></br>
 					</div>
-
 				</div>
 			</div>
 			

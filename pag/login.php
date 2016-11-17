@@ -168,7 +168,7 @@
 					Para activar tu cuenta haz click aqui:
 					http://localhost/vibaMusic/pag/registroExitoso.php?clave_activacion='.$clave_activacion.' 
 					o copia y pega la direccion en tu navegador.'; 
-					$cabeceras = 'From: somos.viba.music@gmail.com'; //La direccion de correo desde donde supuestamente se envió
+					$cabeceras = 'From: vibamusic@hotmail.com'; //La direccion de correo desde donde supuestamente se envió
 
 					//envio el mail				 
 					mail($para, $titulo, $mensaje, $cabeceras);

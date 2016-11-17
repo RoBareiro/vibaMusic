@@ -57,7 +57,6 @@
 	    		});
 			});
 		</script>
-		<script language="javascript" type="text/javascript" src="../js/funcionesReproductor.js"></script>
 		<!----//End-top-nav-script---->
 	</head>
 
@@ -94,21 +93,13 @@
 			<div class="banner-info">
 				<div class="container">
 					<h1 class="wow fadeIn" data-wow-delay="0.5s"><span>Somos</span><br /><label>VIBA Music!</label></h1>
+					
+					
 						<div class="topcinco wow fadeIn container banner-info"  data-wow-delay="0.5s">
-							<h3>Escuchá nuestro TOP 5 más votado</h3>
-							<div id="reproductorBox" class="reproductorBox">
-								
-   								<select id="selectTrack" class="audio" 
-   									multiple onchange="cambiarTrack(this.options[this.selectedIndex]);" style="height: 115px;">
-								  <option path="../mp3/Chantaje.mp3">1* Shakira Ft. Maluma - Chantaje</option>
-								  <option path="../mp3/Greedy.mp3">2* Ariana Grande - Greedy</option>
-								  <option path="../mp3/Kiss It Better.mp3">3* Rihanna - Kiss It Better</option>
-								  <option path="../mp3/Safari.mp3">4* J. Balvin - Safari</option>
-								  <option path="../mp3/Starboy.mp3">5* The Weeknd - Starboy</option>
-     							</select>
-     							
-   								<script>cargarReproductor();</script>
-   							</div>			
+							<h3>TOP 5 MEJORES</h3>
+
+
+							
 						</div>
 				
 
