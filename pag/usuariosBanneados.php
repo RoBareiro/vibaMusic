@@ -4,41 +4,6 @@
 	$_SESSION["registrado"] = "true";
 	include("../inc/conexionbd.php");
 	$usuario = $_SESSION["usuario"];
-
-
-	/*PARA EL PDF*/
-	require_once ('../dompdf/dompdf_config.custom.inc.php');
-	require_once('../dompdf/dompdf_config.inc.php');
-
-	if(isset($_POST["generar"])){
-
-		$graficoTabla  = $_POST['table_div'];
-   		list(, $graficoTabla) = explode(';', $graficoTabla);
-  		list(, $graficoTabla) = explode(',', $graficoTabla);
-   		$graficoTabla = base64_decode($graficoBarras);
-   		file_put_contents('../tmp/graficoTabla.png', $graficoTabla);
-
-		$html = '<html>
-				<head>
- 					<title></title>
-    			</head>
-					
-					<body>
-						<span>GRAFICO DE PERSONAS POR PAIS</span></br></br>
-						<img src="../tmp/graficoTabla.png" width"100%" height="60%"></img>		
-					</body>
-
-    			</html>';
-
-		$dompdf = new DOMPDF();
-		$dompdf->load_html($html);
-		$dompdf->render();
-		$pdf = $dompdf->output();
-		$dompdf->stream("graficoUsuariosBaneados", array("Attachment" => false));
-
-	}
-
-
 ?>
 
 
@@ -90,15 +55,7 @@
 
         var table = new google.visualization.Table(document.getElementById('table_div'));
 
-
         table.draw(data, {showRowNumber: true, width: '70%', height: '50%'});
-         // Wait for the chart to finish drawing before calling the getImageURI() method.
-         //PARA GENERAR IMAGEN DE GRAFICO
-	      	google.visualization.events.addListener(chart, 'ready', function () {
-	        table_div.innerHTML = '<img src="' + chart.getImageURI() + '">';
-	        console.log(table_div.innerHTML);
-	      });
-
       }
     </script>
 
@@ -197,17 +154,10 @@
 					<div class="modificar" id="central">
 						
 						<!--GRAFICO GOOGLE CHARTS-->
-						<span>GRAFICO DE USUARIOS BANEADOS POR FECHA</span></br></br>
-
-						<form method="POST" action="usuariosBanneados.php">		
-						
-							<div id="table_div" style="width: 100%; height: 60%;">
-								<!--APARECE EL GRAFICO-->
-							</div>
-						</br>
-							<input type="submit" name="generar" value="GENERAR PDF" class="botonlogin"></input>
-						</form>
-					
+						<span>USUARIOS BANEADOS POR FECHA</span></br></br>
+						<div id="table_div" style="width: 100%; height: 60%;">
+							<!--APARECE EL GRAFICO-->
+						</div>
 					</div>
 				</div>
 			</div>

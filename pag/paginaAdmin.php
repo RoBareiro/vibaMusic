@@ -99,7 +99,7 @@
 				</br>
 							<div class="inicioRegistrado">
 								</br></br>
-								ADMINISTRADOR</br>
+								AMINISTRADOR</br>
 								<div style="color: #77FF6B;"><?PHP echo $usuario; ?></div></br>
 								</br>
 								<div>

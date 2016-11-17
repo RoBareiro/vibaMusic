@@ -37,7 +37,7 @@
 			$para = $emailSuspendido["email"]; /*FIJATE ACA, PROBAR*/
 			$titulo = 'Viba - Usuario Suspendido';
 			$mensaje = 'Su Usuario fue suspendido por el siguiente motivo: ' . "$motivo";  
-			$cabeceras = 'From: vibamusic@hotmail.com'; //La direccion de correo desde donde supuestamente se envió
+			$cabeceras = 'From: somos.viba.music@gmail.com'; //La direccion de correo desde donde supuestamente se envió
 
 					//envio el mail				 
 			mail($para, $titulo, $mensaje, $cabeceras);
