@@ -28,7 +28,7 @@
 
 			/*traigo el mail del suspendido*/
 			$mailSql = "SELECT email FROM usuario WHERE id_usuario = '$id_denunciado'";
-			$ejecutoMail = mysqli_query($conexion,$mail);
+			$ejecutoMail = mysqli_query($conexion,$mailSql);
 			$emailSuspendido = mysqli_fetch_assoc($ejecutoMail);
 
 			/*Envio mail al usuario avisandole que va a ser suspendido*/
@@ -37,7 +37,7 @@
 			$para = $emailSuspendido["email"]; /*FIJATE ACA, PROBAR*/
 			$titulo = 'Viba - Usuario Suspendido';
 			$mensaje = 'Su Usuario fue suspendido por el siguiente motivo: ' . "$motivo";  
-			$cabeceras = 'From: vibamusic@hotmail.com'; //La direccion de correo desde donde supuestamente se envió
+			$cabeceras = 'From: somos.viba.music@gmail.com'; //La direccion de correo desde donde supuestamente se envió
 
 					//envio el mail				 
 			mail($para, $titulo, $mensaje, $cabeceras);

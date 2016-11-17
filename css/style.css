@@ -1475,8 +1475,8 @@ a.contact-me:hover{
 
 .topcinco{
 	float: right;
-	width: 300px;
-	height: 400px;
+	width: 310px;
+	height: 410px;
 	background:rgba(0, 0, 0, 0.85);
 	margin-top: -500px;
 }
@@ -1671,4 +1671,22 @@ a.contact-me:hover{
 
 .tdSeguidores{
 	border: #bef4be 1px solid;
+}
+
+.audio{
+	border:hidden;
+	opacity: 90%;
+	width: 300px;
+	background:rgba(0, 0, 0, 0.85);
+	margin-left: 5px;
+	font-size: 16px;
+	border-radius: 8px;
+	overflow-y: auto;
+	padding-top: 5px;
+}
+.reproductorBox{
+	width: 285px;
+	height: auto;
+	margin-left: -35px;
+	overflow: hidden;
 }
