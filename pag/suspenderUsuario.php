@@ -28,7 +28,7 @@
 
 			/*traigo el mail del suspendido*/
 			$mailSql = "SELECT email FROM usuario WHERE id_usuario = '$id_denunciado'";
-			$ejecutoMail = mysqli_query($conexion,$mailSql);
+			$ejecutoMail = mysqli_query($conexion,$mail);
 			$emailSuspendido = mysqli_fetch_assoc($ejecutoMail);
 
 			/*Envio mail al usuario avisandole que va a ser suspendido*/
