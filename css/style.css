@@ -1464,7 +1464,7 @@ a.contact-me:hover{
 
 /*Index.html*/
 .topcinco{
-	height: auto;
+	height: 300px;
 	width: 400px;
 	font-weight: 100;
 	background: black;
@@ -1475,8 +1475,8 @@ a.contact-me:hover{
 
 .topcinco{
 	float: right;
-	width: 300px;
-	height: auto;
+	width: 310px;
+	height: 410px;
 	background:rgba(0, 0, 0, 0.85);
 	margin-top: -500px;
 }
@@ -1673,42 +1673,20 @@ a.contact-me:hover{
 	border: #bef4be 1px solid;
 }
 
-/*BUSCADOR*/
-.buscador{
-	float: right; 
-	background: black;
-	width: 100%; 
-	padding-top: 1%;
+.audio{
+	border:hidden;
+	opacity: 90%;
+	width: 300px;
+	background:rgba(0, 0, 0, 0.85);
+	margin-left: 5px;
+	font-size: 16px;
+	border-radius: 8px;
+	overflow-y: auto;
+	padding-top: 5px;
 }
-
-.botonBuscador{
-		text-align: center;
-		text-decoration:none;
-		font-weight: bold;
-	    cursor: pointer;
-	    background: white;
-	    color:black;
-		}
-
-.botonBuscador:hover {
-	text-align: center;
-	color: white;
-	background: black;
-	text-decoration:none;
-
-}
-
-.resultadosBusqueda{
-	background: black;
-	width: 100%;
+.reproductorBox{
+	width: 285px;
 	height: auto;
-	color: white;
-	padding: 5%;
-	text-transform: uppercase;
-	font-size: 1.50em;
-
-}
-
-.resultadosBusqueda a{
-	color: green;
+	margin-left: -35px;
+	overflow: hidden;
 }
