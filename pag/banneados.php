@@ -157,7 +157,7 @@
 							<a href="#" class="btnUsu" onclick="reportesUsuarios()">REPORTES</a></br>
 					</div>
 					<div class="modificar" id="central">
-						<!--Aparece el ajax correspondiente -->
+					<center>USUARIOS</br><img src="../images/usuario.gif" width="50%"></img></center>	
 					</div>
 				</div>
 			</div>

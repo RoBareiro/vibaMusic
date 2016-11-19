@@ -104,6 +104,26 @@
 				}   
 			}
 
+		//FUNCION QUE ME DENUNCIA PLAYLIST
+	/*	function denunciar(){
+		    var strURL="denunciasPlaylist.php";
+		    var req = getXMLHTTP();
+		    if (req) {
+		        req.onreadystatechange = function() {
+		            if (req.readyState == 4) {
+		                // only if "OK"
+		                if (req.status == 200) {
+		                    document.getElementById('central').innerHTML = req.responseText ;
+		                } else {
+		                    alert("There was a problem while using XMLHTTP:\n" + req.statusText);
+		                }
+		            }
+		        }
+					req.open("GET", strURL, true);
+					req.send();
+				}   
+			}*/
+
 </script>
 
 
@@ -185,6 +205,16 @@
 						<div class="clearfix"> </div>
 					</div>
 				</div>
+				<!--BUSCADOR-->
+					</br>
+					<div class="wow fadeIn buscador">
+					<form name="buscador" method="POST" action="../inc/buscador.php">
+					<font style="color: white; margin-left:60%">NOMBRE DE PLAYLIST</font>
+						<input type="text" name="palabra" required>
+						<input class="botonBuscador" type="submit" value="Buscar" name="buscar">
+					</form>
+					</div>
+				<!--BUSCADOR-->
 		</div>
 			<!----- //End-header---->
 		
@@ -196,8 +226,8 @@
 							<a href="#" class="btnUsu" onclick="crearPlaylist()">CREAR PLAYLIST</button></br>
 							<a href="#" class="btnUsu" onclick="misPlaylists()">MIS PLAYLISTS</a></br>
 							<a href="#" class="btnUsu" onclick="agregarCanciones()">AGREGAR CANCIONES</a><br>
+					<!--		<a href="#" class="btnUsu" onclick="denunciar()">DENUNCIAR</a>-->
 					</div>
-					</br>
 					<div class="modificar" id="central">
 						PLAYLIST OPERACIONES
 					</br></br>

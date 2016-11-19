@@ -9,9 +9,7 @@
 <html>
 <head>
 
-<!--Para el google maps 
 	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=true&key=AIzaSyDVf4hQbFybBwz2POTYdYKHGeq70HXJKBM"></script>
--->
 
 <!-- Se determina y escribe la localizacion -->
 <script type="text/javascript">
@@ -29,7 +27,7 @@ function mostrarUbicacion(position){
 	var div = document.getElementById("ubicacion");
 
 	var div = document.getElementById("ubicacion");
-	div.innerHTML = "<br>Latitud: " + latitud + "<br>Longitud: " + longitud;
+//	div.innerHTML = "<br>Latitud: " + latitud + "<br>Longitud: " + longitud;
 		}	
 
 
@@ -38,10 +36,6 @@ function refrescarUbicacion(){
 	}	
 </script>
 
-<!-- Se escribe un mapa con la localizacion anterior-->
-
-<script src="http://maps.google.com/maps/api/js?sensor=false&key=AIzaSyDpkFwDJ8HZxZtB1MV66Ta_digxlzO9Dmk"></script>
-<!--EN ESTA LINEA HAY QUE CONSEGUIR LA KEY DE GOOGLE API PARA QUE SE PUEDAN VER LOS MAPAS!!!!!!!!!!!!!!!!!!!!-->
 
 <script type="text/javascript">
 var x=document.getElementById("demo");
@@ -179,6 +173,16 @@ function showError(error)
 						<div class="clearfix"> </div>
 					</div>
 				</div>
+				<!--BUSCADOR-->
+					</br>
+					<div class="wow fadeIn buscador">
+					<form name="buscador" method="POST" action="../inc/buscador.php">
+					<font style="color: white; margin-left:60%">NOMBRE DE PLAYLIST</font>
+						<input type="text" name="palabra" required>
+						<input class="botonBuscador" type="submit" value="Buscar" name="buscar">
+					</form>
+					</div>
+				<!--BUSCADOR-->
 		</div>
 			<!----- //End-header---->
 		

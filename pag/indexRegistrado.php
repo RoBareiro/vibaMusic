@@ -86,46 +86,33 @@
 						<div class="clearfix"> </div>
 					</div>
 				</div>
+
+				<!--BUSCADOR-->
+					</br>
+					<div class="wow fadeIn buscador">
+					<form name="buscador" method="POST" action="../inc/buscador.php">
+					<font style="color: white; margin-left:60%">NOMBRE DE PLAYLIST</font>
+						<input type="text" name="palabra" required>
+						<input class="botonBuscador" type="submit" value="Buscar" name="buscar">
+					</form>
+				</br>
+					</div>
+				<!--BUSCADOR-->
+				
+
 			</div>
 			<!----- //End-header---->
 
 			<!---- banner-info ---->
 			<div class="banner-info">
 				<div class="container">
-					<h1 class="wow fadeIn" data-wow-delay="0.5s"><span>Somos</span><br /><label>VIBA Music!</label></h1>
-					
-					
+					<h1 class="wow fadeIn" data-wow-delay="0.5s"><span>SEGU&Iacute;</span><br/><label>Y DISFRUT&Aacute;</label></h1>
 						<div class="topcinco wow fadeIn container banner-info"  data-wow-delay="0.5s">
-							<h3>TOP 5 MEJORES</h3>
-
-
-							
+							<h3><center>La MEJOR M&uacute;sica esta aqu&iacute;</center></h3>
+							<img src="../images/jakeMusic.gif" width="100%"></img>			
+							<h3><center>en VIBA!</center></h3>			
 						</div>
-				
 
-				<div class="top-banner-grids wow bounceInUp" data-wow-delay="0.4s">
-					<div class="banner-grid text-center">
-						<span class="top-icon1"> </span>
-						<h3>CONECTATE CON TUS AMIGOS</h3>
-					</div>
-					<div class="banner-grid text-center">
-						<span class="top-icon2"> </span>
-						<h3>VOTA LAS PLAYLISTS</h3>
-					</div>
-					<div class="banner-grid text-center">
-						<span class="top-icon3"> </span>
-						<h3>PLAYLISTS DESTACADAS</h3>
-					</div>
-					<div class="banner-grid text-center">
-						<span class="top-icon4"> </span>
-						<h3>RECOMENDADOS PARA TI</h3>
-					</div>
-					<div class="banner-grid text-center">
-						<span class="top-icon5"> </span>
-						<h3>TOTALMENTE GRATIS</h3>
-					</div>
-					<div class="clearfix"> </div>
-				</div>
 				</div>
 			</div>
 

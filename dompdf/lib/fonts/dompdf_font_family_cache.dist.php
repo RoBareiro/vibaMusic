@@ -120,4 +120,12 @@
     'italic' => DOMPDF_FONT_DIR . 'sansus_webissimo-regular-webfont',
     'bold_italic' => DOMPDF_FONT_DIR . 'sansus_webissimo-regular-webfont',
   ),
+  'glyphicons halflings' => 
+  array (
+    'normal' => DOMPDF_FONT_DIR . 'e6b50b19bd86c8709c894ec945755921',
+  ),
+  'roboto' => 
+  array (
+    'normal' => DOMPDF_FONT_DIR . 'b8cc552766fa75496b0416734285f712',
+  ),
 ) ?>

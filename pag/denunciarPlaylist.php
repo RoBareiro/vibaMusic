@@ -3,6 +3,79 @@
 	session_start();
 	include("../inc/conexionbd.php");
 	$usuario = $_SESSION["usuario"];
+
+	/*datos de la playlist denunciada*/
+	$id_playlistDenunciado = $_GET["id_playlist"];
+	$id_usuarioDenunciadoPlaylist = $_GET["id_usuario"];
+	$nombreDenunciadoPlaylist = $_GET["nombrePlaylistADenunciar"];
+	/*datos de la playlist denunciada*/
+
+
+
+	/*busco los datos del denunciante para armar el mail*/
+	$denuncianteSql = "SELECT id_usuario, nombre, apellido FROM usuario WHERE usuario = '$usuario'";
+	$consultaSql = mysqli_query($conexion,$denuncianteSql);
+	$datosDenunciante = mysqli_fetch_assoc($consultaSql);
+	
+	$id_usuarioDenunciante = $datosDenunciante["id_usuario"];
+	$nombreDenunciante = $datosDenunciante["nombre"];
+	$apellidoDenunciante = $datosDenunciante["apellido"];
+	/*busco los datos del denunciante para armar el mail*/	
+
+
+
+	if(isset($_POST["denunciar"])){
+		$errores = array();
+		$textoDenuncia = $_POST["textoDenuncia"];
+
+		$id_playlistDenunciado = $_POST["id_playlistDenunciado"];
+		$id_usuarioDenunciadoPlaylist = $_POST["id_usuarioDenunciadoPlaylist"];
+		$nombreDenunciadoPlaylist = $_POST["nombreDenunciadoPlaylist"];
+
+		/*tomo datos del denunciado*/
+		$consultaDenuncia = "SELECT usuario, nombre, apellido FROM usuario WHERE id_usuario = '$id_usuarioDenunciadoPlaylist' ";
+
+		$sql = mysqli_query($conexion,$consultaDenuncia);	/*me trae todos los datos del denunciado*/
+		
+		/*me guardo los datos del denunciado*/
+		$datos = mysqli_fetch_assoc($sql);
+		$usuarioDenunciado = $datos["usuario"];
+		$nombreDenunciado = $datos["nombre"];
+		$apellidoDenunciado = $datos["apellido"];
+		/*me guardo los datos del denunciado*/
+
+
+		if($resultado = mysqli_num_rows($sql) == 1){
+			if(empty($errores)){
+					$para = "somos.viba.music@gmail.com";
+
+					$titulo = 'DENUNCIA DE PLAYLIST';
+					
+					$mensaje = 'El usuario ' .$usuario. ' ha realizado una denuncia sobre la Playlist "' ."$nombreDenunciadoPlaylist". '" del usuario ' ."$usuarioDenunciado". ' - ' ."$nombreDenunciado". ' ' ."$apellidoDenunciado". 
+					'" .    El motivo es el siguiente: ' ."$textoDenuncia". 
+					
+
+
+					'      Nombre Completo del Usuario del Denunciante: '."$nombreDenunciante". ' ' ."$apellidoDenunciante". 
+					' - Id del Usuario Denunciante: '."$id_usuarioDenunciante".
+
+
+
+					'      Nombre Completo del Usuario del Denunciado: '."$nombreDenunciado".' '."$apellidoDenunciado". 
+					' - Id de la Playlist Denunciada: '."$id_playlistDenunciado".
+					' - Nombre de la Playlist del Denunciado: '."$id_usuarioDenunciadoPlaylist";
+
+					$cabeceras = 'From: Usuario'. "$usuario";
+
+					//envio el mail				 
+					mail($para, $titulo, $mensaje, $cabeceras);
+					$errores[0] = "</br><h3><font color='#76ff00'>Denuncia Realizada con EXITO</font></h3>";
+			}
+		 	else{
+				$errores[0] = "</br><h3><font color='#76ff00'>ERROR al Realizar la Denuncia</font></h3>";		
+			}
+		}
+	}
 ?>
 
 <html>
@@ -72,8 +145,8 @@
 						 <nav class="top-nav">
 							<ul class="top-nav">
 								<li><a href="indexRegistrado.php">VIBA!</a></li>
-								<li><a href="playlists.php">Playlists</a></li>
-								<li  class="active-join"><a href="usuario.php">Usuario</a></li>
+								<li class="active-join"><a href="playlists.php">Playlists</a></li>
+								<li><a href="usuario.php">Usuario</a></li>
 								<li><a href="cerrarSesion.php">Cerrar Sesi&oacute;n</a></li>
 								<li><a href="paginaRegistrado.php">USUARIO
 										 <?PHP echo $_SESSION['usuario']; ?>
@@ -85,6 +158,16 @@
 						<div class="clearfix"> </div>
 					</div>
 				</div>
+				<!--BUSCADOR-->
+					</br>
+					<div class="wow fadeIn buscador">
+					<form name="buscador" method="POST" action="../inc/buscador.php">
+					<font style="color: white; margin-left:60%">NOMBRE DE PLAYLIST</font>
+						<input type="text" name="palabra" required>
+						<input class="botonBuscador" type="submit" value="Buscar" name="buscar">
+					</form>
+					</div>
+				<!--BUSCADOR-->
 		</div>
 			<!----- //End-header---->
 		
@@ -97,7 +180,23 @@
 					</div>
 					</br></br>
 					<div class="modificar" id="central">
-						<!--FORMULARIO DE DENUNCIA PLAYLIST-->
+						Formulario de Denuncia
+						<form class="formulario wow bounceIn" data-wow-delay="0.4s" method="POST" action="denunciarPlaylist.php">
+
+						<span><?PHP echo $errores[0]; ?></span>
+						
+						<input type='hidden' name='id_playlistDenunciado' value='<?PHP echo $id_playlistDenunciado; ?>'></input>
+						<input type='hidden' name='id_usuarioDenunciadoPlaylist' value='<?PHP echo $id_usuarioDenunciadoPlaylist; ?>'></input>
+						<input type='hidden' name='nombreDenunciadoPlaylist' value='<?PHP echo $nombreDenunciadoPlaylist; ?>'></input>
+
+						<h3><div style="color: white;">DE: <?PHP echo $_SESSION['usuario']; ?></div></h3>
+						<h3><div style="color: white;">PARA: Administrador de Viba Music!</div></h3>
+
+						<h3>Denuncio esta Playlist por el siguiente motivo:</h3>
+						<textarea name="textoDenuncia" rows="7" cols="40" required style="resize:none;"></textarea>
+						</br></br>
+						<input class="botonlogin" type="submit" name="denunciar" value="Enviar Denuncia"></input>
+					</form>
 					</br></br>
 					</div>
 

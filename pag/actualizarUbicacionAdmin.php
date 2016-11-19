@@ -30,7 +30,7 @@ function mostrarUbicacion(position){
 
 	var div = document.getElementById("ubicacion");
 	div.innerHTML = "<br>Latitud: " + latitud + "<br>Longitud: " + longitud;
-		}	
+		}
 
 
 function refrescarUbicacion(){	
@@ -74,6 +74,25 @@ function showPosition(position){
   	title:"Estas Aqui!",
   	animation: google.maps.Animation.Drop
   });
+
+
+/*Uso ajax para guardar las coordenadas en la bd
+	 $.ajax({
+     url: "guarda.php",
+     type: "POST",
+     data:datos,
+     dataType: "json",
+     success: function(data) {
+     if(data.success=="OK"){
+         alert('Se guardaron los datos ' + data.datos.loquequieras)
+      }else{
+         alert('Error en la grabacion de los datos');
+
+      }
+	alert( 'Se guardaron los datos: ' + data);
+	      }
+	});
+*/
   }
 
 function showError(error)

@@ -37,8 +37,7 @@
 
 		if($resultado = mysqli_num_rows($sql) == 1){
 			if(empty($errores)){
-					$para = "bareiro.rsb@gmail.com";
-					/*$para = "rncastaniervivas@hotmail.com.ar"*/
+					$para = "somos.viba.music@gmail.com";
 
 					$titulo = 'DENUNCIA DE USUARIO';
 					
@@ -148,6 +147,16 @@
 						<div class="clearfix"> </div>
 					</div>
 				</div>
+				<!--BUSCADOR-->
+					</br>
+					<div class="wow fadeIn buscador">
+					<form name="buscador" method="POST" action="../inc/buscador.php">
+					<font style="color: white; margin-left:60%">NOMBRE DE PLAYLIST</font>
+						<input type="text" name="palabra" required>
+						<input class="botonBuscador" type="submit" value="Buscar" name="buscar">
+					</form>
+					</div>
+				<!--BUSCADOR-->
 		</div>
 			<!----- //End-header---->
 		
