@@ -26,7 +26,7 @@
 		Nombre: <input type="nombreplaylist" name="nombreplaylist" size="20" style="color: black;"></input></br><br>
 
 		<label>Género</label>
-			<select>
+			<select style="color: black;">
 				<?PHP
 				          $consulta = "SELECT nombre FROM genero";
 				          $resultado = mysqli_query($conexion, $consulta);

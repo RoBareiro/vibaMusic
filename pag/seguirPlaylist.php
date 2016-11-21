@@ -1,114 +1,49 @@
-<?php
+<?PHP
 	error_reporting(0);	/*Desactiva cualquier notificacion*/
-	include("../inc/conexionbd.php");
 	session_start();
-	$_SESSION["registrado"] = "true";
+	include("../inc/conexionbd.php");
 	$usuario = $_SESSION["usuario"];
+
+	/*datos de la playlist a seguir*/
+	$id_playlistASeguir = $_GET["id_playlist"];
+	$id_usuarioPlaylistASeguir = $_GET["id_usuario"];
+	$imagenPlaylist = $_GET["imagen"];
+	$nombrePlaylist = $_GET["nombrePlaylistADenunciar"];
+	/*datos de la playlist a seguir*/
+
+
+
+/*me trae el id del usuario en sesion*/
+$datosMiUsuario = "SELECT id_usuario FROM usuario WHERE usuario = '$usuario'";
+$datosAccion = mysqli_query($conexion, $datosMiUsuario);
+
+
+
+if($resultado = (mysqli_num_rows($datosAccion)) == 1){
+			$result = mysqli_fetch_assoc($datosAccion);
+			$id_usuario = $result["id_usuario"];
+
+			/*busco si existe ya este seguimiento*/
+			$busquedaQuery = "SELECT id_seguidor, id_playlist FROM sigue_a WHERE id_seguidor = '$id_usuario' AND id_playlist = '$id_playlistASeguir'";
+			$sqlEjec = mysqli_query($conexion, $busquedaQuery);
+			/*si no encuentra coincidencias de seguimiento, agrega seguimiento*/
+			if($cantidad = (mysqli_num_rows($sqlEjec)) == 0){
+				$estado = 'sigue';
+				$queryParaSeguidor = "INSERT INTO sigue_a (id_seguimiento, id_seguidor, id_seguido, estado, id_playlist) VALUES ('','$id_usuario','$id_usuarioPlaylistASeguir','$estado','$id_playlistASeguir')";
+					$queryAccion = mysqli_query($conexion,$queryParaSeguidor);
+					$errores[0] = "<font style='color: green;'>Ahora Sigue a esta Playlist</font></br>";		
+			}
+			else{
+				$errores[0] = "<font style='color: red;'>Ya Sigue a esta Playlist</font></br>";
+					}
+		} /*if de la busqueda del usuario de sesion*/
 ?>
 
 
 
-
-
-
-
-
-
-
 <html>
-	<head>
-	<!--Para cambiar solo el contenido central-->
-	<script type="text/javascript" src="../js/jquery-ui-1.8.13.custom.min.js"></script>
-
-	<!--Para validar el navegador ajax-->
-	<script type="text/javascript">
-		
-		function getXMLHTTP() {
-	        var xmlhttp=false;
-	        try{
-	            xmlhttp=new XMLHttpRequest();
-	        }
-	        catch(e)	{
-	            try{
-	                xmlhttp= new ActiveXObject("Microsoft.XMLHTTP");
-	            }
-	            catch(e){
-	                try{
-	                    xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
-	                }
-	                catch(e){
-	                    xmlhttp=false;
-	                }
-	            }
-	        }
-	        return xmlhttp;
-    	}
-
-
-    	//FUNCION QUE MODIFICA LA PARTE DEL PERFIL Y LLAMA AL PHP modificarPerfil
-		function modificarPerfil() {
-		    var strURL="modificarPerfil.php";
-		    var req = getXMLHTTP();
-		    if (req) {
-		        req.onreadystatechange = function() {
-		            if (req.readyState == 4) {
-		                // only if "OK"
-		                if (req.status == 200) {
-		                    document.getElementById('central').innerHTML = req.responseText ;
-		                } else {
-		                    alert("There was a problem while using XMLHTTP:\n" + req.statusText);
-		                }
-		            }
-		        }
-					req.open("GET", strURL, true);
-					req.send();
-				}   
-			} 
-
-
-		//FUNCION QUE ME MUESTRA LOS QUE ME SIGUEN Y ME LLEVA AL PHP seguidores
-		function seguidores() {
-		    var strURL="seguidores.php";
-		    var req = getXMLHTTP();
-		    if (req) {
-		        req.onreadystatechange = function() {
-		            if (req.readyState == 4) {
-		                // only if "OK"
-		                if (req.status == 200) {
-		                    document.getElementById('central').innerHTML = req.responseText ;
-		                } else {
-		                    alert("There was a problem while using XMLHTTP:\n" + req.statusText);
-		                }
-		            }
-		        }
-					req.open("GET", strURL, true);
-					req.send();
-				}   
-			}
-
-		//FUNCION QUE ME MUESTRA A LOS QUE SIGO Y ME LLEVA AL PHP seguidos
-		function seguidos() {
-		    var strURL="seguidos.php";
-		    var req = getXMLHTTP();
-		    if (req) {
-		        req.onreadystatechange = function() {
-		            if (req.readyState == 4) {
-		                // only if "OK"
-		                if (req.status == 200) {
-		                    document.getElementById('central').innerHTML = req.responseText ;
-		                } else {
-		                    alert("There was a problem while using XMLHTTP:\n" + req.statusText);
-		                }
-		            }
-		        }
-					req.open("GET", strURL, true);
-					req.send();
-				}   
-			}
-</script>
-
-
-	<link href="../css/bootstrap.css" rel='stylesheet' type='text/css' />
+<head>
+<link href="../css/bootstrap.css" rel='stylesheet' type='text/css' />
 		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 		<script src="../js/jquery.min.js"></script>
 		 <!-- Custom Theme files -->
@@ -173,8 +108,8 @@
 						 <nav class="top-nav">
 							<ul class="top-nav">
 								<li><a href="indexRegistrado.php">VIBA!</a></li>
-								<li><a href="playlists.php">Playlists</a></li>
-								<li class="active-join"><a href="usuario.php">Usuario</a></li>
+								<li class="active-join"><a href="playlists.php">Playlists</a></li>
+								<li><a href="usuario.php">Usuario</a></li>
 								<li><a href="cerrarSesion.php">Cerrar Sesi&oacute;n</a></li>
 								<li><a href="paginaRegistrado.php">USUARIO
 										 <?PHP echo $_SESSION['usuario']; ?>
@@ -204,30 +139,17 @@
 				<div class="container">
 					</br>
 					<div class="opciones bounceIn">
-							<a href="#" class="btnUsu" onclick="modificarPerfil()">MODIFICAR PERFIL</a></br>
-							<a href="#" class="btnUsu" onclick="seguidores()">LOS QUE ME SIGUEN</a></br>
-							<a href="#" class="btnUsu" onclick="seguidos()">LOS QUE SIGO</a></br>
-							<a href="buscarUsuario.php" class="btnUsu">BUSCAR USUARIO</a></br>
+							<a href="playlists.php" class="btnUsu">VOLVER AL MEN&Uacute;</a></br>
 					</div>
-					<div class="modificar" id="central">
-						Perfil de usuario de <?PHP echo "</br></br><div style='color: #77FF6B; text-transform: uppercase; '>".$_SESSION["usuario"]."</div>"?></br>
-						<div>
-							<?PHP 
-								$consulta = "SELECT foto_de_perfil FROM usuario WHERE usuario = '$usuario' ";
-								$resultado = mysqli_query($conexion,$consulta);
-
-								if(mysqli_num_rows($resultado) == 1){
-										while($fila = mysqli_fetch_row($resultado)){
-       									echo "<img src='".$fila[0]."' width='40%'></img>";
-       									}
-								}
-								else{
-									echo "<img src='../imgPerfil/perfilSombra.jpg' width='40%'></img>";
-								}
-							?>			
-						</div>
-
 					</br></br>
+					<div class="modificar" id="central">
+					<span><?PHP echo $errores[0]; ?></span>
+
+						<?PHP
+							echo "<b><i>" .$nombrePlaylist. "</i></b>";	
+							echo "</br><img src='" .$imagenPlaylist. "' width='30%'></img>";
+						?>			
+					</br>
 					</div>
 
 				</div>

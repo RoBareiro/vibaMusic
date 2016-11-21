@@ -85,7 +85,7 @@
 			}
 
 		//FUNCION QUE AGREGA CANCIONES A LA BASE DE DATOS Y ME LLEVA AL PHP agregarCanciones
-		function agregarCanciones() {
+/*		function agregarCanciones() {
 		    var strURL="agregarCanciones.php";
 		    var req = getXMLHTTP();
 		    if (req) {
@@ -102,7 +102,7 @@
 					req.open("GET", strURL, true);
 					req.send();
 				}   
-			}
+			}*/
 
 		//FUNCION QUE ME DENUNCIA PLAYLIST
 	/*	function denunciar(){
@@ -225,7 +225,7 @@
 					<div class="opciones bounceIn">
 							<a href="#" class="btnUsu" onclick="crearPlaylist()">CREAR PLAYLIST</button></br>
 							<a href="#" class="btnUsu" onclick="misPlaylists()">MIS PLAYLISTS</a></br>
-							<a href="#" class="btnUsu" onclick="agregarCanciones()">AGREGAR CANCIONES</a><br>
+							<a href="agregarCanciones.php" class="btnUsu">AGREGAR CANCIONES</a><br>
 					<!--		<a href="#" class="btnUsu" onclick="denunciar()">DENUNCIAR</a>-->
 					</div>
 					<div class="modificar" id="central">

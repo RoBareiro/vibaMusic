@@ -13,36 +13,13 @@
 		$error = array();
 		$id_playlistSeguir = $_GET["id_playlist"];
 		$id_usuarioPlaylistSeguir = $_GET["id_usuario"];
+		$imagen = $_GET["imagen"];
+		$nombrePlaylistASeguir = $_GET["nombrePlaylistADenunciar"];
 
-
-		/*me trae el id del usuario en sesion*/
-		$datosMiUsuario = "SELECT id_usuario FROM usuario WHERE usuario = '$usuario'";
-		$datosAccion = mysqli_query($conexion, $datosMiUsuario);
-
-		if($resultado = (mysqli_num_rows($datosAccion)) == 1){
-			$result = mysqli_fetch_assoc($datosAccion);
-			$estado = 'sigue';
-			$id_usuario = $result["id_usuario"];
-
-			/*busco si existe ya este seguimiento*/
-			$busquedaQuery = "SELECT id_seguidor, id_playlist FROM playlist WHERE id_seguidor = '$id_usuario' AND id_playlist = '$id_playlistSeguir'";
-			$sqlEjec = mysqli_query($conexion, $busquedaQuery);
-
-			if($cantidad = (mysqli_num_rows($sqlEjec)) != 0){
-				$queryParaSeguidor = "INSERT INTO sigue_a (id_seguimiento, id_seguidor, id_seguido, estado, id_playlist) VALUES ('','$id_usuario','$id_usuarioPlaylistSeguir','$estado','$id_playlistSeguir')";
-				$queryAccion = mysqli_query($conexion,$queryParaSeguidor);
-				$error[0] = "Ahora sigue esta playlist";				/*NO ME MUESTRA EL CARTEL*/
-			}
-			else{
-				$error[0] = "Usted ya sigue esta playlist";
-			}
-		}
-		else{
-			echo "No se puede seguir al usuario";
-		}
+		header("Location:../pag/seguirPlaylist.php?id_playlist=$id_playlistSeguir&id_usuario=$id_usuarioPlaylistSeguir&imagen=$imagen&nombrePlaylistADenunciar=$nombrePlaylistASeguir");
 	}
 	else{
-		if (isset($_GET["denunciar"])){
+		if(isset($_GET["denunciar"])){
 			$id_playlistSeguir = $_GET["id_playlist"];
 			$id_usuarioPlaylistSeguir = $_GET["id_usuario"];
 			$nombrePlaylistADenunciar = $_GET["nombrePlaylistADenunciar"];	
@@ -170,16 +147,20 @@
 								while($row = mysqli_fetch_array($result)){
 									$found = true;
 									echo "<form method='GET' action='buscador.php'>";
-
 /*VER COMO DIRECCIONAR A PLAYLIST*/ echo "</br><a href='" .$row["link"]. "'>";	
 
 									$id_playlist = $row["id_playlist"];
 									$id_usuario = $row["id_usuario"];		
 									$nombrePlaylistADenunciar = $row["nombre"];
+									$imagenPlaylist = $row["imagen"];
+
 
 									echo "<input type='hidden' name='id_playlist' value='".$id_playlist."'></input>";
 									echo "<input type='hidden' name='id_usuario' value='".$id_usuario."'></input>";
 									echo "<input type='hidden' name='nombrePlaylistADenunciar' value='".$nombrePlaylistADenunciar."'></input>";
+									echo "<input type='hidden' name='imagen' value='".$imagenPlaylist."'></input>";
+
+
 
 									echo "<h3>".$row["nombre"]."</h3>
 											<img src='".$row["imagen"]."' width='20%' height='25%'></img>
@@ -190,8 +171,7 @@
 								<input class='botonBuscador' name='denunciar' type='submit' value='Denunciar'></input></p>";
 								
 								echo '</form>';
-									}
-									echo "<font color='red'>"."$error[0]"."</font>";
+									}	
 								}
 								if(!$found){
 									echo "</br>No hay Playlist relacionada con la palabra <b><i><h3>" .$palabra. "</h3></i></b>";

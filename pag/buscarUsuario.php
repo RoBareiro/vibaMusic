@@ -10,44 +10,18 @@
 /*PARA LOS BOTONES SEGUIR O DENUNCIAR*/
 
 	if(isset($_GET["seguir"])){
-		$error = array();
-		$id_playlistSeguir = $_GET["id_playlist"];
-		$id_usuarioPlaylistSeguir = $_GET["id_usuario"];
+		$id_usuarioASeguir = $_GET["id_usuario"];
+		$imagen = $_GET["imagen"];
+		$nombreUsuarioASeguir = $_GET["usuarioASeguir"];		
 
-
-		/*me trae el id del usuario en sesion*/
-		$datosMiUsuario = "SELECT id_usuario FROM usuario WHERE usuario = '$usuario'";
-		$datosAccion = mysqli_query($conexion, $datosMiUsuario);
-
-		if($resultado = (mysqli_num_rows($datosAccion)) == 1){
-			$result = mysqli_fetch_assoc($datosAccion);
-			$estado = 'sigue';
-			$id_usuario = $result["id_usuario"];
-
-			/*busco si existe ya este seguimiento*/
-			$busquedaQuery = "SELECT id_seguidor, id_playlist FROM playlist WHERE id_seguidor = '$id_usuario' AND id_playlist = '$id_playlistSeguir'";
-			$sqlEjec = mysqli_query($conexion, $busquedaQuery);
-
-			if($cantidad = (mysqli_num_rows($sqlEjec)) != 0){
-				$queryParaSeguidor = "INSERT INTO sigue_a (id_seguimiento, id_seguidor, id_seguido, estado, id_playlist) VALUES ('','$id_usuario','$id_usuarioPlaylistSeguir','$estado','$id_playlistSeguir')";
-				$queryAccion = mysqli_query($conexion,$queryParaSeguidor);
-				$error[0] = "Ahora sigue a este usuario";				/*NO ME MUESTRA EL CARTEL*/
-			}
-			else{
-				$error[0] = "Usted ya sigue este usuario";
-			}
-		}
-		else{
-			echo "No se puede seguir al usuario";
-		}
+		header("Location:../pag/seguirUsuario.php?id_usuario=$id_usuarioASeguir&imagen=$imagen&usuarioASeguir=$nombreUsuarioASeguir");
 	}
 	else{
 		if (isset($_GET["denunciar"])){
-			$id_playlistSeguir = $_GET["id_playlist"];
-			$id_usuarioPlaylistSeguir = $_GET["id_usuario"];
-			$nombrePlaylistADenunciar = $_GET["nombrePlaylistADenunciar"];	
+			$id_usuarioDenunciado = $_GET["id_usuario"];
+			$nombreUsuarioDenunciado = $_GET["usuarioASeguir"];
 				
-			header("Location:../pag/denunciarPlaylist.php?id_playlist=$id_playlistSeguir&id_usuario=$id_usuarioPlaylistSeguir&nombrePlaylistADenunciar=$nombrePlaylistADenunciar");
+			header("Location:../pag/denunciarUsuario.php?id_usuario=$id_usuarioDenunciado&usuarioASeguir=$nombreUsuarioDenunciado");
 		}
 	}
 
@@ -161,7 +135,7 @@
 
 							if(isset($_POST['buscar'])){
 								$palabra = $_POST["palabra"];
-								$query = "SELECT id_usuario, usuario, nombre, foto_de_perfil FROM usuario WHERE usuario LIKE '%{$palabra}%' AND rol = 'usuario' ";
+								$query = "SELECT id_usuario, usuario, foto_de_perfil FROM usuario WHERE usuario LIKE '%{$palabra}%' AND rol = 'usuario' AND usuario != '$usuario' ";
 								$result = mysqli_query($conexion,$query);
 
 								$found = false; // Si el query ha devuelto algo pondrá a true esta variable
@@ -173,9 +147,13 @@
 
 /*pagina que me muetre el perfil  echo "</br><a href='" .$row["link"]. "'>";	*/
 
-									$id_usuario = $row["id_usuario"];		
+									$id_usuario = $row["id_usuario"];
+									$imagen = $row["foto_de_perfil"];
+									$usuarioASeguir = $row["usuario"];		
 
 									echo "<input type='hidden' name='id_usuario' value='".$id_usuario."'></input>";
+									echo "<input type='hidden' name='imagen' value='".$imagen."'></input>";
+									echo "<input type='hidden' name='usuarioASeguir' value='".$usuarioASeguir."'></input>";
 
 
 									echo "<h3>".$row["usuario"]."</h3>

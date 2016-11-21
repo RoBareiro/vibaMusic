@@ -15,22 +15,25 @@
 	$apellidoDenunciante = $datosDenunciante["apellido"];
 	/*busco los datos del denunciante para armar el mail*/	
 
+	/*Agarro los datos de buscarUsuario.php cuando lo denuncio y se lo paso al formulario de aca*/
+	$id_usuarioDenunciado = $_GET["id_usuario"];
+	$usuarioDenunciado = $_GET["usuarioASeguir"];
+	/*Agarro los datos de buscarUsuario.php cuando lo denuncio y se lo paso al formulario de aca*/
 
-	$consulta = "SELECT id_usuario, usuario FROM usuario WHERE rol = 'usuario' AND id_usuario != '$usuario'";
-	$ejecuto = mysqli_query($conexion, $consulta);
+
 
 	if(isset($_POST["denunciar"])){
 		$errores = array();
-		$id_denunciado = $_POST["usuarioDenunciado"];
 		$textoDenuncia = $_POST["textoDenuncia"];
+		$denunciadoNombreUsuario = $_POST["nombreDeUsuarioDenunciado"]; /*por hidden*/
+		$id_denunciado = $_POST["id_denunciado"]; /*por hidden*/
 
-		/*tomo datos del denunciado para yo despues banearlo*/
-		$consultaDenuncia = "SELECT usuario, nombre, apellido FROM usuario WHERE id_usuario ='$id_denunciado' ";
+		/*tomo datos del denunciado para yo despues denunciarlo*/
+		$consultaDenuncia = "SELECT nombre, apellido FROM usuario WHERE id_usuario ='$id_denunciado' ";
 		$sql = mysqli_query($conexion,$consultaDenuncia);	/*me trae todos los datos del denunciado*/
 		
 		/*me guardo los datos del denunciado*/
 		$datos = mysqli_fetch_assoc($sql);
-		$usuarioDenunciado = $datos["usuario"];
 		$nombreDenunciado = $datos["nombre"];
 		$apellidoDenunciado = $datos["apellido"];
 		/*me guardo los datos del denunciado*/
@@ -41,7 +44,7 @@
 
 					$titulo = 'DENUNCIA DE USUARIO';
 					
-					$mensaje = 'El usuario ' .$usuario. ' ha realizado una denuncia sobre el usuario ' ."$usuarioDenunciado". ' - ' ."$nombreDenunciado". ' ' ."$apellidoDenunciado". 
+					$mensaje = 'El usuario ' .$usuario. ' ha realizado una denuncia sobre el usuario ' ."$denunciadoNombreUsuario". ' - ' ."$nombreDenunciado". ' ' ."$apellidoDenunciado". 
 					' .    El motivo es el siguiente: ' ."$textoDenuncia". 
 					
 
@@ -172,20 +175,16 @@
 						Formulario de Denuncia
 						<form class="formulario wow bounceIn" data-wow-delay="0.4s" method="POST" action="denunciarUsuario.php">
 
+
+						<input type="hidden" name='id_denunciado' value='<?PHP echo $id_usuarioDenunciado; ?>'></input>
+						<input type="hidden" name='nombreDeUsuarioDenunciado' value='<?PHP echo $usuarioDenunciado; ?>'></input>
+
 						<span><?PHP echo $errores[0]; ?></span>
 
 						<h3><div style="color: white;">DE: <?PHP echo $_SESSION['usuario']; ?></div></h3>
 						<h3><div style="color: white;">PARA: Administrador de Viba Music!</div></h3>
-						<h3><div style="color: white;">DENUNCIO A: </div></h3>
-							<?PHP
-								echo "<select name='usuarioDenunciado'>";
-										        
-								while($fila = mysqli_fetch_assoc($ejecuto)){
-									echo "<option value='" . $fila["id_usuario"] . " '>" . $fila["usuario"] . "</option>";
-								}
-
-								echo "</select></br>";
-							?>					
+						<h3><div style="color: white;">DENUNCIO A: <?PHP echo $denunciadoNombreUsuario; ?></div></h3>
+												
 						
 						<h3>Ingrese el motivo de la denuncia:</h3>
 						<textarea name="textoDenuncia" rows="7" cols="40" required style="resize:none;"></textarea>
