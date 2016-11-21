@@ -3,58 +3,24 @@
 	session_start();
 	$usuario = $_SESSION["usuario"];
 	include("../inc/conexionbd.php");
+
+
+		$target_path = "../uploads/";
+		$target_path = $target_path . basename( $_FILES['uploadedfile']['name']);
+
+			if(move_uploaded_file($_FILES['uploadedfile']['tmp_name'], $target_path)){
+					
+					header("location: playlists.php");
+				}
+
 ?>
 
-	<!--Para validar el navegador ajax-->
-	<script type="text/javascript">
-		
-		function getXMLHTTP() {
-	        var xmlhttp=false;
-	        try{
-	            xmlhttp=new XMLHttpRequest();
-	        }
-	        catch(e)	{
-	            try{
-	                xmlhttp= new ActiveXObject("Microsoft.XMLHTTP");
-	            }
-	            catch(e){
-	                try{
-	                    xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
-	                }
-	                catch(e){
-	                    xmlhttp=false;
-	                }
-	            }
-	        }
-	        return xmlhttp;
-    	}
-</script>
-<!DOCTYPE html>
+<!DOCTYPE>
 <html>
 	<head>
 				<!--Menu de ajax-->
 		<script type="text/javascript" src="../js/jquery-ui-1.8.13.custom.min.js"></script>
-			<!--FUNCION QUE AGREGA CANCIONES agregarCanciones.php-->
-		<script>
-		function agregarCanciones() {
-		    var strURL="agregarCanciones.php";
-		    var req = getXMLHTTP();
-		    if (req) {
-		        req.onreadystatechange = function() {
-		            if (req.readyState == 4) {
-		                // only if "OK"
-		                if (req.status == 200) {
-		                    document.getElementById('central').innerHTML = req.responseText ;
-		                } else {
-		                    alert("There was a problem while using XMLHTTP:\n" + req.statusText);
-		                }
-		            }
-		        }
-					req.open("GET", strURL, true);
-					req.send();
-				}   
-			}
-			</script>
+			
 		<link href="../css/bootstrap.css" rel='stylesheet' type='text/css' />
 		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 		<script src="../js/jquery.min.js"></script>
@@ -106,29 +72,18 @@
 			});
 		</script>
 		<!----//End-top-nav-script---->
-	<title>Viba Music!</title>
+	<title>Viba Music! - Agrega tus propios archivos</title>
 		
 		</head>
 		<body>
-		<form enctype='multipart/form-data' action='agregarCanciones.php' method='post'>
-			<input name='uploadedfile' type='file'><br>
-			<input type='submit' value='Subir archivo' style="color: black;">
-		</form>
-	<?php 
-		error_reporting(0);
-		$target_path = "../uploads/";
-		$target_path = $target_path . basename( $_FILES['uploadedfile']['name']);
-
-			if(move_uploaded_file($_FILES['uploadedfile']['tmp_name'], $target_path)){
-					echo '<script language="javascript">alert("El archivo subio correctamente");</script>';
-
-			}
-			header("Location:playlist.php");
-	?>		
-			<br>
-				<a href="../uploads">Lista de archivos subidos exitosamente</a>
-
-				<!--PREGUNTAR POR AJAX A ROOOOO-->
-
+		<div>
+			<form enctype='multipart/form-data' action='agregarCanciones.php' method='post'>
+				<input name='uploadedfile' type='file'></input><br>
+				<input type='submit' value='Subir archivo' style="color: black;"></input>
+			</form>
+			
+				<br><br>
+				<a href="../uploads" style="color: green;">Lista de archivos subidos exitosamente</a>
+		</div>
 		</body>
 </html>

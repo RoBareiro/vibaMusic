@@ -1,6 +1,7 @@
 <?php
 	error_reporting(0);	/*Desactiva cualquier notificacion*/
 	session_start();
+	include("../inc/conexionbd.php");
 
 ?>
 
@@ -42,8 +43,7 @@
 	        return xmlhttp;
     	}
 
-
-    	//FUNCION QUE MODIFICA LA PARTE DEL PERFIL Y LLAMA AL PHP modificarPerfil
+    	//FUNCION QUE CREAR PLAYLIST Y ME LLEVA AL PHP crearPlaylist.php
 		function crearPlaylist() {
 		    var strURL="crearPlaylist.php";
 		    var req = getXMLHTTP();
@@ -61,12 +61,12 @@
 					req.open("GET", strURL, true);
 					req.send();
 				}   
-			} 
+			}
 
 
-		//FUNCION QUE ME MUESTRA LOS QUE ME SIGUEN Y ME LLEVA AL PHP seguidores
+    	//FUNCION QUE ME MUESTRA LOS QUE ME SIGUEN Y ME LLEVA AL PHP misPlaylist.php
 		function misPlaylists() {
-		    var strURL="misPlaylists.php";
+		    var strURL="misPlaylist.php";
 		    var req = getXMLHTTP();
 		    if (req) {
 		        req.onreadystatechange = function() {
@@ -84,7 +84,7 @@
 				}   
 			}
 
-		//FUNCION QUE AGREGA CANCIONES A LA BASE DE DATOS Y ME LLEVA AL PHP agregarCanciones
+		//FUNCION QUE AGREGA CANCIONES Y ME LLEVA AL PHP agregarCanciones
 		function agregarCanciones() {
 		    var strURL="agregarCanciones.php";
 		    var req = getXMLHTTP();
@@ -103,26 +103,6 @@
 					req.send();
 				}   
 			}
-
-		//FUNCION QUE ME DENUNCIA PLAYLIST
-	/*	function denunciar(){
-		    var strURL="denunciasPlaylist.php";
-		    var req = getXMLHTTP();
-		    if (req) {
-		        req.onreadystatechange = function() {
-		            if (req.readyState == 4) {
-		                // only if "OK"
-		                if (req.status == 200) {
-		                    document.getElementById('central').innerHTML = req.responseText ;
-		                } else {
-		                    alert("There was a problem while using XMLHTTP:\n" + req.statusText);
-		                }
-		            }
-		        }
-					req.open("GET", strURL, true);
-					req.send();
-				}   
-			}*/
 
 </script>
 
@@ -223,10 +203,9 @@
 				<div class="container">
 					</br>
 					<div class="opciones bounceIn">
-							<a href="#" class="btnUsu" onclick="crearPlaylist()">CREAR PLAYLIST</button></br>
+							<a href="#" class="btnUsu" onclick="crearPlaylist()">CREAR PLAYLIST</a></br>
 							<a href="#" class="btnUsu" onclick="misPlaylists()">MIS PLAYLISTS</a></br>
 							<a href="#" class="btnUsu" onclick="agregarCanciones()">AGREGAR CANCIONES</a><br>
-					<!--		<a href="#" class="btnUsu" onclick="denunciar()">DENUNCIAR</a>-->
 					</div>
 					<div class="modificar" id="central">
 						PLAYLIST OPERACIONES
