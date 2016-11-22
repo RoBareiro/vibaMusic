@@ -24,10 +24,10 @@
 			$eliminar = "DELETE FROM usuario WHERE id_usuario = '$id_bajaUsuario'";
 			$accion = mysqli_query($conexion,$eliminar);
 
-			$errores[0] = "Usuario Dado de Baja con Exito";
+			$errores[0] = "<font style='color:green;'>Usuario Dado de Baja con Exito</font>";
 		}
 		 else{
-			$errores[0] = "El Usuario que selecciono ya fue Dado de Baja";		
+			$errores[0] = "<font style='color:orange;'>El Usuario que selecciono ya fue Dado de Baja</font>";		
 		}
 	}
 
@@ -142,11 +142,11 @@
 										        }
 
 								      echo "</select></br>";
-								      echo "</br><font color='red'>" .$errores[0]. "</font>";
+								      echo "</br>" .$errores[0];
 							 	?>
 							</span>
 
-							<h3><font color='red'>Si esta seguro en dar la BAJA, haga click</font></h3></br>
+							<h3><font style='color: white;'>Si esta seguro en dar la <font color='red'>BAJA</font> haga click</font></h3></br>
 							<input class="botonlogin" type="submit" name="baja" value="BAJA"></input>
 						</form>
 

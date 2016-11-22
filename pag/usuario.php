@@ -208,7 +208,6 @@
 							<a href="#" class="btnUsu" onclick="seguidores()">LOS QUE ME SIGUEN</a></br>
 							<a href="#" class="btnUsu" onclick="seguidos()">LOS QUE SIGO</a></br>
 							<a href="buscarUsuario.php" class="btnUsu">BUSCAR USUARIO</a></br>
-							<a href="denunciarUsuario.php" class="btnUsu">DENUNCIAR</a>
 					</div>
 					<div class="modificar" id="central">
 						Perfil de usuario de <?PHP echo "</br></br><div style='color: #77FF6B; text-transform: uppercase; '>".$_SESSION["usuario"]."</div>"?></br>

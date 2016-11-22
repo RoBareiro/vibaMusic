@@ -168,15 +168,15 @@
 									          move_uploaded_file($_FILES["archivo"]["tmp_name"],
 									          "../imgPlaylist/". $numeroAleatorio . $_FILES["archivo"]["name"]);
 
-									          $rutaImagen = "../imgPlaylist/". $numeroAleatorio . $_FILES['archivo']['name'];		
+									         $rutaImagen = "../imgPlaylist/". $numeroAleatorio . $_FILES['archivo']['name'];		
 									        }
 									      }
 									    }			    
 									    echo "<input type='hidden' name='ruta' value='" .$rutaImagen. "'></input>";				
 				?> 
 				<br><br>
-				<input type="reset" name="borrarPlaylist" value="Deshacer" class="botonlogin">
-				<input type="submit" name="enviarPlaylist" value="Crear Playlist" class="botonlogin">
+				<input type="reset" name="borrarPlaylist" value="Deshacer" class="botonlogin"></input>
+				<input type="submit" name="enviarPlaylist" value="Crear Playlist" class="botonlogin"></input>
 		</form>
 
 	</div>

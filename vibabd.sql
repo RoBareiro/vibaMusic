@@ -3,9 +3,13 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 21-11-2016 a las 18:16:09
--- Versión del servidor: 10.1.16-MariaDB
--- Versión de PHP: 5.6.24
+-- Tiempo de generación: 21-11-2016 a las 22:07:03
+-- Versión del servidor: 10.1.10-MariaDB
+-- Versión de PHP: 5.5.33
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -59,7 +63,8 @@ CREATE TABLE `banneado` (
 --
 
 INSERT INTO `banneado` (`id_banneado`, `id_denunciado`, `motivo`, `fecha_banneo`) VALUES
-(1, 25, 'prueba\r\n', '16-11-15');
+(1, 25, 'prueba\r\n', '16-11-15'),
+(2, 23, 'Material Inapropiado', '16-11-21');
 
 -- --------------------------------------------------------
 
@@ -379,6 +384,17 @@ CREATE TABLE `playlist` (
   `tipo` varchar(100) CHARACTER SET utf8mb4 DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
+--
+-- Volcado de datos para la tabla `playlist`
+--
+
+INSERT INTO `playlist` (`id_playlist`, `id_usuario`, `id_genero`, `id_reproduccion`, `nombre`, `codigo_qr`, `fecha_creacion`, `imagen`, `link`, `tipo`) VALUES
+(54, 24, 5, 0, 'hip hop', 0, '2016-11-21', '../imgPlaylist/201202hiphop.jpeg', 'NULL', 'misSeguidores'),
+(55, 24, 1, 0, 'Pop', 0, '2016-11-21', '../imgPlaylist/917176pop1.jpg', 'NULL', 'misSeguidores'),
+(56, 26, 8, 0, 'Romanticos', 0, '2016-11-21', '../imgPlaylist/505096baladas.jpg', 'NULL', 'soloYo'),
+(57, 23, 5, 0, 'Rock', 0, '2016-11-21', '../imgPlaylist/791321rock2.jpg', 'NULL', 'misSeguidores'),
+(58, 23, 9, 0, 'se sale fuerte', 0, '2016-11-21', '../imgPlaylist/15197seSaleFuerte1.jpg', 'NULL', 'misSeguidores');
+
 -- --------------------------------------------------------
 
 --
@@ -415,6 +431,23 @@ CREATE TABLE `sigue_a` (
   `estado` varchar(10) DEFAULT NULL,
   `id_playlist` int(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `sigue_a`
+--
+
+INSERT INTO `sigue_a` (`id_seguimiento`, `id_seguidor`, `id_seguido`, `estado`, `id_playlist`) VALUES
+(32, 24, 24, 'sigue', 54),
+(33, 24, 24, 'sigue', 55),
+(34, 24, 26, 'sigue', 56),
+(35, 24, 23, 'sigue', 57),
+(36, 24, 23, 'sigue', -1),
+(37, 24, 26, 'sigue', -1),
+(38, 23, 26, 'sigue', 56),
+(39, 23, 24, 'sigue', 55),
+(40, 23, 26, 'sigue', -1),
+(41, 23, 24, 'sigue', -1),
+(42, 24, 23, 'sigue', 58);
 
 -- --------------------------------------------------------
 
@@ -537,7 +570,7 @@ ALTER TABLE `artista`
 -- AUTO_INCREMENT de la tabla `banneado`
 --
 ALTER TABLE `banneado`
-  MODIFY `id_banneado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_banneado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `cancion`
 --
@@ -562,7 +595,7 @@ ALTER TABLE `pais`
 -- AUTO_INCREMENT de la tabla `playlist`
 --
 ALTER TABLE `playlist`
-  MODIFY `id_playlist` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `id_playlist` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
 --
 -- AUTO_INCREMENT de la tabla `reproduccion`
 --
@@ -572,7 +605,7 @@ ALTER TABLE `reproduccion`
 -- AUTO_INCREMENT de la tabla `sigue_a`
 --
 ALTER TABLE `sigue_a`
-  MODIFY `id_seguimiento` int(255) NOT NULL AUTO_INCREMENT COMMENT 'NOS FALTO AGREGAR ESTO', AUTO_INCREMENT=32;
+  MODIFY `id_seguimiento` int(255) NOT NULL AUTO_INCREMENT COMMENT 'NOS FALTO AGREGAR ESTO', AUTO_INCREMENT=43;
 --
 -- AUTO_INCREMENT de la tabla `usuario`
 --
