@@ -64,25 +64,6 @@
 			}
 
 
-    	//FUNCION QUE ME MUESTRA LOS QUE ME SIGUEN Y ME LLEVA AL PHP misPlaylist.php
-		function misPlaylists() {
-		    var strURL="misPlaylist.php";
-		    var req = getXMLHTTP();
-		    if (req) {
-		        req.onreadystatechange = function() {
-		            if (req.readyState == 4) {
-		                // only if "OK"
-		                if (req.status == 200) {
-		                    document.getElementById('central').innerHTML = req.responseText ;
-		                } else {
-		                    alert("There was a problem while using XMLHTTP:\n" + req.statusText);
-		                }
-		            }
-		        }
-					req.open("GET", strURL, true);
-					req.send();
-				}   
-			}
 
 		//FUNCION QUE AGREGA CANCIONES Y ME LLEVA AL PHP agregarCanciones
 		function agregarCanciones() {
@@ -204,7 +185,7 @@
 					</br>
 					<div class="opciones bounceIn">
 							<a href="#" class="btnUsu" onclick="crearPlaylist()">CREAR PLAYLIST</a></br>
-							<a href="#" class="btnUsu" onclick="misPlaylists()">MIS PLAYLISTS</a></br>
+							<a href="misPlaylist.php" class="btnUsu">MIS PLAYLISTS</a></br>
 							<a href="#" class="btnUsu" onclick="agregarCanciones()">AGREGAR CANCIONES</a><br>
 					</div>
 					<div class="modificar" id="central">

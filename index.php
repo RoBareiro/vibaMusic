@@ -66,6 +66,7 @@
 	    		});
 			});
 		</script>
+		<!--Para la playlist-->
 		<script language="javascript" type="text/javascript" src="js/funcionesReproductor.js"></script>
 		<!----//End-top-nav-script---->
 	</head>

@@ -15,12 +15,6 @@
 
 
 
-
-
-
-
-
-
 <html>
 	<head>
 	<!--Para cambiar solo el contenido central-->
@@ -200,15 +194,21 @@
 					<div>
 						
 					<?PHP
-						$consulta = "SELECT nombre, imagen, id_playlist, id_usuario FROM playlist a INNER JOIN usuario b ON a.id_usuario = b.id_usuario AND a.id_usuario = '$miId' ";
+						$consulta = "SELECT nombre, imagen, id_playlist, id_usuario FROM playlist WHERE id_usuario = '$miId' ";
 						$resultado= mysqli_query($conexion, $consulta);
 
+					 if($cantidad = mysqli_num_rows($resultado) > 0){
 					 while($fila = mysqli_fetch_array($resultado)){
-						echo "<div><form action='verLaPlaylist.php' method='POST'>";
+						echo "<div style='float: left;'><form action='verLaPlaylist.php' method='GET'>";
 							echo $fila[0]. "</br>";
-							echo "<img name='" .$fila[2]. "' src='" .$fila[1]. "'></img>";
-							echo "<input type='submit' value='Escuchar'></input>";
+							echo "<img src='" .$fila[1]. "' width='15%'></img>";
+							echo "<input type='hidden' value='".$fila[2]."' name='idPlaylist'></input>";
+							echo "</br><input type='submit' value='Escuchar'></input>";
 						echo "</form></div>";
+						}
+					}
+					else{
+						echo "<font style='color: green;'>No tiene ninguna Playlist</font>";
 					} 
 					?>
 
