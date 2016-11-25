@@ -5,20 +5,62 @@
 	$usuario = $_SESSION["usuario"];
 
 	if(isset($_POST["enviarPlaylist"])){
+		/*PARA CARGAR LA IMAGEN EN LA BD*/
+
+		 // Hacemos una condicion en la que solo permitiremos que se suban imagenes y que sean menores a 20 KB
+									    if ((($_FILES["archivo"]["type"] == "image/jpeg") ||
+									    ($_FILES["archivo"]["type"] == "image/pjpeg") &&
+									    ($_FILES["archivo"]["size"] < 5000000))){
+									 
+									    //Si es que hubo un error en la subida, mostrarlo, de la variable $_FILES podemos extraer el valor de [error], que almacena un valor booleano (1 o 0).
+									      if ($_FILES["archivo"]["error"] > 0){
+									        echo $_FILES["archivo"]["error"] . "";
+									      }
+									      else{
+									        // Si no hubo ningun error, hacemos otra condicion para asegurarnos que el archivo no sea repetido
+									        if (file_exists("../imgPlaylist/" . $_FILES["archivo"]["name"])){
+									          echo $_FILES["archivo"]["name"] . " ya existe una imagen con el mismo nombre de archivo. ";
+									        }
+									        else{
+									         // Si no es un archivo repetido y no hubo ningun error, procedemos a subir a la carpeta /archivos, seguido de eso mostramos la imagen subida
+									          $numeroAleatorio =  rand(0,1000000);
+
+									          move_uploaded_file($_FILES["archivo"]["tmp_name"],
+									          "../imgPlaylist/". $numeroAleatorio . $_FILES["archivo"]["name"]);
+
+									         $rutaImagen = "../imgPlaylist/". $numeroAleatorio . $_FILES['archivo']['name'];		
+									        }
+									      }
+									    }			    
+		/*PARA CARGAR LA IMAGEN EN LA BD*/
+
 			$nombre= $_POST['nombre'];
 			$genero= $_POST['genero'];
 			$tipo= $_POST['tipoP'];
-			$imagen = $_POST['ruta'];
 
 			$id= "SELECT id_usuario from usuario where usuario = '$usuario'";
-			$consultaid= mysqli_query($conexion, $id);	//ESTO TE DEVUELVE UNA CANTIDAD DE FILAS
-			$assoc = mysqli_fetch_assoc($consultaid);	//ESTO GUARDA UN ARRAY CON EL INDICE COMO NOMBRE
-			$elId = $assoc["id_usuario"];	//ESTO GUARDA EN $elID EL VALOR QUE TRAE EL ARRAY 
+			$consultaid= mysqli_query($conexion, $id);	
+			$assoc = mysqli_fetch_assoc($consultaid);	
+			$elId = $assoc["id_usuario"];	
 			$fechac= date('y-m-d');
 
 			$insertarp = "INSERT into playlist (id_playlist, id_usuario, id_genero, id_reproduccion, nombre, codigo_qr, fecha_creacion, imagen, link, tipo)
-							VALUES('', '$elId', '$genero', '', '$nombre', '', '$fechac', '$imagen', 'NULL', '$tipo')";
+							VALUES('', '$elId', '$genero', '', '$nombre', '', '$fechac', '$rutaImagen', 'NULL', '$tipo')";
 			$consultap= mysqli_query($conexion, $insertarp);
+			
+			/*Necesito el ultimo id insertado en la tabla playlists*/
+			$id_playlist = mysqli_insert_id($conexion);
+
+			/*PARA CARGAR LA LISTA DE CANCIONES DE UNA PLAYLIST NUEVA EN LA BD*/
+				
+				$misIdCanciones = $_POST["misIdCanciones"];  /*es mi array con mis canciones del select*/	
+
+				foreach ($misIdCanciones as $ids) {  
+					$query = "INSERT INTO playlist_cancion(id_cancion, id_playlist) VALUES('$ids', '$id_playlist')";
+					$accion = mysqli_query($conexion,$query);
+				}   
+			/*PARA CARGAR LA LISTA DE CANCIONES DE UNA PLAYLIST NUEVA EN LA BD*/
+
 			header("location: playlistsOk.php");
 			}
 			
@@ -103,9 +145,11 @@
 	</head>
 <body>
 	<div>
+	<center><font style="color: green;">AHORA, ES MOMENTO DE CREAR TU PLAYLIST!</font></center></br>
 		<form method="POST" action="crearPlaylist.php"  enctype='multipart/form-data'>
-			Nombre: <input type="text" name="nombre" size="20" style="color: black;"></input></br><br>
-			<label>Género</label>
+			<label>Nombre:</label> 
+			<input type="text" name="nombre" size="20" style="color: black;"></input></br><br>
+			<label>Género:</label>
 				<select name="genero" style="color: black">
 					<option value="1">Pop</option>
 					<option value="2">Rock</option>
@@ -120,61 +164,38 @@
 
 			<label>Tipo de Playlist: </label>
 				<select style="color: black;" name="tipoP"> 
-					<option value="publica">Pública</option>
+					<option value="publica" selected>Pública</option>
 					<option value="misSeguidores">Mis seguidores</option>
 					<option value="soloYo">Solo yo</option>
 				</select>
-				<span><h4>Por defecto la playlist es Pública</h4></span><br><br>
+				<h4>Por defecto la playlist es Pública</h4><br>
 			
+
 			<label>Ahora, elegí tus canciones:</label><br>
-				<select multiple="multiple" style="color:black; width:300px; height:250px;">
 					<?PHP
-					$consultac = "SELECT titulo FROM cancion";
+					echo "<select multiple='multiple' name='misIdCanciones[]' style='color:black; width:300px; height:250px;'>";
+
+					$consultac = "SELECT titulo, idCancion, nombre FROM cancion a, artista b WHERE a.idArtista = b.idArtista ORDER BY nombre";
 					$resultadoc = mysqli_query($conexion, $consultac);
 		        	$numerodefilas = mysqli_num_rows($resultadoc);
 					$i=0;
 					          while($fila = mysqli_fetch_array($resultadoc)){
 					            $i++;
 					            if($i<$numerodefilas){ // No es la última fila
-					              echo "<option>" . $fila['titulo'] . "</option>'";
+					              echo "<option value='".$fila['idCancion']."'>" .$fila['nombre']. " - " .$fila['titulo'].  "</option>'";
 						            }
 					            else{ // Sí es la última fila
-					              echo "<option>" . $fila['titulo'] . "</option>'";
+					              echo "<option value='".$fila['idCancion']."'>" .$fila['nombre']. " - " .$fila['titulo'].  "</option>'";
 						            }
 					          }
+					echo "</select>";
 					?>		
-				</select>
-				<br><br>
-				<?PHP
-						echo "<input type='file' name='archivo' id='archivo'></input></br>";
-									    // Hacemos una condicion en la que solo permitiremos que se suban imagenes y que sean menores a 20 KB
-									    if ((($_FILES["archivo"]["type"] == "image/jpeg") ||
-									    ($_FILES["archivo"]["type"] == "image/pjpeg") &&
-									    ($_FILES["archivo"]["size"] < 5000000))){
-									 
-									    //Si es que hubo un error en la subida, mostrarlo, de la variable $_FILES podemos extraer el valor de [error], que almacena un valor booleano (1 o 0).
-									      if ($_FILES["archivo"]["error"] > 0){
-									        echo $_FILES["archivo"]["error"] . "";
-									      }
-									      else{
-									        // Si no hubo ningun error, hacemos otra condicion para asegurarnos que el archivo no sea repetido
-									        if (file_exists("../imgPlaylist/" . $_FILES["archivo"]["name"])){
-									          echo $_FILES["archivo"]["name"] . " ya existe una imagen con el mismo nombre de archivo. ";
-									        }
-									        else{
-									         // Si no es un archivo repetido y no hubo ningun error, procedemos a subir a la carpeta /archivos, seguido de eso mostramos la imagen subida
-									          $numeroAleatorio =  rand(0,1000000);
 
-									          move_uploaded_file($_FILES["archivo"]["tmp_name"],
-									          "../imgPlaylist/". $numeroAleatorio . $_FILES["archivo"]["name"]);
-
-									         $rutaImagen = "../imgPlaylist/". $numeroAleatorio . $_FILES['archivo']['name'];		
-									        }
-									      }
-									    }			    
-									    echo "<input type='hidden' name='ruta' value='" .$rutaImagen. "'></input>";				
-				?> 
 				<br><br>
+				<label>Imagen de Portada:</label>
+					<input type='file' name='archivo' id='archivo'></input>
+				<br>
+
 				<input type="reset" name="borrarPlaylist" value="Deshacer" class="botonlogin"></input>
 				<input type="submit" name="enviarPlaylist" value="Crear Playlist" class="botonlogin"></input>
 		</form>
