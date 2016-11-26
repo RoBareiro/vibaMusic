@@ -4,15 +4,38 @@
 	$usuario = $_SESSION["usuario"];
 	include("../inc/conexionbd.php");
 
-
+	if (isset($_POST['agregarCanciones'])) {
+		
 		$target_path = "../uploads/";
 		$target_path = $target_path . basename( $_FILES['uploadedfile']['name']);
+			
+		$nombre= $_POST['nombreCancion'];
+		$artista= $_POST['artistaCancion'];
+		$album= $_POST['albumCancion'];
+		$duracion= $_POST['duracionCancion'];
+		$genero= $_POST['generoCancion'];
+		$ruta= $target_path;
 
-			if(move_uploaded_file($_FILES['uploadedfile']['tmp_name'], $target_path)){
-					
-					header("location: playlists.php");
+		$idArt= "SELECT idArtista from artista where nombre = '$artista'";
+			$consultaid= mysqli_query($conexion, $idArt);
+			$assoc= mysqli_fetch_assoc($consultaid);
+			$idArt= $assoc['idArtista'];
+				if ($idArt==0) {
+					$insertarId= "INSERT into artista (idArtista, nombre) values ('', '$artista')";
+					$idArt= mysqli_query($conexion, $insertarId);
+				} else{
+					echo "El artista ya existe";
 				}
+			
+			
 
+		$insertarc= "INSERT into cancion (idCancion, titulo, idArtista, album, duracion, id_genero, archivo)
+					 values('', '$nombre', '$idArt', '$album', '$duracion', '$genero', '$ruta')";
+		$query= mysqli_query($conexion, $insertarc);
+		if(move_uploaded_file($_FILES['uploadedfile']['tmp_name'], $target_path)){				
+					header("location: agregarCancionesOk.php");
+				}
+		}
 ?>
 
 <!DOCTYPE>
@@ -76,14 +99,31 @@
 		
 		</head>
 		<body>
-		<div>
-			<form enctype='multipart/form-data' action='agregarCanciones.php' method='post'>
-				<input name='uploadedfile' type='file'></input><br>
-				<input type='submit' value='Subir archivo' style="color: black;"></input>
+		<div class="canciones">
+			<h2>¡¡Agrega tus propias canciones!!</h2>
+			<form enctype='multipart/form-data' action='agregarCanciones.php' method='post'><br><br>
+				<label>Nombre:</label><br><input type="text" name="nombreCancion" size="30" style="color: black;"><br><br>
+
+				<label>Interprete:</label><br><input type="text" name="artistaCancion" size="30" style="color: black;"><br><br>
+
+				<label>Género:</label><br><select name="generoCancion" style="color: black;">
+					<option value="1">Pop</option>
+					<option value="2">Rock</option>
+					<option value="3">R&B</option>
+					<option value="4">Rap</option>
+					<option value="5">Hip-Hop</option>
+					<option value="6">Reaggeton</option>
+					<option value="7">Reagge</option>
+					<option value="8">Balada</option>
+					<option value="9">Electro</option>
+				</select><br><br>
+
+				<label>Album:</label><br><input type="text" name="albumCancion" size="30" style="color: black;"><br><br>
+
+				<label>Duración: (mm:ss)</label><br><input type="text" name="duracionCancion" size="5" style="color: black;"><br><br>
+				<input name='uploadedfile' type='file'></input><br><br>
+				<input type='submit' name="agregarCanciones" value='Subir archivo' class="botonlogin"></input>
 			</form>
-			
-				<br><br>
-				<a href="../uploads" style="color: green;">Lista de archivos subidos exitosamente</a>
 		</div>
 		</body>
 </html>
