@@ -106,8 +106,8 @@ if($resultado = (mysqli_num_rows($datosAccion)) == 1){
 						 <nav class="top-nav">
 							<ul class="top-nav">
 								<li><a href="indexRegistrado.php">VIBA!</a></li>
-								<li class="active-join"><a href="playlists.php">Playlists</a></li>
-								<li><a href="usuario.php">Usuario</a></li>
+								<li><a href="playlists.php">Playlists</a></li>
+								<li class="active-join"><a href="usuario.php">Usuario</a></li>
 								<li><a href="cerrarSesion.php">Cerrar Sesi&oacute;n</a></li>
 								<li><a href="paginaRegistrado.php">USUARIO
 										 <?PHP echo $_SESSION['usuario']; ?>

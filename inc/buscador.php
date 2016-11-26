@@ -143,7 +143,7 @@
 
 							if(isset($_POST['buscar'])){
 								$palabra = $_POST["palabra"];
-								$query = "SELECT id_playlist, id_usuario, nombre, imagen, link FROM playlist WHERE nombre LIKE '%{$palabra}%' AND id_usuario != '$miId' ";
+								$query = "SELECT id_playlist, id_usuario, nombre, imagen, link, tipo FROM playlist WHERE nombre LIKE '%{$palabra}%' AND id_usuario != '$miId' AND tipo != 'soloYo' ";
 								$result = mysqli_query($conexion,$query);
 
 								$found = false; // Si el query ha devuelto algo pondrá a true esta variable

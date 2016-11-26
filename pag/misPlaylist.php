@@ -200,7 +200,7 @@
 
 					 if($cantidad = mysqli_num_rows($resultado) > 0){
 					 while($fila = mysqli_fetch_array($resultado)){
-						echo "<div style='float: left; width:15%; margin-right: 5%;'><center><form action='verLaPlaylist.php' method='GET'>";
+						echo "<div style='float: left; width:15%; margin-right: 10%;'><center><form action='verLaPlaylist.php' method='GET'>";
 							echo $fila[0]. "</br>";
 							echo "<img src='" .$fila[1]. "' width='100%'></img>";
 							echo "<input type='hidden' value='".$fila[2]."' name='idPlaylist'></input>";
