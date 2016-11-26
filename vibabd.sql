@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 25-11-2016 a las 19:44:29
+-- Tiempo de generación: 26-11-2016 a las 01:57:31
 -- Versión del servidor: 5.6.26
 -- Versión de PHP: 5.6.12
 
@@ -382,7 +382,7 @@ CREATE TABLE IF NOT EXISTS `playlist` (
   `imagen` varchar(500) COLLATE utf8_bin DEFAULT NULL,
   `link` varchar(100) COLLATE utf8_bin DEFAULT NULL,
   `tipo` varchar(100) CHARACTER SET utf8mb4 DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=92 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=93 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Volcado de datos para la tabla `playlist`
@@ -392,7 +392,8 @@ INSERT INTO `playlist` (`id_playlist`, `id_usuario`, `id_genero`, `id_reproducci
 (88, 24, 5, 0, 'Para Coreo', 0, '2016-11-25', '../imgPlaylist/907319hiphop.jpeg', 'NULL', 'publica'),
 (89, 24, 1, 0, 'Lentos', 0, '2016-11-25', '../imgPlaylist/824341lentos.jpg', 'NULL', 'publica'),
 (90, 24, 1, 0, 'Pop', 0, '2016-11-25', '../imgPlaylist/667389pop1.jpg', 'NULL', 'publica'),
-(91, 24, 6, 0, 'Reggaeton', 0, '2016-11-25', '../imgPlaylist/544006playlist.jpg', 'NULL', 'publica');
+(91, 24, 6, 0, 'Reggaeton', 0, '2016-11-25', '../imgPlaylist/544006playlist.jpg', 'NULL', 'publica'),
+(92, 26, 9, 0, 'TaLadrando', 0, '2016-11-25', '../imgPlaylist/985260seSaleFuerte1.jpg', 'NULL', 'misSeguidores');
 
 -- --------------------------------------------------------
 
@@ -419,7 +420,9 @@ INSERT INTO `playlist_cancion` (`id_cancion`, `id_playlist`) VALUES
 (8, 90),
 (7, 90),
 (6, 91),
-(4, 91);
+(4, 91),
+(8, 92),
+(7, 92);
 
 -- --------------------------------------------------------
 
@@ -445,24 +448,15 @@ CREATE TABLE IF NOT EXISTS `sigue_a` (
   `id_seguido` int(255) DEFAULT NULL,
   `estado` varchar(10) DEFAULT NULL,
   `id_playlist` int(255) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `sigue_a`
 --
 
 INSERT INTO `sigue_a` (`id_seguimiento`, `id_seguidor`, `id_seguido`, `estado`, `id_playlist`) VALUES
-(32, 24, 24, 'sigue', 54),
-(33, 24, 24, 'sigue', 55),
-(34, 24, 26, 'sigue', 56),
-(35, 24, 23, 'sigue', 57),
-(36, 24, 23, 'sigue', -1),
-(37, 24, 26, 'sigue', -1),
-(38, 23, 26, 'sigue', 56),
-(39, 23, 24, 'sigue', 55),
-(40, 23, 26, 'sigue', -1),
-(41, 23, 24, 'sigue', -1),
-(42, 24, 23, 'sigue', 58);
+(43, 26, 24, 'sigue', 88),
+(44, 26, 24, 'sigue', 91);
 
 -- --------------------------------------------------------
 
@@ -610,7 +604,7 @@ ALTER TABLE `pais`
 -- AUTO_INCREMENT de la tabla `playlist`
 --
 ALTER TABLE `playlist`
-  MODIFY `id_playlist` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=92;
+  MODIFY `id_playlist` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=93;
 --
 -- AUTO_INCREMENT de la tabla `reproduccion`
 --
@@ -620,7 +614,7 @@ ALTER TABLE `reproduccion`
 -- AUTO_INCREMENT de la tabla `sigue_a`
 --
 ALTER TABLE `sigue_a`
-  MODIFY `id_seguimiento` int(255) NOT NULL AUTO_INCREMENT COMMENT 'NOS FALTO AGREGAR ESTO',AUTO_INCREMENT=43;
+  MODIFY `id_seguimiento` int(255) NOT NULL AUTO_INCREMENT COMMENT 'NOS FALTO AGREGAR ESTO',AUTO_INCREMENT=45;
 --
 -- AUTO_INCREMENT de la tabla `usuario`
 --

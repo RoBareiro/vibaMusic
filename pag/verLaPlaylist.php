@@ -185,6 +185,7 @@
 							<a href="#" class="btnUsu" onclick="crearPlaylist()">CREAR PLAYLIST</a></br>
 							<a href="misPlaylist.php" class="btnUsu">MIS PLAYLISTS</a></br>
 							<a href="#" class="btnUsu" onclick="agregarCanciones()">AGREGAR CANCIONES</a><br>
+							<a href="lasQueSigo.php" class="btnUsu" onclick="lasQueSigo()">LAS QUE SIGO</a><br>
 					</div>
 					<div class="modificar" id="central">
 					

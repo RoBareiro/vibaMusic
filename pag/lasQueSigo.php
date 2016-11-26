@@ -2,6 +2,13 @@
 	error_reporting(0);	/*Desactiva cualquier notificacion*/
 	session_start();
 	include("../inc/conexionbd.php");
+	$usuario = $_SESSION['usuario'];
+
+	/*busco mi id*/
+	$consultaId = "SELECT id_usuario from usuario WHERE usuario = '$usuario' ";
+	$accion = mysqli_query($conexion, $consultaId);
+	$id = mysqli_fetch_assoc($accion);
+	$miId = $id["id_usuario"];
 
 ?>
 
@@ -189,10 +196,33 @@
 							<a href="lasQueSigo.php" class="btnUsu" onclick="lasQueSigo()">LAS QUE SIGO</a><br>
 					</div>
 					<div class="modificar" id="central">
-						PLAYLIST OPERACIONES
+					LAS PLAYLISTS QUE SIGO
 					</br></br>
 					<div>
-						<img src="../images/playlist.gif" width="785" height="400"></img>
+						
+					<?PHP
+						$datosPlaylist = "SELECT nombre, imagen, id_playlist FROM playlist WHERE id_usuario = '$miId'";
+
+						$datosSeguidor = "SELECT s.id_playlist, p.nombre, p.imagen, p.id_playlist FROM sigue_a s, playlist p WHERE s.id_seguidor = '$miId' AND p.id_playlist = s.id_playlist";
+						$resultado= mysqli_query($conexion, $datosSeguidor);
+
+					 if($cantidad = mysqli_num_rows($resultado) > 0){
+					 while($fila = mysqli_fetch_array($resultado)){
+						echo "<div style='float: left; width:15%; margin-right: 5%;'><form action='verLaPlaylist.php' method='GET'>";
+							echo $fila[1]. "</br>";
+							echo "<img src='" .$fila[2]. "' width='100%'></img>";
+							echo "<input type='hidden' value='".$fila[0]."' name='idPlaylist'></input>";
+							echo "</br><input type='submit' value='Escuchar'></input>";
+						echo "</form></div>";
+						}
+					}
+					else{
+						echo "<font style='color: green;'>No Sigue ninguna Playlist</font>";
+					} 
+					?>
+					</br></br>
+					<div>
+		
 					</div>
 					</br></br>
 					</div>
