@@ -220,25 +220,19 @@
 							  </div></div>";
 						}
 						else{
-							if($_GET['opcion'] == $dejarDeSeguir){
 							/*mi id*/
 							$consultaId = "SELECT id_usuario from usuario WHERE usuario = '$usuario' ";
 							$accion = mysqli_query($conexion, $consultaId);
 							$id = mysqli_fetch_assoc($accion);
 							$miId = $id["id_usuario"];
 
+							if($_GET['opcion'] == $dejarDeSeguir){
 							$eliminar = "DELETE FROM sigue_a WHERE id_playlist = '$id_playlist' AND id_seguidor = '$miId'";
 							$elimino = mysqli_query($conexion, $eliminar);
 
 							echo "<font style='color: green;'>Usted ha dejado de seguir a esta playlist</font>";
 							}
 							else{
-								/*mi id*/
-								$consultaId = "SELECT id_usuario from usuario WHERE usuario = '$usuario' ";
-								$accion = mysqli_query($conexion, $consultaId);
-								$id = mysqli_fetch_assoc($accion);
-								$miId = $id["id_usuario"];
-
 								if($_GET['opcion'] == $borrarPlaylist){
 									$sql = "DELETE FROM playlist WHERE id_playlist = '$id_playlist' AND id_usuario = '$miId'";
 									$do = mysqli_query($conexion, $sql);
