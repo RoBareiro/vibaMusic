@@ -3,7 +3,6 @@
 	session_start();
 	include("../inc/conexionbd.php");
 	$usuario = $_SESSION["usuario"];
-
 	$id_playlist = $_GET["idPlaylist"];
 
 ?>
@@ -191,6 +190,11 @@
 					
 
 					<?PHP
+						$escuchar = 'Escuchar';
+						$dejarDeSeguir = 'Dejar de Seguir';
+						$borrarPlaylist = 'Borrar Playlist';
+
+						if($_GET['opcion'] == $escuchar){
 						$nombreQuery = "SELECT nombre FROM playlist WHERE id_playlist ='$id_playlist' ";
 						$exec = mysqli_query($conexion, $nombreQuery);
 						$nombrePlaylist = mysqli_fetch_assoc($exec);
@@ -214,6 +218,34 @@
 						echo "</select>";
 						echo "<script>cargarReproductor();</script>
 							  </div></div>";
+						}
+						else{
+							if($_GET['opcion'] == $dejarDeSeguir){
+							/*mi id*/
+							$consultaId = "SELECT id_usuario from usuario WHERE usuario = '$usuario' ";
+							$accion = mysqli_query($conexion, $consultaId);
+							$id = mysqli_fetch_assoc($accion);
+							$miId = $id["id_usuario"];
+
+							$eliminar = "DELETE FROM sigue_a WHERE id_playlist = '$id_playlist' AND id_seguidor = '$miId'";
+							$elimino = mysqli_query($conexion, $eliminar);
+
+							echo "<font style='color: green;'>Usted ha dejado de seguir a esta playlist</font>";
+							}
+							else{
+								/*mi id*/
+								$consultaId = "SELECT id_usuario from usuario WHERE usuario = '$usuario' ";
+								$accion = mysqli_query($conexion, $consultaId);
+								$id = mysqli_fetch_assoc($accion);
+								$miId = $id["id_usuario"];
+
+								if($_GET['opcion'] == $borrarPlaylist){
+									$sql = "DELETE FROM playlist WHERE id_playlist = '$id_playlist' AND id_usuario = '$miId'";
+									$do = mysqli_query($conexion, $sql);
+									echo "<font style='color: green;'>Usted ha borrado la playlist</font>";
+								}
+							}
+						}						
 					?>
 					</br></br>
 					<div>
@@ -241,12 +273,3 @@
 		</div>
 	</body>	
 </html>
-
-
-
-
-
-
-
-
-
