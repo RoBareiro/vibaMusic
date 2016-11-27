@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-11-2016 a las 14:52:10
+-- Tiempo de generación: 27-11-2016 a las 15:44:20
 -- Versión del servidor: 5.6.26
 -- Versión de PHP: 5.6.12
 
@@ -63,7 +63,6 @@ CREATE TABLE IF NOT EXISTS `banneado` (
 --
 
 INSERT INTO `banneado` (`id_banneado`, `id_denunciado`, `motivo`, `fecha_banneo`) VALUES
-(1, 25, 'prueba\r\n', '16-11-15'),
 (2, 23, 'Material Inapropiado', '16-11-21');
 
 -- --------------------------------------------------------
@@ -382,7 +381,7 @@ CREATE TABLE IF NOT EXISTS `playlist` (
   `imagen` varchar(500) COLLATE utf8_bin DEFAULT NULL,
   `link` varchar(100) COLLATE utf8_bin DEFAULT NULL,
   `tipo` varchar(100) CHARACTER SET utf8mb4 DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=93 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=94 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Volcado de datos para la tabla `playlist`
@@ -393,7 +392,8 @@ INSERT INTO `playlist` (`id_playlist`, `id_usuario`, `id_genero`, `id_reproducci
 (89, 24, 1, 0, 'Lentos', 0, '2016-11-25', '../imgPlaylist/824341lentos.jpg', 'NULL', 'publica'),
 (90, 24, 1, 0, 'Pop', 0, '2016-11-25', '../imgPlaylist/667389pop1.jpg', 'NULL', 'publica'),
 (91, 24, 6, 0, 'Reggaeton', 0, '2016-11-25', '../imgPlaylist/544006playlist.jpg', 'NULL', 'publica'),
-(92, 26, 9, 0, 'TaLadrando', 0, '2016-11-25', '../imgPlaylist/985260seSaleFuerte1.jpg', 'NULL', 'misSeguidores');
+(92, 26, 9, 0, 'TaLadrando', 0, '2016-11-25', '../imgPlaylist/985260seSaleFuerte1.jpg', 'NULL', 'misSeguidores'),
+(93, 25, 8, 0, 'Soledad', 0, '2016-11-27', '../imgPlaylist/88470baladas.jpg', 'NULL', 'publica');
 
 -- --------------------------------------------------------
 
@@ -422,7 +422,8 @@ INSERT INTO `playlist_cancion` (`id_cancion`, `id_playlist`) VALUES
 (6, 91),
 (4, 91),
 (8, 92),
-(7, 92);
+(7, 92),
+(2, 93);
 
 -- --------------------------------------------------------
 
@@ -448,7 +449,7 @@ CREATE TABLE IF NOT EXISTS `sigue_a` (
   `id_seguido` int(255) DEFAULT NULL,
   `estado` varchar(10) DEFAULT NULL,
   `id_playlist` int(255) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `sigue_a`
@@ -456,7 +457,16 @@ CREATE TABLE IF NOT EXISTS `sigue_a` (
 
 INSERT INTO `sigue_a` (`id_seguimiento`, `id_seguidor`, `id_seguido`, `estado`, `id_playlist`) VALUES
 (43, 26, 24, 'sigue', 88),
-(44, 26, 24, 'sigue', 91);
+(44, 26, 24, 'sigue', 91),
+(45, 24, 26, 'sigue', 92),
+(46, 26, 24, 'sigue', 90),
+(47, 26, 24, 'sigue', 89),
+(48, 25, 24, 'sigue', 88),
+(49, 25, 24, 'sigue', 90),
+(50, 25, 24, 'sigue', 89),
+(51, 25, 26, 'sigue', 92),
+(52, 24, 25, 'sigue', 93),
+(53, 26, 25, 'sigue', 93);
 
 -- --------------------------------------------------------
 
@@ -501,7 +511,20 @@ CREATE TABLE IF NOT EXISTS `voto` (
   `id_voto` int(255) NOT NULL,
   `id_playlist` int(255) NOT NULL,
   `id_usuario` int(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `voto`
+--
+
+INSERT INTO `voto` (`id_voto`, `id_playlist`, `id_usuario`) VALUES
+(1, 89, 26),
+(2, 88, 26),
+(3, 90, 26),
+(4, 91, 26),
+(5, 92, 24),
+(6, 93, 24),
+(7, 93, 26);
 
 --
 -- Índices para tablas volcadas
@@ -611,7 +634,7 @@ ALTER TABLE `pais`
 -- AUTO_INCREMENT de la tabla `playlist`
 --
 ALTER TABLE `playlist`
-  MODIFY `id_playlist` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=93;
+  MODIFY `id_playlist` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=94;
 --
 -- AUTO_INCREMENT de la tabla `reproduccion`
 --
@@ -621,7 +644,7 @@ ALTER TABLE `reproduccion`
 -- AUTO_INCREMENT de la tabla `sigue_a`
 --
 ALTER TABLE `sigue_a`
-  MODIFY `id_seguimiento` int(255) NOT NULL AUTO_INCREMENT COMMENT 'NOS FALTO AGREGAR ESTO',AUTO_INCREMENT=45;
+  MODIFY `id_seguimiento` int(255) NOT NULL AUTO_INCREMENT COMMENT 'NOS FALTO AGREGAR ESTO',AUTO_INCREMENT=54;
 --
 -- AUTO_INCREMENT de la tabla `usuario`
 --
@@ -631,7 +654,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `voto`
 --
 ALTER TABLE `voto`
-  MODIFY `id_voto` int(255) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_voto` int(255) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
