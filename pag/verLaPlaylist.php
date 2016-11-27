@@ -80,6 +80,48 @@
 				}   
 			}
 
+		//votoPositivo
+		function votoPositivo() {
+		      if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
+		        xmlhttp=new XMLHttpRequest();
+		      }
+		      else {// code for IE6, IE5
+		        xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+		      }
+		      xmlhttp.onreadystatechange=function() {
+		        if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+		          document.getElementById("voto").innerHTML=xmlhttp.responseText;
+		        }
+		      }
+
+		      var usuario = "<?PHP echo $usuario; ?>";
+		      var id_playlist = "<?PHP echo $id_playlist; ?>";
+
+		      xmlhttp.open("GET","votoPositivo.php?id_playlist="+id_playlist+"&usuario="+usuario,true);
+		      xmlhttp.send();
+		  }
+
+		//votoNegativo
+		function votoNegativo() {
+		      if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
+		        xmlhttp=new XMLHttpRequest();
+		      }
+		      else {// code for IE6, IE5
+		        xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+		      }
+		      xmlhttp.onreadystatechange=function() {
+		        if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+		          document.getElementById("voto").innerHTML=xmlhttp.responseText;
+		        }
+		      }
+
+		      var usuario = "<?PHP echo $usuario; ?>";
+		      var id_playlist = "<?PHP echo $id_playlist; ?>";
+
+		      xmlhttp.open("GET","votoNegativo.php?id_playlist="+id_playlist+"&usuario="+usuario,true);
+		      xmlhttp.send();
+		  }
+
 </script>
 
 
@@ -218,6 +260,10 @@
 						echo "</select>";
 						echo "<script>cargarReproductor();</script>
 							  </div></div>";
+						
+						echo "<br><a href='#' onclick='votoPositivo(this.value)'><img src='../images/positivo.png' width='10%'></img></a> Me Gusta :D</br></br>";
+						
+						echo "<a href='#' onclick='votoNegativo(this.value)'><img src='../images/negativo.png' width='10%'></img></a> No Me Gusta :O<br>";
 						}
 						else{
 							/*mi id*/
@@ -241,10 +287,13 @@
 							}
 						}						
 					?>
-					</br></br>
-					<div>
+					</br>
+					<div id='voto'>
+					</div>
+					
 					</div>
 					</br></br>
+
 					</div>
 				</div>
 			</div>
