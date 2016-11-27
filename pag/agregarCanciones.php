@@ -16,17 +16,16 @@
 		$genero= $_POST['generoCancion'];
 		$ruta= $target_path;
 
-		$idArt= "SELECT idArtista from artista where nombre = '$artista'";
-			$consultaid= mysqli_query($conexion, $idArt);
-			$assoc= mysqli_fetch_assoc($consultaid);
-			$idArt= $assoc['idArtista'];
-				if ($idArt==0) {
+		$idArtista= "SELECT idArtista from artista where nombre = '$artista'";
+		$consultaid= mysqli_query($conexion, $idArtista);
+		$assoc= mysqli_fetch_assoc($consultaid);
+				if ($assoc==0) {
 					$insertarId= "INSERT into artista (idArtista, nombre) values ('', '$artista')";
 					$idArt= mysqli_query($conexion, $insertarId);
 				} else{
-					echo "El artista ya existe";
+					$idArt= $assoc['idArtista'];
 				}
-			
+		/*INSERTA LA CANCION PERO CON EL IDARTISTA 1 SIEMPRE, solucionado lo de generar artista aunque esta en la bd*/
 			
 
 		$insertarc= "INSERT into cancion (idCancion, titulo, idArtista, album, duracion, id_genero, archivo)

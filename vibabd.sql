@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.4.14
+-- version 4.5.1
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-11-2016 a las 15:44:20
--- Versión del servidor: 5.6.26
--- Versión de PHP: 5.6.12
+-- Tiempo de generación: 28-11-2016 a las 00:37:42
+-- Versión del servidor: 10.1.16-MariaDB
+-- Versión de PHP: 5.6.24
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -26,10 +26,10 @@ SET time_zone = "+00:00";
 -- Estructura de tabla para la tabla `artista`
 --
 
-CREATE TABLE IF NOT EXISTS `artista` (
+CREATE TABLE `artista` (
   `idArtista` int(11) NOT NULL,
   `nombre` varchar(50) COLLATE utf8_bin NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Volcado de datos para la tabla `artista`
@@ -51,19 +51,12 @@ INSERT INTO `artista` (`idArtista`, `nombre`) VALUES
 -- Estructura de tabla para la tabla `banneado`
 --
 
-CREATE TABLE IF NOT EXISTS `banneado` (
+CREATE TABLE `banneado` (
   `id_banneado` int(11) NOT NULL,
   `id_denunciado` int(255) NOT NULL,
   `motivo` varchar(255) NOT NULL,
   `fecha_banneo` varchar(10) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `banneado`
---
-
-INSERT INTO `banneado` (`id_banneado`, `id_denunciado`, `motivo`, `fecha_banneo`) VALUES
-(2, 23, 'Material Inapropiado', '16-11-21');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -71,7 +64,7 @@ INSERT INTO `banneado` (`id_banneado`, `id_denunciado`, `motivo`, `fecha_banneo`
 -- Estructura de tabla para la tabla `cancion`
 --
 
-CREATE TABLE IF NOT EXISTS `cancion` (
+CREATE TABLE `cancion` (
   `idCancion` int(11) NOT NULL,
   `titulo` varchar(50) COLLATE utf8_bin NOT NULL,
   `idArtista` int(11) NOT NULL,
@@ -79,21 +72,21 @@ CREATE TABLE IF NOT EXISTS `cancion` (
   `duracion` varchar(50) COLLATE utf8_bin NOT NULL,
   `id_genero` int(11) NOT NULL,
   `archivo` varchar(100) COLLATE utf8_bin NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Volcado de datos para la tabla `cancion`
 --
 
 INSERT INTO `cancion` (`idCancion`, `titulo`, `idArtista`, `album`, `duracion`, `id_genero`, `archivo`) VALUES
-(1, 'Greedy', 1, 'Dangerous Woman', '3:35', 1, 'http://localhost/vibaMusic/uploads/Greedy.mp3'),
-(2, 'Kiss It Better', 2, 'ANTI', '4:13', 3, 'http://localhost/vibaMusic/uploads/Kiss It Better.mp3'),
-(3, 'Bacon', 3, 'Last Year Was Complicated', '3:02', 1, 'http://localhost/vibaMusic/uploads/Bacon.mp3'),
-(4, 'Chantaje', 4, 'Chantaje Single', '3:16', 6, 'http://localhost/vibaMusic/uploads/Chantaje.mp3'),
-(5, 'Hotline Bling', 5, 'Views', '4:27', 3, 'http://localhost/vibaMusic/uploads/Hotline Bling.mp3'),
-(6, 'Safari', 7, 'Energía', '3:24', 6, 'http://localhost/vibaMusic/uploads/Safari.mp3'),
-(7, 'Starboy', 6, 'Starboy Single', '3:50', 9, 'http://localhost/vibaMusic/uploads/Starboy.mp3'),
-(8, 'Body Moves', 8, 'DNCE', '3:56', 1, 'http://localhost/vibaMusic/uploads/Body Moves.mp3');
+(1, 'Greedy', 1, 'Dangerous Woman', '3:35', 1, '../uploads/Greedy.mp3'),
+(2, 'Kiss It Better', 2, 'ANTI', '4:13', 3, '../uploads/Kiss It Better.mp3'),
+(3, 'Bacon', 3, 'Last Year Was Complicated', '3:02', 1, '../uploads/Bacon.mp3'),
+(4, 'Chantaje', 4, 'Chantaje Single', '3:16', 6, '../uploads/Chantaje.mp3'),
+(5, 'Hotline Bling', 5, 'Views', '4:27', 3, '../uploads/Hotline Bling.mp3'),
+(6, 'Safari', 7, 'Energía', '3:24', 6, '../uploads/Safari.mp3'),
+(7, 'Starboy', 6, 'Starboy Single', '3:50', 9, '../uploads/Starboy.mp3'),
+(8, 'Body Moves', 8, 'DNCE', '3:56', 1, '../uploads/Body Moves.mp3');
 
 -- --------------------------------------------------------
 
@@ -101,7 +94,7 @@ INSERT INTO `cancion` (`idCancion`, `titulo`, `idArtista`, `album`, `duracion`, 
 -- Estructura de tabla para la tabla `favorita`
 --
 
-CREATE TABLE IF NOT EXISTS `favorita` (
+CREATE TABLE `favorita` (
   `id_favorita` int(11) NOT NULL,
   `id_playlist` int(255) NOT NULL,
   `fecha_favorita` datetime NOT NULL
@@ -113,10 +106,10 @@ CREATE TABLE IF NOT EXISTS `favorita` (
 -- Estructura de tabla para la tabla `genero`
 --
 
-CREATE TABLE IF NOT EXISTS `genero` (
+CREATE TABLE `genero` (
   `id_genero` int(100) NOT NULL,
   `nombre` varchar(100) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `genero`
@@ -139,10 +132,10 @@ INSERT INTO `genero` (`id_genero`, `nombre`) VALUES
 -- Estructura de tabla para la tabla `pais`
 --
 
-CREATE TABLE IF NOT EXISTS `pais` (
+CREATE TABLE `pais` (
   `id_pais` int(11) NOT NULL,
   `pais` varchar(250) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=247 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `pais`
@@ -370,30 +363,31 @@ INSERT INTO `pais` (`id_pais`, `pais`) VALUES
 -- Estructura de tabla para la tabla `playlist`
 --
 
-CREATE TABLE IF NOT EXISTS `playlist` (
+CREATE TABLE `playlist` (
   `id_playlist` int(11) NOT NULL,
   `id_usuario` int(11) NOT NULL,
   `id_genero` int(11) NOT NULL,
   `id_reproduccion` int(11) NOT NULL,
   `nombre` varchar(30) CHARACTER SET utf8 NOT NULL,
-  `codigo_qr` int(100) NOT NULL,
+  `codigo_qr` varchar(200) COLLATE utf8_bin NOT NULL,
   `fecha_creacion` date NOT NULL,
   `imagen` varchar(500) COLLATE utf8_bin DEFAULT NULL,
   `link` varchar(100) COLLATE utf8_bin DEFAULT NULL,
   `tipo` varchar(100) CHARACTER SET utf8mb4 DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=94 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Volcado de datos para la tabla `playlist`
 --
 
 INSERT INTO `playlist` (`id_playlist`, `id_usuario`, `id_genero`, `id_reproduccion`, `nombre`, `codigo_qr`, `fecha_creacion`, `imagen`, `link`, `tipo`) VALUES
-(88, 24, 5, 0, 'Para Coreo', 0, '2016-11-25', '../imgPlaylist/907319hiphop.jpeg', 'NULL', 'publica'),
-(89, 24, 1, 0, 'Lentos', 0, '2016-11-25', '../imgPlaylist/824341lentos.jpg', 'NULL', 'publica'),
-(90, 24, 1, 0, 'Pop', 0, '2016-11-25', '../imgPlaylist/667389pop1.jpg', 'NULL', 'publica'),
-(91, 24, 6, 0, 'Reggaeton', 0, '2016-11-25', '../imgPlaylist/544006playlist.jpg', 'NULL', 'publica'),
-(92, 26, 9, 0, 'TaLadrando', 0, '2016-11-25', '../imgPlaylist/985260seSaleFuerte1.jpg', 'NULL', 'misSeguidores'),
-(93, 25, 8, 0, 'Soledad', 0, '2016-11-27', '../imgPlaylist/88470baladas.jpg', 'NULL', 'publica');
+(88, 24, 5, 0, 'Para Coreo', '0', '2016-11-25', '../imgPlaylist/907319hiphop.jpeg', 'NULL', 'publica'),
+(89, 24, 1, 0, 'Lentos', '0', '2016-11-25', '../imgPlaylist/824341lentos.jpg', 'NULL', 'publica'),
+(90, 24, 1, 0, 'Pop', '0', '2016-11-25', '../imgPlaylist/667389pop1.jpg', 'NULL', 'publica'),
+(91, 24, 6, 0, 'Reggaeton', '0', '2016-11-25', '../imgPlaylist/544006playlist.jpg', 'NULL', 'publica'),
+(92, 26, 9, 0, 'TaLadrando', '0', '2016-11-25', '../imgPlaylist/985260seSaleFuerte1.jpg', 'NULL', 'misSeguidores'),
+(93, 25, 8, 0, 'Soledad', '0', '2016-11-27', '../imgPlaylist/88470baladas.jpg', 'NULL', 'publica'),
+(98, 23, 4, 0, 'prueba qr', '', '2016-11-27', '../imgPlaylist/899048Jamie-Dornan-Details.jpg', '', 'soloYo');
 
 -- --------------------------------------------------------
 
@@ -401,7 +395,7 @@ INSERT INTO `playlist` (`id_playlist`, `id_usuario`, `id_genero`, `id_reproducci
 -- Estructura de tabla para la tabla `playlist_cancion`
 --
 
-CREATE TABLE IF NOT EXISTS `playlist_cancion` (
+CREATE TABLE `playlist_cancion` (
   `id_cancion` int(255) NOT NULL,
   `id_playlist` int(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -423,7 +417,20 @@ INSERT INTO `playlist_cancion` (`id_cancion`, `id_playlist`) VALUES
 (4, 91),
 (8, 92),
 (7, 92),
-(2, 93);
+(2, 93),
+(6, 94),
+(4, 94),
+(5, 95),
+(3, 95),
+(2, 95),
+(7, 95),
+(6, 96),
+(4, 96),
+(6, 97),
+(4, 97),
+(5, 98),
+(3, 98),
+(7, 98);
 
 -- --------------------------------------------------------
 
@@ -431,7 +438,7 @@ INSERT INTO `playlist_cancion` (`id_cancion`, `id_playlist`) VALUES
 -- Estructura de tabla para la tabla `reproduccion`
 --
 
-CREATE TABLE IF NOT EXISTS `reproduccion` (
+CREATE TABLE `reproduccion` (
   `id_reproduccion` int(11) NOT NULL,
   `id_playlist` int(255) NOT NULL,
   `cantidad` int(11) NOT NULL
@@ -443,13 +450,13 @@ CREATE TABLE IF NOT EXISTS `reproduccion` (
 -- Estructura de tabla para la tabla `sigue_a`
 --
 
-CREATE TABLE IF NOT EXISTS `sigue_a` (
+CREATE TABLE `sigue_a` (
   `id_seguimiento` int(255) NOT NULL COMMENT 'NOS FALTO AGREGAR ESTO',
   `id_seguidor` int(255) NOT NULL,
   `id_seguido` int(255) DEFAULT NULL,
   `estado` varchar(10) DEFAULT NULL,
   `id_playlist` int(255) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `sigue_a`
@@ -466,7 +473,9 @@ INSERT INTO `sigue_a` (`id_seguimiento`, `id_seguidor`, `id_seguido`, `estado`, 
 (50, 25, 24, 'sigue', 89),
 (51, 25, 26, 'sigue', 92),
 (52, 24, 25, 'sigue', 93),
-(53, 26, 25, 'sigue', 93);
+(53, 26, 25, 'sigue', 93),
+(54, 23, 24, 'sigue', 88),
+(55, 23, 24, 'sigue', 91);
 
 -- --------------------------------------------------------
 
@@ -474,7 +483,7 @@ INSERT INTO `sigue_a` (`id_seguimiento`, `id_seguidor`, `id_seguido`, `estado`, 
 -- Estructura de tabla para la tabla `usuario`
 --
 
-CREATE TABLE IF NOT EXISTS `usuario` (
+CREATE TABLE `usuario` (
   `id_usuario` int(255) NOT NULL,
   `nombre` varchar(15) NOT NULL,
   `apellido` varchar(30) NOT NULL,
@@ -487,7 +496,7 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `cantidad_playlist` int(255) DEFAULT NULL,
   `estado_activo` varchar(1) NOT NULL,
   `clave_momentanea` varchar(100) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `usuario`
@@ -507,11 +516,11 @@ INSERT INTO `usuario` (`id_usuario`, `nombre`, `apellido`, `email`, `usuario`, `
 -- Estructura de tabla para la tabla `voto`
 --
 
-CREATE TABLE IF NOT EXISTS `voto` (
+CREATE TABLE `voto` (
   `id_voto` int(255) NOT NULL,
   `id_playlist` int(255) NOT NULL,
   `id_usuario` int(100) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `voto`
@@ -604,17 +613,17 @@ ALTER TABLE `voto`
 -- AUTO_INCREMENT de la tabla `artista`
 --
 ALTER TABLE `artista`
-  MODIFY `idArtista` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
+  MODIFY `idArtista` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT de la tabla `banneado`
 --
 ALTER TABLE `banneado`
-  MODIFY `id_banneado` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+  MODIFY `id_banneado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `cancion`
 --
 ALTER TABLE `cancion`
-  MODIFY `idCancion` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
+  MODIFY `idCancion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT de la tabla `favorita`
 --
@@ -624,17 +633,17 @@ ALTER TABLE `favorita`
 -- AUTO_INCREMENT de la tabla `genero`
 --
 ALTER TABLE `genero`
-  MODIFY `id_genero` int(100) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
+  MODIFY `id_genero` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT de la tabla `pais`
 --
 ALTER TABLE `pais`
-  MODIFY `id_pais` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=247;
+  MODIFY `id_pais` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=247;
 --
 -- AUTO_INCREMENT de la tabla `playlist`
 --
 ALTER TABLE `playlist`
-  MODIFY `id_playlist` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=94;
+  MODIFY `id_playlist` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=99;
 --
 -- AUTO_INCREMENT de la tabla `reproduccion`
 --
@@ -644,17 +653,17 @@ ALTER TABLE `reproduccion`
 -- AUTO_INCREMENT de la tabla `sigue_a`
 --
 ALTER TABLE `sigue_a`
-  MODIFY `id_seguimiento` int(255) NOT NULL AUTO_INCREMENT COMMENT 'NOS FALTO AGREGAR ESTO',AUTO_INCREMENT=54;
+  MODIFY `id_seguimiento` int(255) NOT NULL AUTO_INCREMENT COMMENT 'NOS FALTO AGREGAR ESTO', AUTO_INCREMENT=56;
 --
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id_usuario` int(255) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=27;
+  MODIFY `id_usuario` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 --
 -- AUTO_INCREMENT de la tabla `voto`
 --
 ALTER TABLE `voto`
-  MODIFY `id_voto` int(255) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
+  MODIFY `id_voto` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

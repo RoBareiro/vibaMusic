@@ -3,16 +3,24 @@
 	session_start();
 	include("../inc/conexionbd.php");
 
+/*generador de qr*/
+include("../phpqrcode/qrlib.php");
+include('../phpqrcode/qrconfig.php');
+
+$numeroAleatorio =  rand(0,1000000);
+$fileName = 'QR'.$numeroAleatorio.'.png';
+$tempDir='../phpqrcode/temp/'.$fileName;
+
+function generarUrl(){
+	$_SERVER['REQUEST_URI'] = "/vibaMusic/pag/misPlaylist.php?id_playlist=". $_REQUEST["id_Playlist"];
+	$url = "http://".$_SERVER['HTTP_HOST']."".$_SERVER['REQUEST_URI'];
+	return $url;
+	}
+$url = generarUrl();
+// generating
+QRcode::png($url, $tempDir, QR_ECLEVEL_L, 3);
+
 ?>
-
-
-
-
-
-
-
-
-
 
 <html>
 	<head>
@@ -193,8 +201,10 @@
 					</br></br>
 					<div>
 						<h2><div style="color:green;">Su playlist ha sido creada correctamente</div></h2>
+						<label>Tu código QR para compartir:</label><br>
+							<?php echo '<img src="'.$tempDir.'" />'; ?>
 					</div>
-					</br></br>
+					
 					</div>
 				</div>
 			</div>
