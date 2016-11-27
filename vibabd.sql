@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 26-11-2016 a las 01:57:31
+-- Tiempo de generación: 27-11-2016 a las 14:52:10
 -- Versión del servidor: 5.6.26
 -- Versión de PHP: 5.6.12
 
@@ -498,8 +498,9 @@ INSERT INTO `usuario` (`id_usuario`, `nombre`, `apellido`, `email`, `usuario`, `
 --
 
 CREATE TABLE IF NOT EXISTS `voto` (
-  `id_voto` int(255) NOT NULL COMMENT 'AA???',
-  `id_playlist` int(255) NOT NULL COMMENT 'AA???'
+  `id_voto` int(255) NOT NULL,
+  `id_playlist` int(255) NOT NULL,
+  `id_usuario` int(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -567,6 +568,12 @@ ALTER TABLE `usuario`
   ADD PRIMARY KEY (`id_usuario`);
 
 --
+-- Indices de la tabla `voto`
+--
+ALTER TABLE `voto`
+  ADD PRIMARY KEY (`id_voto`);
+
+--
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
@@ -620,6 +627,11 @@ ALTER TABLE `sigue_a`
 --
 ALTER TABLE `usuario`
   MODIFY `id_usuario` int(255) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=27;
+--
+-- AUTO_INCREMENT de la tabla `voto`
+--
+ALTER TABLE `voto`
+  MODIFY `id_voto` int(255) NOT NULL AUTO_INCREMENT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
