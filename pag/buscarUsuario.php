@@ -158,7 +158,7 @@
 
 									echo "<h3>".$row["usuario"]."</h3>
 											<img src='".$row["foto_de_perfil"]."' width='20%' height='25%'></img>
-										 </a></br></br>";	
+										 </br></br>";	
 
 								echo "<input class='botonBuscador' name='seguir' type='submit' value='Seguir'></input>
 

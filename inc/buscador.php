@@ -152,7 +152,7 @@
 								while($row = mysqli_fetch_array($result)){
 									$found = true;
 									echo "<form method='GET' action='buscador.php'>";
-/*VER COMO DIRECCIONAR A PLAYLIST*/ echo "</br><a href='" .$row["link"]. "'>";	
+/*VER COMO DIRECCIONAR A PLAYLIST echo "</br><a href='" .$row["link"]. "'>";	*/
 
 									$id_playlist = $row["id_playlist"];
 									$id_usuario = $row["id_usuario"];		
@@ -169,7 +169,7 @@
 
 									echo "<h3>".$row["nombre"]."</h3>
 											<img src='".$row["imagen"]."' width='20%' height='25%'></img>
-										 </a></br></br>";	
+										 </br></br>";	
 
 								echo "<input class='botonBuscador' name='seguir' type='submit' value='Seguir'></input>
 

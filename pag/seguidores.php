@@ -11,26 +11,23 @@
 	$miId = $fila["id_usuario"];
 	$id_playlist = -1;
 
-	$consulta = "SELECT usuario FROM usuario WHERE id_usuario = (SELECT id_seguidor FROM sigue_a WHERE id_seguido = '$miId' AND estado = 'sigue' AND id_playlist = '$id_playlist')";
+
+
+/*PARA BUSCAR MIS SEGUIDORES*/
+	$consulta = "SELECT u.usuario, u.foto_de_perfil, u.id_usuario, s.id_seguidor FROM usuario u, sigue_a s WHERE u.id_usuario = s.id_seguidor AND s.id_seguido = '$miId' AND s.id_playlist = '$id_playlist'";
 
 	$resultado = mysqli_query($conexion, $consulta);
+	$found = false;
+
+	echo "<font style='color: green;'>USUARIOS QUE ME SIGUEN</font></br>";
 
 	if($cantidad = mysqli_num_rows($resultado) > 0){
-		echo "PERSONAS QUE ME SIGUEN</br></br>";
-
-		echo "<div>";
-		echo "<table class='seguidores'>";  
-	
-		while($row = mysqli_fetch_array($resultado)){   
-		    echo "<tr class='trSeguidores'><td class='trSeguidores'>".$row[0]."</td>"; 
-		    echo "</tr>";  
-		}  
-	
-		echo "</table>";
-		echo "</div>";
+		while($row = mysqli_fetch_array($resultado)){
+				$found = true;
+				echo "<h3>".$row["usuario"]."</h3><img src='".$row["foto_de_perfil"]."' width='20%'></img></br></br>";	
+		}
 	}
 	else{
-		echo "<div class='seguidores'>NO TE SIGUE NADIE</br></br>";
-		echo "</div>";
+		echo "<font>No tiene seguidores</font>";
 	}
 ?>

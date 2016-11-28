@@ -11,25 +11,31 @@
 	$miId = $fila["id_usuario"];
 	$id_playlist = -1;
 
-	$consulta = "SELECT usuario FROM usuario WHERE id_usuario = (SELECT id_seguido FROM sigue_a WHERE id_seguidor = '$miId' AND estado = 'sigue' AND id_playlist = '$id_playlist')";
+
+/*PARA BUSCAR LOS QUE SIGO*/
+	$consulta = "SELECT u.usuario, u.foto_de_perfil, u.id_usuario, s.id_seguido FROM usuario u, sigue_a s WHERE u.id_usuario = s.id_seguido AND s.id_seguidor = '$miId' AND s.id_playlist = '$id_playlist'";
+
 	$resultado = mysqli_query($conexion, $consulta);
+	$found = false;
 
-	if($cantidad = mysqli_num_rows($resultado) != 0){
-		echo "PERSONAS QUE SEGUIS</br></br>";
+	echo "<font style='color: green;'>USUARIOS QUE SIGO</font></br>";
 
-		echo "<div>";
-		echo "<table class='seguidores'>";  
-	
-		while($row = mysqli_fetch_array($resultado)){   
-		    echo "<tr class='trSeguidores'><td class='trSeguidores'>".$row[0]."</td><td class='trSeguidores'><input type='button' class='botonSeguidores' value='Dejar de Seguir'></imput></td>"; 
-		    echo "</tr>";  
-		}  
-	
-		echo "</table>";
-		echo "</div>";
-	} 
+	if($cantidad = mysqli_num_rows($resultado) > 0){
+		while($row = mysqli_fetch_array($resultado)){
+				$found = true;
+
+				echo "<form method='POST' action='eliminacionDeSeguimiento.php'>";	
+
+				echo "<input type='hidden' name='id_seguido' value='".$row['id_seguido']."'></input>";
+				echo "<input type='hidden' name='usuario' value='".$row['usuario']."'></input>";
+
+				echo "<h3>".$row["usuario"]."</h3><img src='".$row["foto_de_perfil"]."' width='20%'></img></br>";	
+
+				echo "</br><input class='botonBuscador' name='dejarDeSeguir' type='submit' value='Dejar de Seguir'></input>";
+				echo '</form></br>';
+		}
+	}
 	else{
-		echo "<div class='seguidores'>NO SEGUIS A NADIE</br></br>";
-		echo "</div>";
+		echo "<font>No sigue a ningun usuario</font>";
 	}
 ?>
