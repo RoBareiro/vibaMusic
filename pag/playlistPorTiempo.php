@@ -1,9 +1,27 @@
-<?php
+<?PHP
 	error_reporting(0);	/*Desactiva cualquier notificacion*/
 	session_start();
 	$_SESSION["registrado"] = "true";
 	include("../inc/conexionbd.php");
 	$usuario = $_SESSION["usuario"];
+
+	$nota = NULL;
+
+	if (isset($_GET['consultar'])){
+		$fecha1= date("Y-m-d", strtotime($_GET['fecha1']));
+		$fecha2= date("Y-m-d", strtotime($_GET['fecha2']));
+
+	$consulta = "SELECT * FROM playlist WHERE fecha_creacion >= '$fecha1' AND fecha_creacion <= '$fecha2' ";
+
+	$resultado = mysqli_query($conexion, $consulta);
+	$cantidad = mysqli_num_rows($resultado);
+
+	$_SESSION['cantidad'] = $cantidad;
+	$_SESSION['fecha1'] = $fecha1;
+	$_SESSION['fecha2'] = $fecha2;
+
+	$nota = "La cantidad de Playlist creadas en el periodo de tiempo entre ".$fecha1." y ".$fecha2." es de: </br><font color='green' size='7px'>".$cantidad."</font>";
+		}
 
 
 	/*PARA EL PDF*/
@@ -28,10 +46,9 @@
 		$dompdf = new DOMPDF();
 		$dompdf->load_html(utf8_decode($html));
 		$dompdf->render();
-		$dompdf->stream("playlistRankingVotos", array("Attachment" => false));
+		$dompdf->stream("cantidadPlaylistPorFecha", array("Attachment" => false));
 
 	}
-
 
 
 ?>
@@ -39,15 +56,8 @@
 
 
 
-
-
-
-
-
-
 <html>
 	<head>
-
 	<!--Para grafico-->
 			
 	<script type="text/javascript" src="../js/loader.js"></script>
@@ -57,32 +67,8 @@
      
       function drawChart() {
         var data = new google.visualization.DataTable();
-        data.addColumn('string', 'nombre');
         data.addColumn('number', 'cantidad');
-        data.addRows([
-          <?PHP
-					$consulta = "SELECT COUNT(*) AS cantidad, nombre FROM voto v INNER JOIN playlist p ON v.id_playlist = p.id_playlist GROUP BY v.id_playlist";
-
-					$resultado = mysqli_query($conexion, $consulta);
-
-					$numerodefilas = mysqli_num_rows($resultado);
-					$i=0;
-
-					while($fila = mysqli_fetch_array($resultado)){
-						$i++;
-
-						if($i<$numerodefilas){ // No es la última fila
-							echo "['" . $fila['nombre'] . "', " . $fila['cantidad'] . "],\n";
-						}
-						else{ // Sí es la última fila
-							echo "['" . $fila['nombre'] . "', " . $fila['cantidad'] . "]\n";
-						}
-
-					}
-
-					mysql_close($conexion);
-				?>
-        ]);
+        data.addRows([<?PHP echo "['" .$cantidad. "']";	?>]);
 
         var options = {
           title: 'Cantidad de votos positivos por Playlist',
@@ -108,12 +94,26 @@
       }
     </script>
 
+	<!--Para fechas-->
+	<link type="text/css" href="../css/datapicker.css" rel="Stylesheet" />
+	<script type="text/javascript" src="../js/dataPicker1.js"></script>
+	<script type="text/javascript" src="../js/dataPicker2.js"></script>
+	<script type="text/javascript" src="../js/dataPicker3.js"></script>
+	<script type="text/javascript">
+	$(function() {
+		$("#demo1").datepicker({
+			changeMonth: true, 
+			changeYear: true
+		});
 
-
+		$("#demo2").datepicker({
+			changeMonth: true, 
+			changeYear: true
+		});
+	});
+	</script>
 
 	<link href="../css/bootstrap.css" rel='stylesheet' type='text/css' />
-		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-		<script src="../js/jquery.min.js"></script>
 		 <!-- Custom Theme files -->
 		<link href="../css/style.css" rel='stylesheet' type='text/css' />
    		 <!-- Custom Theme files -->
@@ -203,16 +203,24 @@
 					<div class="modificar" id="central">
 						
 						<!--GRAFICO GOOGLE CHARTS-->
-						<span>CANTIDAD DE VOTOS POR PLAYLIST</span></br></br>
+						<span>CANTIDAD DE PLAYLIST EN DETERMINADO TIEMPO</span></br></br>
+						<form action="playlistPorTiempo.php" action="GET">
 
-						<form method="POST" action="playlistRankingVotos.php">		
+						Fecha comienzo:<div style="color: black;"><input id="demo1" type="text" name="fecha1"></input></div></br>
+
+						Fecha fin:<div style="color: black;"><input id="demo2" type="text" name="fecha2"></input></div></br>
 						
-							<div id="barras" style="width: 100%; height: 60%;">
-								<!--APARECE EL GRAFICO-->
-							</div>
-						</br>
-							<input type="submit" name="generar" value="GENERAR PDF" class="botonlogin"></input>
+						<input class="botonlogin" type="submit" name="consultar" value="Consultar"></input>
 						</form>
+
+						<?PHP echo $nota; ?> 
+						
+						</br></br>
+						<!--Para generar el pdf -->
+						<div id='barras'></div></br></br>
+						<form method="POST" action="playlistPorTiempo.php">
+							<input type="submit" name="generar" value="GENERAR PDF" class="botonlogin"></input>
+						</form> 
 					
 					</div>
 				</div>
