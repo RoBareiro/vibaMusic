@@ -10,18 +10,6 @@
 	require_once ('../dompdf/dompdf_config.custom.inc.php');
 	require_once('../dompdf/dompdf_config.inc.php');
 	
-		$html='
-		<html>
-		<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<title>Denuncias de usuarios</title>
-		</head>
-		<body>
-		La cantidad de Playlist creadas desde la fecha '.$_SESSION['fecha1'].' hasta '.$_SESSION['fecha2'].' son:</br>
-		'.$_SESSION['cantidad'].'
-		</body>
-		</html>';
-
 
 	if(isset($_POST["generar"])){
 
