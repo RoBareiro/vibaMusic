@@ -268,7 +268,9 @@
 						
 						echo "<a href='#' onclick='votoNegativo(this.value)'><img src='../images/negativo.png' width='10%'></img></a> No Me Gusta :O<br>";
 
-						echo "</br><span style='color: green;'> Donde estoy escuchando la playlist</span></br>";
+						echo "<div id='voto'></div>";
+
+						echo "</br><span style='color: green;'> Donde estoy escuchando la playlist</span>";
 						?>
 						
 						<!--PARA GOOGLE MAPS-->
@@ -376,15 +378,23 @@
 								if($_GET['opcion'] == $borrarPlaylist){
 									$sql = "DELETE FROM playlist WHERE id_playlist = '$id_playlist' AND id_usuario = '$miId'";
 									$do = mysqli_query($conexion, $sql);
+									
+									$sqlParaVotacion = "DELETE FROM voto WHERE id_playlist = '$id_playlist'";
+									$realiza = mysqli_query($conexion,$sqlParaVotacion);
+
+									$sqlParaPlaylist_cancion = "DELETE FROM playlist_cancion WHERE id_playlist = '$id_playlist'";
+									$accionSql = mysqli_query($conexion, $sqlParaPlaylist_cancion);
+
+									$sqlSigueAPlaylist = "DELETE FROM sigue_a WHERE id_playlist = '$id_playlist'";
+									$acc = mysqli_query($conexion, $sqlSigueAPlaylist);
+
 									echo "<font style='color: green;'>Usted ha borrado la playlist</font>";
 								}
 							}
 						}						
 					?>
 					</br>
-					<div id='voto'>
-					</div>
-
+					
 							<div id="demo"></div>	<!--demo id es para mostrar los errores que puedan llegar a salir-->
 							<div id="mapholder">
 								<!--ACA APARECE EL MAPA, SE TOMA EL ID mapholder y se trabaja sobre el-->
