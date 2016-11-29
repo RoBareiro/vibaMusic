@@ -205,6 +205,7 @@
 							echo "<img src='" .$fila[1]. "' width='100%'></img>";
 							echo "<input type='hidden' value='".$fila[2]."' name='idPlaylist'></input>";
 							echo "</br><input class='botonBuscador' name='opcion' type='submit' value='Escuchar'></input>";
+							echo "</br><input class='botonBuscador' name='opcion' type='submit' value='Exportar Playlist'></input>";
 							echo "</br><input class='botonBuscador' name='opcion' type='submit' value='Borrar Playlist'></input>";
 
 						echo "</form></center></div>";

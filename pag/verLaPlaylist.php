@@ -5,6 +5,9 @@
 	$usuario = $_SESSION["usuario"];
 	$id_playlist = $_GET["idPlaylist"];
 
+
+//while de traer canciones para exportar playlist no funciona
+
 ?>
 
 
@@ -238,6 +241,7 @@
 						$escuchar = 'Escuchar';
 						$dejarDeSeguir = 'Dejar de Seguir';
 						$borrarPlaylist = 'Borrar Playlist';
+						$exportar= 'Exportar Playlist';
 
 						if($_GET['opcion'] == $escuchar){
 						$nombreQuery = "SELECT nombre FROM playlist WHERE id_playlist ='$id_playlist' ";
@@ -389,6 +393,34 @@
 									$acc = mysqli_query($conexion, $sqlSigueAPlaylist);
 
 									echo "<font style='color: green;'>Usted ha borrado la playlist</font>";
+								}
+								else{
+									if ($_GET['opcion'] == $exportar){
+										$query = "SELECT titulo, archivo, album FROM cancion c INNER JOIN playlist_cancion pc ON c.idCancion = pc.id_cancion AND pc.id_playlist = '$id_playlist' ";
+										$ejecuto = mysqli_query($conexion, $query);
+										$assoc= mysqli_fetch_assoc($ejecuto);
+										$nombreE="playlist ".$id_playlist;
+
+										$buffer='
+								<?xml version="1.0" encoding="UTF-8"?>
+								<playlist version="1" xmlns="http://xspf.org/ns/0/">
+									<trackList>'; 
+													  $nombre = $assoc['titulo'];
+													  $buffer.="
+										<track>
+											<location>". $assoc['archivo'] ."</location>
+											<album>". $assoc['album'] ."</album>
+											<creator>". $id_playlist."</creator>
+										</track>
+										"; 
+														  $buffer.="
+									</trackList>
+								</playlist>"; 
+														  $file=fopen("../exportarPlaylist/". $nombreE .".xspf","w+"); 
+														  fwrite ($file,$buffer); 
+														  fclose($file);
+										echo "<font style='color: green;'>Usted ha exportado esta playlist correctamente</font>";
+									}
 								}
 							}
 						}						
