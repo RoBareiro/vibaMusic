@@ -125,92 +125,7 @@
 </script>
 
 
-<!--PARA GOOGLE MAPS-->
-	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=true&key=AIzaSyDVf4hQbFybBwz2POTYdYKHGeq70HXJKBM"></script>
 
-<!-- Se determina y escribe la localizacion -->
-<script type="text/javascript">
-	if(navigator.geolocation){
-		navigator.geolocation.getCurrentPosition(mostrarUbicacion);
-	}
-	else{
-		alert("¡Error! Este navegador no soporta la Geolocalización.");
-	}
-
-function mostrarUbicacion(position){
-	var latitud = position.coords.latitude;
-	var longitud = position.coords.longitude;
-	var exactitud = position.coords.accuracy;	
-	var div = document.getElementById("ubicacion");
-
-	var div = document.getElementById("ubicacion");
-//	div.innerHTML = "<br>Latitud: " + latitud + "<br>Longitud: " + longitud;
-		}	
-
-
-function refrescarUbicacion(){	
-	navigator.geolocation.watchPosition(mostrarUbicacion);
-	}	
-</script>
-
-
-<script type="text/javascript">
-var x=document.getElementById("demo");
-
-function cargarmap(){
-	navigator.geolocation.getCurrentPosition(showPosition,showError);
-
-function showPosition(position){
-  lat=position.coords.latitude;
-  lon=position.coords.longitude;
-  latlon=new google.maps.LatLng(lat, lon)
-  mapholder=document.getElementById('mapholder')
-  mapholder.style.height='50%';
-  mapholder.style.width='50%';
-
-  var myOptions={
-	  center:latlon,
-	  zoom:17,
-	  mapTypeId:google.maps.MapTypeId.ROADMAP,
-	  mapTypeControl:false,
-	  navigationControlOptions:{
-	  style:google.maps.NavigationControlStyle.SMALL
-  			}
-  };
-
-  var map=new google.maps.Map(document.getElementById("mapholder"),myOptions);
-  var marker=new google.maps.Marker({
-  	position:latlon,
-  	map:map,
-  	title:"Estas Aqui!",
-  	animation: google.maps.Animation.Drop
-  });
-  }
-
-function showError(error)
-  {
-  switch(error.code) 
-    {
-    case error.PERMISSION_DENIED:
-      x.innerHTML="Denegada la peticion de Geolocalización en el navegador."
-      break;
-    case error.POSITION_UNAVAILABLE:
-      x.innerHTML="La información de la localización no esta disponible."
-      break;
-    case error.TIMEOUT:
-      x.innerHTML="El tiempo de petición ha expirado."
-      break;
-    case error.UNKNOWN_ERROR:
-      x.innerHTML="Ha ocurrido un error desconocido."
-      break;
-    }
-  }}
-
-
-
-</script>
-
-<!--google maps-->
 
 
 	<!--Para cambiar solo el contenido central-->
@@ -352,6 +267,97 @@ function showError(error)
 						echo "<br><a href='#' onclick='votoPositivo(this.value)'><img src='../images/positivo.png' width='10%'></img></a> Me Gusta :D</br></br>";
 						
 						echo "<a href='#' onclick='votoNegativo(this.value)'><img src='../images/negativo.png' width='10%'></img></a> No Me Gusta :O<br>";
+
+						echo "</br><span style='color: green;'> Donde estoy escuchando la playlist</span></br>";
+						?>
+						
+						<!--PARA GOOGLE MAPS-->
+							<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=true&key=AIzaSyDVf4hQbFybBwz2POTYdYKHGeq70HXJKBM"></script>
+
+						<!-- Se determina y escribe la localizacion -->
+						<script type="text/javascript">
+							if(navigator.geolocation){
+								navigator.geolocation.getCurrentPosition(mostrarUbicacion);
+							}
+							else{
+								alert("¡Error! Este navegador no soporta la Geolocalización.");
+							}
+
+						function mostrarUbicacion(position){
+							var latitud = position.coords.latitude;
+							var longitud = position.coords.longitude;
+							var exactitud = position.coords.accuracy;	
+							var div = document.getElementById("ubicacion");
+
+							var div = document.getElementById("ubicacion");
+						//	div.innerHTML = "<br>Latitud: " + latitud + "<br>Longitud: " + longitud;
+								}	
+
+
+						function refrescarUbicacion(){	
+							navigator.geolocation.watchPosition(mostrarUbicacion);
+							}	
+						</script>
+
+
+						<script type="text/javascript">
+						var x=document.getElementById("demo");
+
+						function cargarmap(){
+							navigator.geolocation.getCurrentPosition(showPosition,showError);
+
+						function showPosition(position){
+						  lat=position.coords.latitude;
+						  lon=position.coords.longitude;
+						  latlon=new google.maps.LatLng(lat, lon)
+						  mapholder=document.getElementById('mapholder')
+						  mapholder.style.height='50%';
+						  mapholder.style.width='50%';
+
+						  var myOptions={
+							  center:latlon,
+							  zoom:17,
+							  mapTypeId:google.maps.MapTypeId.ROADMAP,
+							  mapTypeControl:false,
+							  navigationControlOptions:{
+							  style:google.maps.NavigationControlStyle.SMALL
+						  			}
+						  };
+
+						  var map=new google.maps.Map(document.getElementById("mapholder"),myOptions);
+						  var marker=new google.maps.Marker({
+						  	position:latlon,
+						  	map:map,
+						  	title:"Estas Aqui!",
+						  	animation: google.maps.Animation.Drop
+						  });
+						  }
+
+						function showError(error)
+						  {
+						  switch(error.code) 
+						    {
+						    case error.PERMISSION_DENIED:
+						      x.innerHTML="Denegada la peticion de Geolocalización en el navegador."
+						      break;
+						    case error.POSITION_UNAVAILABLE:
+						      x.innerHTML="La información de la localización no esta disponible."
+						      break;
+						    case error.TIMEOUT:
+						      x.innerHTML="El tiempo de petición ha expirado."
+						      break;
+						    case error.UNKNOWN_ERROR:
+						      x.innerHTML="Ha ocurrido un error desconocido."
+						      break;
+						    }
+						  }}
+
+
+
+						</script>
+						<!--google maps-->
+
+						<?PHP
 						}
 						else{
 							/*mi id*/
@@ -379,8 +385,6 @@ function showError(error)
 					<div id='voto'>
 					</div>
 
-					<span style="color: green;"> Donde estoy escuchando la playlist</span></br>
-							
 							<div id="demo"></div>	<!--demo id es para mostrar los errores que puedan llegar a salir-->
 							<div id="mapholder">
 								<!--ACA APARECE EL MAPA, SE TOMA EL ID mapholder y se trabaja sobre el-->
